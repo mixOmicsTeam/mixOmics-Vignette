@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 PLS on the liver toxicity study | Hands-on activities</title>
+  <meta name="description" content=" 3 PLS on the liver toxicity study | Hands-on activities using the R package mixOmics" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 PLS on the liver toxicity study | Hands-on activities" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content=" 3 PLS on the liver toxicity study | Hands-on activities using the R package mixOmics" />
+  <meta name="github-repo" content="mixOmicsTeam/mixOmics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 PLS on the liver toxicity study | Hands-on activities" />
+  
+  <meta name="twitter:description" content=" 3 PLS on the liver toxicity study | Hands-on activities using the R package mixOmics" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="plsda-srbct-case.html"/>
+<link rel="next" href="blockplsda-tcga-case.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<script>
+document.write('<div class="logos"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QCARXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAKgAgAEAAAAAQAAAPCgAwAEAAAAAQAAAHgAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/iAqBJQ0NfUFJPRklMRQABAQAAApBsY21zBDAAAG1udHJSR0IgWFlaIAfgAAoAGwAEAAsAOmFjc3BBUFBMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD21gABAAAAANMtbGNtcwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC2Rlc2MAAAEIAAAAOGNwcnQAAAFAAAAATnd0cHQAAAGQAAAAFGNoYWQAAAGkAAAALHJYWVoAAAHQAAAAFGJYWVoAAAHkAAAAFGdYWVoAAAH4AAAAFHJUUkMAAAIMAAAAIGdUUkMAAAIsAAAAIGJUUkMAAAJMAAAAIGNocm0AAAJsAAAAJG1sdWMAAAAAAAAAAQAAAAxlblVTAAAAHAAAABwAcwBSAEcAQgAgAGIAdQBpAGwAdAAtAGkAbgAAbWx1YwAAAAAAAAABAAAADGVuVVMAAAAyAAAAHABOAG8AIABjAG8AcAB5AHIAaQBnAGgAdAAsACAAdQBzAGUAIABmAHIAZQBlAGwAeQAAAABYWVogAAAAAAAA9tYAAQAAAADTLXNmMzIAAAAAAAEMSgAABeP///MqAAAHmwAA/Yf///ui///9owAAA9gAAMCUWFlaIAAAAAAAAG+UAAA47gAAA5BYWVogAAAAAAAAJJ0AAA+DAAC2vlhZWiAAAAAAAABipQAAt5AAABjecGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltwYXJhAAAAAAADAAAAAmZmAADypwAADVkAABPQAAAKW3BhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbY2hybQAAAAAAAwAAAACj1wAAVHsAAEzNAACZmgAAJmYAAA9c/8IAEQgAeADwAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAMCBAEFAAYHCAkKC//EAMMQAAEDAwIEAwQGBAcGBAgGcwECAAMRBBIhBTETIhAGQVEyFGFxIweBIJFCFaFSM7EkYjAWwXLRQ5I0ggjhU0AlYxc18JNzolBEsoPxJlQ2ZJR0wmDShKMYcOInRTdls1V1pJXDhfLTRnaA40dWZrQJChkaKCkqODk6SElKV1hZWmdoaWp3eHl6hoeIiYqQlpeYmZqgpaanqKmqsLW2t7i5usDExcbHyMnK0NTV1tfY2drg5OXm5+jp6vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAQIAAwQFBgcICQoL/8QAwxEAAgIBAwMDAgMFAgUCBASHAQACEQMQEiEEIDFBEwUwIjJRFEAGMyNhQhVxUjSBUCSRoUOxFgdiNVPw0SVgwUThcvEXgmM2cCZFVJInotIICQoYGRooKSo3ODk6RkdISUpVVldYWVpkZWZnaGlqc3R1dnd4eXqAg4SFhoeIiYqQk5SVlpeYmZqgo6SlpqeoqaqwsrO0tba3uLm6wMLDxMXGx8jJytDT1NXW19jZ2uDi4+Tl5ufo6ery8/T19vf4+fr/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/2gAMAwEAAhEDEQAAAfZdtW21bbVttW21bbVttW21bbUipVZUxs6mwo22rCLSUp66pavNtW21bbVttW21bbVttW21bbVttTStvYqim91Mnteyq9pnNdR4uF1ttW21bbVttW21bbVmrrl8drxhUX2HQ8XyCQbx0GpK9Y2rm2ud63Tz6nr8yY65MnY+iBYvWNVtjcOWbGr3bVs1o3Tpty1xCx2yabbVuX6jl+XrunzR3vz1LKwZ8vXfpVuzh41+wf8AmetZu2j/AL/N4lcO/M9bqZ29jxdS3Saa1z53ROZuvMejmL1fSlrmeY9NgHhu5826l06HbcvXuX6il5+h+7AfbGsZ2YOfos9t1cvGv1uvO9IzCzptsTserQys7DkOtfNW22x22rlWp0dnF2G24+3baqTl+t47s4uxRUVat1YuNvSOldeeehY7VD2lp9M/QW6fOEfrX9dRaZ9oXi2VdQdfPA9INm+x3uMyeo+21VXB+o+f9XJ388B2mOzuBcsC2c816h0c1M1cNFer7jhu3rg/RPOvRIi4TtuGIvU2XHFfSIRU83U65a0pejmZr9Er4ItuA9Ay25tzrvLZm8pLuttq5rnvRdth5vc9dLBBNufo5EPZ7bGh19kbkbq01cJPdbXLnyXuy18+e9ntMxch2sJpw27nOjR5thtVBupizebV/9oACAEBAAEFAv8AUS1BKTdrJhugpX3JZExpN4awTpl/1LuJNIkBCNwSMYTWLvddd2lIAugIrj/Ul1FzY0XEkIPNulVuLdxXMa++4ABSb3SJK7ib/VE1qhbrcW7RdRlMYVcz4p/n554oXJcQxx/pO2cM0cyZFojSrc7YGC8gmLnmjhCFpVHFdQSr7TyQruRz7ZxXMa2TQe9Q1SpKh/N767G0N0/cLWl1AuxmHM3G6Tt9qBf2CY0bVcGaHfP3O3f4jucBgms5xcQ7rc8mLaLbBLltY1tSZOYLWLEVtrr+b312CcbN7sAbHY0/QtQqNm0vN8/c7d/iMqEyIQpe33dnEq9uu92DHcC5hIr7zddp7iGBK97sw075aF217bXH3t9dp/ir3T/ENk/xbttH+P75+527/EXfyG8utnnxPdQBHukNY0JQHvG5e6u1tLrcJIdjtkiTZbMi+2q4thtG6qy+5vrtP8Ve6f4hsf8Ai3baP8f3z9zt3+I7tc8uPabblRbtbmOSxuBcQ/dvJhb21nCu+vokJjR332zFvNsVybiz77laruXAkohd5GZrbbrdVvD2sbOSC53G3XcotkKitkWEqrpyJC0RRy2V2k1H3PEy6WXheMYfc3yML2zwyul5NuNnDIvc7JMVpuNrcyT7tZxSWl1BdIWpKEfpWwdreW9yXPNFCg7zYg29/aTu1u7e5dxPDAg7zZVTutiUBcV/bWUuJ+54nH8V8LqHu/3N4VjtnhsVv98sYBBsu3R3Ue72osrnb9ogVabTlbb1LGmWKTZrMI8Lfv7qZNvbxIud1vEbLZhO6bTyI/C/78/64b0NssANz2gJR4cSpNhfRO0l5qO+7Qe8WOyXItrz7niS5FPDUBTBvv8AtL8N/wC0/wAVfvIf3MP/ABkrm/deFf3/AIkJ/R/hoD3FkVFrZ29qd02yf3n3rd42N13CI7beovY2usVyffEi2m5qe2+bcUL2zd+UmC5gmEksaBf7zGgbfZy39xGlKEb8pP6N8NqT7j4q9u3UFQxEDxJUUllj5fhhSUzbjEm8stlvRZyoWhab7cbe2GzX094q13SSPcELStO5qhTZ+F0q57s/8Zdt/jne82i3mMmx3QKdkvCbXY4kmNCY0u+2f3i6g2Plz7rt/vp2rb/cje7Nz7mG0Ee3/wBHy/0Ap7VtvuS9w2yC6P6CnBttiSDFFHFGdkK7j9CzoKdkmWu1t4raJ3ECsybtYtYeUl//2gAIAQMRAT8B/wBB9PjGXIIllj6fEdsrJf0kT94l9qI9NM7RYYYP53tyceGEshxk/wCBjhlLJ7fq54whPbHslkjHyUZYS8HXov44cn4yxP8AqQ/4dJ/5XFy/xD/hZ7hi3191dnUZSPtj5LDpojzyz6aEnDMiXty06SYhlBkzNyLGcf05j63pLNA9SJXw4/b90zl4Y9VL3fcLnjAT+zxqf8o1y/x4pyZd+1GXKTt9XFkM4/1RkyCYjL1cuXZwPKZ54iyEdQdgPqWRzxF8OOW6IJ16iBBGSPo480Z+GeSMPLhByT9wp/j/AOZxfxpvTev+Fy/xYMztzCRZSiBZZyxyiPyThkBYm4JmcLPZLp8cmPS4xp+nx3dPtR3bvVGKANh/S4/yfajt2+iOmxj0Z4oy8v6bGgV41//aAAgBAhEBPwH/AEHnyHHAyDHJnyDdHh/VSH2kfcmXUQG40yz/AMr3IuTLKMBMMssRDe4ZTlG5dkccpeAnFOPka9Z/BLj/AAhkP9Uj/BpD/JS4/wCGGG05dl/b2YMYP3S8Bn1Mj44Y9ROPq5oAx9yOnUxMsZAYfhCYH9QJelaRxT/TmNcs/c9sQiy6aJxbA4TIx+/zqP8AJ9cX8CSMeLZuKceIDd6OXGIS/onHjMDKPo4sW7k+EQwyNAp6cbyPQMRhkackRGRA16eYIOOXqzxSh5YY5TPDmIxw9sI/gf53J/Ci9T6f4HF/CkxG7CYhESTQYRyRkfzRmiTRg5oCE6HZHqJxZdTkI0/UTqrfdlt2pyyIov6nJ+b7st271T1OQ+rDLKHh/U5Em/Ov/9oACAEBAAY/Av8AUWSuD+jjeKxifu5KekejpwPp/qVIYCWF+dWkn0+4mM8HQDRpUjSv+paeY4PBaK0fDFIeuqX+yfj3SsHqfUjX5vmLFEj/AFT09JevUl69J9HVXDzfAfz45qsasLUsAHh8X+f/AAXWNYU8lqCR8XpmfsdEr19D2BkVjViRJqk6vBEgJ74Q0rw08y+FUvXpPxdX7X6nVJqP5yL7XzZicBoHTlBpliUcf9vR6nFI/U6cuvzLMsFdOIZSs9aP1uP+04f7LFxFoCfwLCxx8w+Wk9av1B89Y6lez8B2qOkv3cqrq6Ur8WBXpP8AORfa4h/J7L+GrkV6q7ENSf5Jcf8AacP9llChUFlJ1T/CGZZfZHH+59wTDg650YoOkd6zSJQPi+nmK+SXqiUfY/opQT6ef3ovtcX9kdpfk1f2+6vkf4XH/acP9nsI4hUDQfFm2Xp+z9yhFQ/P8XRIp25UVDKf95Zkr85Fv6Rckh+dH08xB/tPmIPMQPMcQxBdKqD7K/7v3YvtcX9kdpfk1f2+6vkf4XH/AGnD/ZfKQepXH4B8xQ61fqD95j011+BeX5hor7y5j+UPFRPUclqYQgYpHAfcEsY+jk8vQvFRquPpP3EYFIx9WhB4gU7LjTSp9WULINVV07mRSk0IPBoSggUNdWiM0Kkij51wpKhWtB2KVCoL41R/CHUfdSn9pbml86hP3Zf5PUPsciP2kfwMxyTAKHEUYk51QeFBq+WhRCvRQo8CsqI44iryhXX1+DK1miRqS/3/APvJZEMmRHHtnLIlA+L9pZ/yH9HMK+h0LVyJMseLymkSgfF8ZD/kPLn0+BGr5kJ+VXyl/Z92JXov+pzJ886/q+7P/Yo1H0jLluwFCTTz0appqlNaBIaeSohKhUa8Glc+RWoV0NKMwV9UFqjWKpUKFqP0ug/bcv8AYDXMvgkMlSuHE+SQ+rmKPrkzNASpA4pPk5/7IZRIohORH2B/4rGfmGZbQHTij+4zkkiqzxD5qftevtDj9ySMe1xT8316Ik6T8PuptUn+Uv8Aqa5yPbNB8g5fs/hZ/wB2Fw/2FNH9kM/7sP8AB2X8i5f91hgeqw1K8ys17ULUYY8cuOrNzaa1NaA0ILoef9sb+kSP8qOjJAxWn2k9iIi8ql+ih3Vcwpqg+2B5MRXNVJHBfo6xSoV8i6rkSkfEsptfpFfteQZUonCvWthCRRIFA5U1FdNPtZTkK5nRw/2FNFCDoGSTQcw/wdl/SI4erlyIHQOLkjQoFXEa+bVDPVKFH/BLySpJHqC/azX5IS5eYhISngR/A5BcyExFRH9nV5IUFD1Dk59MSOHq5VeWAB+fZeXHsvHhr9wqj+hV8OD6VxL/AFPq5Q/yqutxIZPgNAwlCQlI4AdlzifHLyKatEhuK4muiGgiXAp+FWs83Mr+FGuVM+OZrQpq/dOYT0kZP/GU/wC43/jKf9x/6LWrm55CmiaPPWOT9oeb6Z4qfIus8uX8lAowiNISkeQcilT0QSSKDV/Q3dPxDrcXVflqf1vlxJoP4e3Ni4vHEh+qjx7f/8QAMxABAAMAAgICAgIDAQEAAAILAREAITFBUWFxgZGhscHw0RDh8SAwQFBgcICQoLDA0OD/2gAIAQEAAT8h/wD0JMkCuiQPMr+ruvcPX/4ZGwfzV/tG56fO/wD0XxuqtKqCPzY+zL5rc+TP/wCDdIyfmhzA6vlOIP8A9FwHmqSfgJxoPP6I/wB0yiP7P/LEi+n/AKgM+P8AdgjJ5lDP8wz/APRmO/8AjDZZ+lx+L/8AeT/yrlIEy/qq+L+B4vF1cZ/+fjnoyjPOfP6XSOPmo5juOSqBHtWAL2l5beLD/wADkFBYcAgnZZ4jscf8fd5lDQ04Xns/8saL00CJAO6jD9VY3fR/+Z/m+r4gjO4/qr5XuWbJmHF/lZ+TX8f92ZvnkbGUNyznksqDBfDpv+X6b+hvPkjH+e3Ojh4m9Yv/ANL0qMP+G3qzA/Hx+KMQUMnKeRr2oAph/H/5n+b6oBeL/wAUXwH5pHZg/B/wFOEizLcg/Df8v1f0NhNOEp+rmn4n5ulzT7eKDP8AoeTj82Yh6PNUtsfx/wB8WolzWYHvg/mofdxf4bn+f8/Bs/8A4eP+XV/zXj/n6j+b++/g/wCN/wAv4X/L9X9DW61r7Xb8WMEpX5dn/wCBUJOmqSg+iofx/wAAZtq8D/dloRdmfB5+CgPMIh/V+1QT/msuR4Y98f2XoMC8nr/b/wDDx/y6v+a8f8/Qfzf238H/ABv+f8L/AJfpv6G8ND1ThMOFAE8hn6Gm8GB7/wDxbu7h5einllPS7/1R/hgOj/rtj4s+nh+7uUZHs6f+t7riflXZEaj/AI8QGB4c1tF+gP8Ar3oESnWa5CnfS/SwEt504Sa9HxSw5FCWdBTH/DmgaSPD/wDhQ/rn6FvkIT4Cf7//AAzKafu1U6mT8v8A28R0xMfiwNJQIqOcvhTOh8VNgzGPuoCEwRD8impLI4C/5P8ARQ1lkQkfn/ntSKixk9oUVeOz/rGogPUT+b4VBLn4p4HuCq6CBzD6FmgYUQhHxU4beXT4/wDwu9TX7VRIwfoj/X/4SS9ofLlUXiZ9pU1FTGzIcVIQTiJjta+pHvMx37oq5NCLwU6AT7kaP6/dmzIHqi3SJSl/f+29kGjz6saTkn0imjzSj/F5t72o8nm/4vy0MRhnibD5ilT5Ej+b3IKec/xxdQFGGZflTr/Nxf7D3/8AgUzMPqbTMoUr26f882f/AMCpMyejw/uwLkv8TzN/yvS/5T1f8h6v+Q8X/J+f/P8ABeL/AIXy0gOJX7acH9cw/wCAgCOI0hT8x+vigllN9xCnhDOf+qNWHhp1yuSSY9nqoJDo0OZeAN56olUOzH9U2k7B/wBkxORc/PxV4eRaj35sHr9lRknYF1qe5/8Aa8kaN36Pf8UXcUHReQLiW8KBAPmb1f8AMerlWcTPVBUG6+9EkIli2k+vis3ndHbcy2hljS8ohFPXtELfEgq8T3iX78XCtoLy1wHG+RUPxS6LwkjeX0guV1Hu+D6HmX/IL+WPzv8AyP8Alt/68V+ldY6+v9WQ+6VVBS96v6UE0Ov/ANKFYIBAf8Uzlngs6ZrB8PiOe5uNnTYkf/lnvAMiIsIokZT+bmaUjHfF8H+P5qnLUm2QoQD93RfBf2O6qCPKCjlj0H5vEnQL7w5vM95V6IPpf00xA+Q/ko13l8ry/wDHzY5pMbZZkcsRRaXsP+f/2gAMAwEAAhEDEQAAEPPPPPPPPPGNPLENPPPPPOPPPPABKKHPPPPPAakD3NrAgGOPPtPAnIm9f59PACh/3PB9C6OrLDfPJfPFZZurideDVPPMste5ycJLRHt24HLOnFLKvrQhRHNzFP/EADMRAQEBAAMAAQIFBQEBAAEBCQEAESExEEFRYSBx8JGBobHRweHxMEBQYHCAkKCwwNDg/9oACAEDEQE/EP8A9DULh/xsgX5GZhZvgd35Pt+dulHpepc8fP8ArbNQ8n5j63HHbJwuh2/f8HBkTGB7/e/2Z6v3f7zY/p1HDseb7f6ZI59X95pIGN+ofX9f6/Bh0F6dfeC4MftPu068S7A3+zAg+rCa8tZ+3hX4Dv8Ahm1eCofXniK+Tez7fSZL1cn2+3vI79P9e8GO/wD2NiHPX5Tchjt+Jmpw4/mHU/JKg9UiMn2kGORD95Qhfls3an3uogern6QmuWnx8SMRf0Lp+dI/eg6wmb+v1zaowivMTwnGSJHEA7/wO6mflI7m/nBnBKa8u74eOg5e79JYHhjmwMDwXN1/WAZ09//aAAgBAhEBPxD/APQ+4gsAg++6z+UrPj87MCDsO4t8n/uQ3acL/NytxZvzf7fg7KYjU9/sf7wz8oi/W+smmX9X/siIvWH9ogXAufTfp+v9/g3aG8ePtPc6PvHul78PnXj+8EB+hNAfBv7+GXyPX8kQZygL9OL6Aun7/WOgwcfn9/eDz6/795A9f+TtTx3Hmuuj5iYPLn+JUX80BXwd2mg/VgueDX9oZpPzy6CD3og6T+Dj62EMNfn5g7h/r3b8qD+zN3gdyzxrNY6DkedgQJh1fgOwdPvYrc/KeYHPh1fL8R5ODq/WCe1hGRJXy3B3/SRauff/2gAIAQEAAT8Q/wD0I1JZVvmpYfYOFAyFEmnwzo2f/wADTogBKvBViaeVZ/RBZ4QkqTJ5Hv8A/RSHk8QKBH80LgBU7drTlGinIRf1FXSXF5Y//AF6g/MVfnAocUgBBTXGh4AjDnsaf/omug0jwvY/NMcoDQOidEq3qIUf3cqqdbTw+nmttbuifh4aI/8AOrVQ5gZPo/zUOHHCBfh4sxxCEQMMg87y0/8AzZLJ/wDjCMD83KARBHkbyTfCX8/6UTBT7Zh9PNT9hOz5d2cYQYfQfn/bcRPCJHCgHB/+a2R6naZjng90S521BJI5NN6HtR/uwYDgo+QdLztYiFSEB5cfuKdnvDH+B5+qNlnn0WWJjPVxZaz8kc0YFkRUhzyU4sEQCPmxC4WGJNjqDz6Wl1NJQS+55XzdpLsx+HhoQilTAF5hwxKD8xSSt2p//Lebx+f8ag4fGoTmB6HrVm9QjiX5zNZyjs0eXyiT/wDSaIgLEyccBwpnf9RYmHELk/19WEjZ7gO3kjx+KvBgnleT3yPxf39oaVktJY9nPx/KfNg+PM8fJ8dnqjhlaO8T8ng+3qx/AAt8nz/D5bAwQh6u6R2dfP8ApVmpBImSZ/HVxyupi/jCvmcb2mN9j3/+W83h87AUBKjtSV/dii5r+YH/AHYSCWfcBn5WwUW5Uh8JFao3PcYfy39//OmyFZR3h/uxMtBnJD6P9+qDbA/S6fQc+vmgACAMyn/JJoy8QIR+SmWEaaD1FEI3KdWZfl6/5Nn33TH4HL9VPB/AP5liIPkD9jUyLZZj/E2H/wCB5v8Ak+q/y/h/z/AeH/ffD/jz93/P/mEAvijPmg55JvhB+e6YArSQ6198p9nVn/odIhCRsYE8mL5EvHK+V7rVDyQEq4U7XR9vuYXooy77F8Aeq3f+RCa/K1eY2Oj9TL2p5kDsPHk+immMHdHBOx6+E+aOf9eb/k+q/wAt4f8AP8h4/wDXXD/hz93/AMkePqDvb8Lx+bwXOQ3nD0vL9HVKQEPn0Pzg+481B8G+o8np5Kf/AISugn0b7FC90hyBRZ7ZB4k8ULtzYA/6QQ8NMhNAeUj0JQ9PqmHCqbHLeWMXyP8A+AGOxV3ERB6qjBzgoRn/AAf7pCEB2PipJIVqQh38f8eKG5gikI5PVenmSwkjIPdeYmkUB7iYpFOlig8hw/r20QQcUZybuxqlEwqy7j8P5nzRiDEHE8//AIUOiH8P5ELMYPoID/f6/wD4UbAp4Q/Yk+7IZ472MP4dThQTHQYUMMIx7rnfDgUcMkeXLPHRXUTmTinjmtNZRUHJDFPU1SaiUp4E0/uv1+rAiVW+vcF6UmB4YBmNmpwNjnnweX0VgTGN98TF4hbkRfQv1XQcYjAZhwSMOniyIthQK8DlfioiZ49/MXkn5X/Skr8TTMlQScUOw/6a/ZCju7P/AMIWCw/oC8xyD0R+1/8AhS+PmGA/Le8wHwz+LP1CCQheMxXi2VzAUG9wBU8eCpiA5RiO9aMQwQEkA5QiZ7swL9dELvw/K7yaOJRu9VM9VJJBfFR7v8y04Uhjl8A9rB90ZBGsucPy+MmJWvVH0JvmIBT/ACQqNdDudOZbOFmnHs8GFo9akr7XoiUuCN37Vq+6+aDSb2U6p8vXhy07o2AmGGJGvMSQQ/T/AHoyhmD9Pt/P/wCCCXkPKwPuI+6IwjgaS3iFR/0pif8Aq01BxXh+2f0PNnZEXubftfgX9y7/ACPinCP+Lef8zH/Phxf8V5f8CK6gfuAH7B+qPppe8H6N+7FLAaBIjyRVpES4BMCVgSwGX5KEeNVBHmJEV5nHtHV0fZv5ls4rx9ADm16wCtDwnahh9JUYAIR4SyozCSIdO4qQyJlhP8dU0KBE4nSev+NW+lNFeSefL4ZeHCqIA/GB5B0mxyPNAJHQw9JyPzQ5JKcD7a1QKMHsPP4z3WyW5uXOp2/XD6Ka4QUAEBQMOShl4jmugjEZEdOaVI1RPzaQSJTgw8WcpAID2NJNBIjIlaSYMe57ogdMRk8G0U8FkBYFOJiPulPK3hDUOhAHwk0YKSAh8ljcXBR6lwfb9TUXCNARlK6hDOc8bS42RGAICcEPPT00ByyGD0ldkoOZJge0R4rGCxgxEn6F+/8AnQjzcz/ouRfjnhxEI+p/6Rg10lqEu9r4+xcUjj9xD/NTo55gfV6HEZn8sq/IerDckQHgCvFUCA5RgIAZnFKiQ03IQE4mIfTS7MLCC5IjPlc6YxFpMxLLvPgpdfM2AYQZk75r5iqINyjoJwumE6r+0ZNQ24rMKykpdqtQEJvhNnyx914QexfkJ/mlhLLIvSlfxFJP8Rgf++6bY8TFaDwRL0znFfnR8F7Yl+iglHlGPAjH4bFYmRZRynb/AMnJlhyew/yWKgwBme3/AFYSoEHAdB/z/9k=" alt="logo" style="position:absolute; top:25px; right:1%; padding:10px;z-index:200;"/></div>')
+</script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a></li>
+<li class="chapter" data-level="1" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html"><i class="fa fa-check"></i><b>1</b> PCA on the <code>multidrug</code> study</a><ul>
+<li class="chapter" data-level="1.1" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#pca:load"><i class="fa fa-check"></i><b>1.1</b> Load the data</a></li>
+<li class="chapter" data-level="1.2" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#pca:ex"><i class="fa fa-check"></i><b>1.2</b> Example: PCA</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#optimal-param-choice"><i class="fa fa-check"></i><b>1.2.1</b> Choose the number of components</a></li>
+<li class="chapter" data-level="1.2.2" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#pca-with-fewer-components"><i class="fa fa-check"></i><b>1.2.2</b> PCA with fewer components</a></li>
+<li class="chapter" data-level="1.2.3" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#identify-the-informative-variables"><i class="fa fa-check"></i><b>1.2.3</b> Identify the informative variables</a></li>
+<li class="chapter" data-level="1.2.4" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#meth-PCA-sample"><i class="fa fa-check"></i><b>1.2.4</b> Sample plots</a></li>
+<li class="chapter" data-level="1.2.5" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#variable-plot-correlation-circle-plot"><i class="fa fa-check"></i><b>1.2.5</b> Variable plot: correlation circle plot</a></li>
+<li class="chapter" data-level="1.2.6" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#biplot-samples-and-variables"><i class="fa fa-check"></i><b>1.2.6</b> Biplot: samples and variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#spca:ex"><i class="fa fa-check"></i><b>1.3</b> Example: sparse PCA</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#tuning-spca"><i class="fa fa-check"></i><b>1.3.1</b> Choose the number of variables to select</a></li>
+<li class="chapter" data-level="1.3.2" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#final-sparse-pca"><i class="fa fa-check"></i><b>1.3.2</b> Final sparse PCA</a></li>
+<li class="chapter" data-level="1.3.3" data-path="pca-multidrug-case.html"><a href="pca-multidrug-case.html#sample-and-variable-plots"><i class="fa fa-check"></i><b>1.3.3</b> Sample and variable plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html"><i class="fa fa-check"></i><b>2</b> PLS-DA on the SRBCT case study</a><ul>
+<li class="chapter" data-level="2.1" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#plsda:load"><i class="fa fa-check"></i><b>2.1</b> Load the data</a></li>
+<li class="chapter" data-level="2.2" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#ex:plsda"><i class="fa fa-check"></i><b>2.2</b> Example: PLS-DA</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#initial-exploration-with-pca"><i class="fa fa-check"></i><b>2.2.1</b> Initial exploration with PCA</a></li>
+<li class="chapter" data-level="2.2.2" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#number-of-components-in-pls-da"><i class="fa fa-check"></i><b>2.2.2</b> Number of components in PLS-DA</a></li>
+<li class="chapter" data-level="2.2.3" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#PLSDA:final:perf"><i class="fa fa-check"></i><b>2.2.3</b> Final PLS-DA model</a></li>
+<li class="chapter" data-level="2.2.4" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#plsda:perf"><i class="fa fa-check"></i><b>2.2.4</b> Classification performance</a></li>
+<li class="chapter" data-level="2.2.5" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#ex:plsda:background"><i class="fa fa-check"></i><b>2.2.5</b> Background prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#ex:splsda"><i class="fa fa-check"></i><b>2.3</b> Example: sPLS-DA</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#plsda:result:numvar"><i class="fa fa-check"></i><b>2.3.1</b> Number of variables to select</a></li>
+<li class="chapter" data-level="2.3.2" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#final-splsda-perf"><i class="fa fa-check"></i><b>2.3.2</b> Final model and performance</a></li>
+<li class="chapter" data-level="2.3.3" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#plsda:stab"><i class="fa fa-check"></i><b>2.3.3</b> Variable selection and stability</a></li>
+<li class="chapter" data-level="2.3.4" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#sample-visualisation"><i class="fa fa-check"></i><b>2.3.4</b> Sample visualisation</a></li>
+<li class="chapter" data-level="2.3.5" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#plsda:varplot"><i class="fa fa-check"></i><b>2.3.5</b> Variable visualisation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#detour:plsda:predict"><i class="fa fa-check"></i><b>2.4</b> Take a detour: prediction</a></li>
+<li class="chapter" data-level="2.5" data-path="plsda-srbct-case.html"><a href="plsda-srbct-case.html#plsda:auroc"><i class="fa fa-check"></i><b>2.5</b> AUROC outputs complement performance evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="pls-liver-case.html"><a href="pls-liver-case.html"><i class="fa fa-check"></i><b>3</b> PLS on the liver toxicity study</a><ul>
+<li class="chapter" data-level="3.1" data-path="pls-liver-case.html"><a href="pls-liver-case.html#pls:load"><i class="fa fa-check"></i><b>3.1</b> Load the data</a></li>
+<li class="chapter" data-level="3.2" data-path="pls-liver-case.html"><a href="pls-liver-case.html#example-pls1-regression"><i class="fa fa-check"></i><b>3.2</b> Example: PLS1 regression</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="pls-liver-case.html"><a href="pls-liver-case.html#number-of-dimensions-using-the-q2-criterion"><i class="fa fa-check"></i><b>3.2.1</b> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</a></li>
+<li class="chapter" data-level="3.2.2" data-path="pls-liver-case.html"><a href="pls-liver-case.html#number-of-variables-to-select-in-boldsymbol-x"><i class="fa fa-check"></i><b>3.2.2</b> Number of variables to select in <span class="math inline">\(\boldsymbol X\)</span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="pls-liver-case.html"><a href="pls-liver-case.html#final-spls1-model"><i class="fa fa-check"></i><b>3.2.3</b> Final sPLS1 model</a></li>
+<li class="chapter" data-level="3.2.4" data-path="pls-liver-case.html"><a href="pls-liver-case.html#pls1:perf"><i class="fa fa-check"></i><b>3.2.4</b> Performance assessment of sPLS1</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="pls-liver-case.html"><a href="pls-liver-case.html#example-pls2-regression"><i class="fa fa-check"></i><b>3.3</b> Example: PLS2 regression</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="pls-liver-case.html"><a href="pls-liver-case.html#number-of-dimensions-using-the-q2-criterion-1"><i class="fa fa-check"></i><b>3.3.1</b> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</a></li>
+<li class="chapter" data-level="3.3.2" data-path="pls-liver-case.html"><a href="pls-liver-case.html#number-of-variables-to-select-in-both-boldsymbol-x-and-boldsymbol-y"><i class="fa fa-check"></i><b>3.3.2</b> Number of variables to select in both <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol Y\)</span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="pls-liver-case.html"><a href="pls-liver-case.html#final-spls2"><i class="fa fa-check"></i><b>3.3.3</b> Final sPLS2 model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html"><i class="fa fa-check"></i><b>4</b> Block PLS-DA on the TCGA case study</a><ul>
+<li class="chapter" data-level="4.1" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#diablo:load"><i class="fa fa-check"></i><b>4.1</b> Load the data</a></li>
+<li class="chapter" data-level="4.2" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#parameter-choice"><i class="fa fa-check"></i><b>4.2</b> Parameter choice</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#diablo:design"><i class="fa fa-check"></i><b>4.2.1</b> Design matrix</a></li>
+<li class="chapter" data-level="4.2.2" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#number-of-components"><i class="fa fa-check"></i><b>4.2.2</b> Number of components</a></li>
+<li class="chapter" data-level="4.2.3" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#diablo:numvar"><i class="fa fa-check"></i><b>4.2.3</b> Number of variables to select</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#final-model"><i class="fa fa-check"></i><b>4.3</b> Final model</a></li>
+<li class="chapter" data-level="4.4" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#diablo:result:sampleplot"><i class="fa fa-check"></i><b>4.4</b> Sample plots</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#plotdiablo"><i class="fa fa-check"></i><b>4.4.1</b> <code>plotDiablo</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#plotindiv"><i class="fa fa-check"></i><b>4.4.2</b> <code>plotIndiv</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#plotarrow"><i class="fa fa-check"></i><b>4.4.3</b> <code>plotArrow</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#diablo:result:varplot"><i class="fa fa-check"></i><b>4.5</b> Variable plots</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#plotvar"><i class="fa fa-check"></i><b>4.5.1</b> <code>plotVar</code></a></li>
+<li class="chapter" data-level="4.5.2" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#circosplot"><i class="fa fa-check"></i><b>4.5.2</b> <code>circosPlot</code></a></li>
+<li class="chapter" data-level="4.5.3" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#network"><i class="fa fa-check"></i><b>4.5.3</b> <code>network</code></a></li>
+<li class="chapter" data-level="4.5.4" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#plotloadings"><i class="fa fa-check"></i><b>4.5.4</b> <code>plotLoadings</code></a></li>
+<li class="chapter" data-level="4.5.5" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#cimdiablo"><i class="fa fa-check"></i><b>4.5.5</b> <code>cimDiablo</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="blockplsda-tcga-case.html"><a href="blockplsda-tcga-case.html#diablo:perf"><i class="fa fa-check"></i><b>4.6</b> Model performance and prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html"><i class="fa fa-check"></i><b>5</b> MINT on the stem cell case study</a><ul>
+<li class="chapter" data-level="5.1" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:load"><i class="fa fa-check"></i><b>5.1</b> Load the data</a></li>
+<li class="chapter" data-level="5.2" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:plsda"><i class="fa fa-check"></i><b>5.2</b> Example: MINT PLS-DA</a></li>
+<li class="chapter" data-level="5.3" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:splsda"><i class="fa fa-check"></i><b>5.3</b> Example: MINT sPLS-DA</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#number-of-variables-to-select"><i class="fa fa-check"></i><b>5.3.1</b> Number of variables to select</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#final-mint-spls-da-model"><i class="fa fa-check"></i><b>5.3.2</b> Final MINT sPLS-DA model</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:result:ncomp"><i class="fa fa-check"></i><b>5.3.3</b> Sample plots</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:result:varplot"><i class="fa fa-check"></i><b>5.3.4</b> Variable plots</a></li>
+<li class="chapter" data-level="5.3.5" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:result:perf"><i class="fa fa-check"></i><b>5.3.5</b> Classification performance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#mint:detour"><i class="fa fa-check"></i><b>5.4</b> Take a detour</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#auc"><i class="fa fa-check"></i><b>5.4.1</b> AUC</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#detour:mint:predict"><i class="fa fa-check"></i><b>5.4.2</b> Prediction on an external study</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hands-on activities</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pls-liver-case" class="section level1">
+<h1><span class="header-section-number"> 3</span> PLS on the liver toxicity study</h1>
+<p>The data come from a liver toxicity study in which 64 male rats were exposed to non-toxic (50 or 150 mg/kg), moderately toxic (1500 mg/kg) or severely toxic (2000 mg/kg) doses of acetaminophen (paracetamol) <span class="citation">(Bushel, Wolfinger, and Gibson <a href="#ref-Bus07">2007</a>)</span>. Necropsy was performed at 6, 18, 24 and 48 hours after exposure and the mRNA was extracted from the liver. Ten clinical measurements of markers for liver injury are available for each subject. The microarray data contain expression levels of 3,116 genes. The data were normalised and preprocessed by <span class="citation">Bushel, Wolfinger, and Gibson (<a href="#ref-Bus07">2007</a>)</span>.</p>
+<p><code>liver toxicity</code> contains the following:</p>
+<ul>
+<li><code>$gene</code>: A data frame with 64 rows (rats) and 3116 columns (gene expression levels),</li>
+<li><code>$clinic</code>: A data frame with 64 rows (same rats) and 10 columns (10 clinical variables),</li>
+<li><code>$treatment</code>: A data frame with 64 rows and 4 columns, describe the different treatments, such as doses of acetaminophen and times of necropsy.</li>
+</ul>
+<p>We can analyse these two data sets (genes and clinical measurements) using sPLS1, then sPLS2 with a regression mode to explain or predict the clinical variables with respect to the gene expression levels.</p>
+<div id="pls:load" class="section level2">
+<h2><span class="header-section-number">3.1</span> Load the data</h2>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">library</span>(mixOmics)</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="kw">data</span>(liver.toxicity)</a>
+<a class="sourceLine" id="cb87-3" data-line-number="3">X &lt;-<span class="st"> </span>liver.toxicity<span class="op">$</span>gene</a>
+<a class="sourceLine" id="cb87-4" data-line-number="4">Y &lt;-<span class="st"> </span>liver.toxicity<span class="op">$</span>clinic</a></code></pre></div>
+<p>As we have discussed previously for integrative analysis, we need to ensure that the samples in the two data sets are in the same order, or matching, as we are performing data integration:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">data.frame</span>(<span class="kw">rownames</span>(X), <span class="kw">rownames</span>(Y)))</a></code></pre></div>
+<pre><code>##   rownames.X. rownames.Y.
+## 1       ID202       ID202
+## 2       ID203       ID203
+## 3       ID204       ID204
+## 4       ID206       ID206
+## 5       ID208       ID208
+## 6       ID209       ID209</code></pre>
+</div>
+<div id="example-pls1-regression" class="section level2">
+<h2><span class="header-section-number">3.2</span> Example: PLS1 regression</h2>
+<p>We first start with a simple case scenario where we wish to explain one <span class="math inline">\(\boldsymbol Y\)</span> variable with a combination of selected <span class="math inline">\(\boldsymbol X\)</span> variables (transcripts). We choose the following clinical measurement which we denote as the <span class="math inline">\(\boldsymbol y\)</span> single response variable:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">y &lt;-<span class="st"> </span>liver.toxicity<span class="op">$</span>clinic[, <span class="st">&quot;ALB.g.dL.&quot;</span>]</a></code></pre></div>
+<div id="number-of-dimensions-using-the-q2-criterion" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</h3>
+<p>Defining the ‘best’ number of dimensions to explain the data requires we first launch a PLS1 model with a large number of components. Some of the outputs from the PLS1 object are then retrieved in the <code>perf()</code> function to calculate the <span class="math inline">\(Q^2\)</span> criterion using repeated 10-fold cross-validation.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">tune.pls1.liver &lt;-<span class="st"> </span><span class="kw">pls</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> y, <span class="dt">ncomp =</span> <span class="dv">4</span>, <span class="dt">mode =</span> <span class="st">&#39;regression&#39;</span>)</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">33</span>)  <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb91-3" data-line-number="3">Q2.pls1.liver &lt;-<span class="st"> </span><span class="kw">perf</span>(tune.pls1.liver, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, </a>
+<a class="sourceLine" id="cb91-4" data-line-number="4">                      <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">nrepeat =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb91-5" data-line-number="5"><span class="kw">plot</span>(Q2.pls1.liver, <span class="dt">criterion =</span> <span class="st">&#39;Q2&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:pls1-Q2"></span>
+<img src="Figures/PLS/pls1-Q2-1.png" alt="\(Q^2\) criterion to choose the number of components in PLS1. For each dimension added to the PLS model, the \(Q^2\) value is shown. The horizontal line of 0.0975 indicates the threshold below which adding a dimension may not be beneficial to improve accuracy in PLS." width="50%" />
+<p class="caption">
+Figure 3.1: <strong><span class="math inline">\(Q^2\)</span> criterion to choose the number of components in PLS1</strong>. For each dimension added to the PLS model, the <span class="math inline">\(Q^2\)</span> value is shown. The horizontal line of 0.0975 indicates the threshold below which adding a dimension may not be beneficial to improve accuracy in PLS.
+</p>
+</div>
+
+<p>The plot in Figure <a href="pls-liver-case.html#fig:pls1-Q2">3.1</a> shows that the <span class="math inline">\(Q^2\)</span> value varies with the number of dimensions added to PLS1, with a decrease to negative values from 2 dimensions. Based on this plot we would choose only one dimension, but we will still add a second dimension for the graphical outputs.</p>
+<p>Note:</p>
+<ul>
+<li><em>One dimension is not unusual given that we only include one <span class="math inline">\(\boldsymbol y\)</span> variable in PLS1.</em></li>
+</ul>
+</div>
+<div id="number-of-variables-to-select-in-boldsymbol-x" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Number of variables to select in <span class="math inline">\(\boldsymbol X\)</span></h3>
+<p>We now set a grid of values - thin at the start, but also restricted to a small number of genes for a parsimonious model, which we will test for each of the two components in the <code>tune.spls()</code> function, using the MAE criterion.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># Set up a grid of values: </span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">list.keepX &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">seq</span>(<span class="dv">15</span>, <span class="dv">50</span>, <span class="dv">5</span>))     </a>
+<a class="sourceLine" id="cb92-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb92-4" data-line-number="4"><span class="co"># list.keepX  # Inspect the keepX grid</span></a>
+<a class="sourceLine" id="cb92-5" data-line-number="5"><span class="kw">set.seed</span>(<span class="dv">33</span>)  <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb92-6" data-line-number="6">tune.spls1.MAE &lt;-<span class="st"> </span><span class="kw">tune.spls</span>(X, y, <span class="dt">ncomp=</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb92-7" data-line-number="7">                            <span class="dt">test.keepX =</span> list.keepX, </a>
+<a class="sourceLine" id="cb92-8" data-line-number="8">                            <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, </a>
+<a class="sourceLine" id="cb92-9" data-line-number="9">                            <span class="dt">folds =</span> <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb92-10" data-line-number="10">                            <span class="dt">nrepeat =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb92-11" data-line-number="11">                            <span class="dt">progressBar =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb92-12" data-line-number="12">                            <span class="dt">measure =</span> <span class="st">&#39;MAE&#39;</span>)</a>
+<a class="sourceLine" id="cb92-13" data-line-number="13"><span class="kw">plot</span>(tune.spls1.MAE)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls1-MAE"></span>
+<img src="Figures/PLS/spls1-MAE-1.png" alt="Mean Absolute Error criterion to choose the number of variables to select in PLS1, using repeated CV times for a grid of variables to select. The MAE increases with the addition of a second dimension (), suggesting that only one dimension is sufficient. The optimal keepX is indicated with a diamond." width="50%" />
+<p class="caption">
+Figure 3.2: <strong>Mean Absolute Error criterion to choose the number of variables to select in PLS1</strong>, using repeated CV times for a grid of variables to select. The MAE increases with the addition of a second dimension (), suggesting that only one dimension is sufficient. The optimal <code>keepX</code> is indicated with a diamond.
+</p>
+</div>
+
+<p>Figure <a href="pls-liver-case.html#fig:spls1-MAE">3.2</a> confirms that one dimension is sufficient to reach minimal MAE. Based on the <code>tune.spls()</code> function we extract the final parameters:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">choice.ncomp &lt;-<span class="st"> </span>tune.spls1.MAE<span class="op">$</span>choice.ncomp<span class="op">$</span>ncomp</a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="co"># Optimal number of variables to select in X based on the MAE criterion</span></a>
+<a class="sourceLine" id="cb93-3" data-line-number="3"><span class="co"># We stop at choice.ncomp</span></a>
+<a class="sourceLine" id="cb93-4" data-line-number="4">choice.keepX &lt;-<span class="st"> </span>tune.spls1.MAE<span class="op">$</span>choice.keepX[<span class="dv">1</span><span class="op">:</span>choice.ncomp]  </a>
+<a class="sourceLine" id="cb93-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb93-6" data-line-number="6">choice.ncomp</a></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">choice.keepX</a></code></pre></div>
+<pre><code>## comp1 
+##    20</code></pre>
+<p>Note:</p>
+<ul>
+<li><em>Other criterion could have been used and may bring different results. For example, when using <code>measure = 'MSE'</code>, the optimal <code>keepX</code> was rather unstable, and is often smaller than when using the MAE criterion. As we have highlighted before, there is some back and forth in the analyses to choose the criterion and parameters that best fit our biological question and interpretation.</em></li>
+</ul>
+</div>
+<div id="final-spls1-model" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Final sPLS1 model</h3>
+<p>Here is our final model with the tuned parameters:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">spls1.liver &lt;-<span class="st"> </span><span class="kw">spls</span>(X, y, <span class="dt">ncomp =</span> choice.ncomp, <span class="dt">keepX =</span> choice.keepX, </a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">                    <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>)</a></code></pre></div>
+<p>The list of genes selected on component 1 can be extracted with the command line (not output here):</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">selectVar</span>(spls1.liver, <span class="dt">comp =</span> <span class="dv">1</span>)<span class="op">$</span>X<span class="op">$</span>name</a></code></pre></div>
+<p>We can compare the amount of explained variance for the <span class="math inline">\(\boldsymbol X\)</span> data set based on the sPLS1 (on 1 component) versus PLS1 (that was run on 4 components during the tuning step):</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">spls1.liver<span class="op">$</span>prop_expl_var<span class="op">$</span>X</a></code></pre></div>
+<pre><code>##      comp1 
+## 0.08150917</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">tune.pls1.liver<span class="op">$</span>prop_expl_var<span class="op">$</span>X</a></code></pre></div>
+<pre><code>##      comp1      comp2      comp3      comp4 
+## 0.11079101 0.14010577 0.21714518 0.06433377</code></pre>
+<p>The amount of explained variance in <span class="math inline">\(\boldsymbol X\)</span> is lower in sPLS1 than PLS1 for the first component. However, we will see in this case study that the Mean Squared Error Prediction is also lower (better) in sPLS1 compared to PLS1.</p>
+<p>For further graphical outputs, we need to add a second dimension in the model, which can include the same number of <code>keepX</code> variables as in the first dimension. However, the interpretation should primarily focus on the first dimension. In Figure <a href="pls-liver-case.html#fig:spls1-ext">3.3</a> we colour the samples according to the time of treatment and add symbols to represent the treatment dose. Recall however that such information was not included in the sPLS1 analysis.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">spls1.liver.c2 &lt;-<span class="st"> </span><span class="kw">spls</span>(X, y, <span class="dt">ncomp =</span> <span class="dv">2</span>, <span class="dt">keepX =</span> <span class="kw">c</span>(<span class="kw">rep</span>(choice.keepX, <span class="dv">2</span>)), </a>
+<a class="sourceLine" id="cb103-2" data-line-number="2">                   <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb103-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb103-4" data-line-number="4"><span class="kw">plotIndiv</span>(spls1.liver.c2,</a>
+<a class="sourceLine" id="cb103-5" data-line-number="5">          <span class="dt">group =</span> liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Time.Group,</a>
+<a class="sourceLine" id="cb103-6" data-line-number="6">          <span class="dt">pch =</span> <span class="kw">as.factor</span>(liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Dose.Group),</a>
+<a class="sourceLine" id="cb103-7" data-line-number="7">          <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">legend.title =</span> <span class="st">&#39;Time&#39;</span>, <span class="dt">legend.title.pch =</span> <span class="st">&#39;Dose&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls1-ext"></span>
+<img src="Figures/PLS/spls1-ext-1.png" alt="Sample plot from the PLS1 performed on the liver.toxicity data with two dimensions. Components associated to each data set (or block) are shown. Focusing only on the projection of the sample on the first component shows that the genes selected in \(\boldsymbol X\) tend to explain the length of treatment vs the earlier time points. This is somewhat in agreement with the levels of the \(\boldsymbol y\) variable. However, more insight can be obtained by plotting the first components only, as shown in Figure 3.4." width="50%" />
+<p class="caption">
+Figure 3.3: <strong>Sample plot from the PLS1 performed on the <code>liver.toxicity</code> data with two dimensions</strong>. Components associated to each data set (or block) are shown. Focusing only on the projection of the sample on the first component shows that the genes selected in <span class="math inline">\(\boldsymbol X\)</span> tend to explain the  length of treatment vs the earlier time points. This is somewhat in agreement with the levels of the <span class="math inline">\(\boldsymbol y\)</span> variable. However, more insight can be obtained by plotting the first components only, as shown in Figure <a href="pls-liver-case.html#fig:spls1-comp1">3.4</a>.
+</p>
+</div>
+
+<p>The alternative is to plot the component associated to the <span class="math inline">\(\boldsymbol X\)</span> data set (here corresponding to a linear combination of the selected genes) vs. the component associated to the <span class="math inline">\(\boldsymbol y\)</span> variable (corresponding to the scaled <span class="math inline">\(\boldsymbol y\)</span> variable in PLS1 with one dimension), or calculate the correlation between both components:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="co"># Define factors for colours matching plotIndiv above</span></a>
+<a class="sourceLine" id="cb104-2" data-line-number="2">time.liver &lt;-<span class="st"> </span><span class="kw">factor</span>(liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Time.Group, </a>
+<a class="sourceLine" id="cb104-3" data-line-number="3">                     <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&#39;18&#39;</span>, <span class="st">&#39;24&#39;</span>, <span class="st">&#39;48&#39;</span>, <span class="st">&#39;6&#39;</span>))</a>
+<a class="sourceLine" id="cb104-4" data-line-number="4">dose.liver &lt;-<span class="st"> </span><span class="kw">factor</span>(liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Dose.Group, </a>
+<a class="sourceLine" id="cb104-5" data-line-number="5">                     <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&#39;50&#39;</span>, <span class="st">&#39;150&#39;</span>, <span class="st">&#39;1500&#39;</span>, <span class="st">&#39;2000&#39;</span>))</a>
+<a class="sourceLine" id="cb104-6" data-line-number="6"><span class="co"># Set up colours and symbols</span></a>
+<a class="sourceLine" id="cb104-7" data-line-number="7">col.liver &lt;-<span class="st"> </span><span class="kw">color.mixo</span>(time.liver)</a>
+<a class="sourceLine" id="cb104-8" data-line-number="8">pch.liver &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(dose.liver)</a>
+<a class="sourceLine" id="cb104-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb104-10" data-line-number="10"><span class="kw">plot</span>(spls1.liver<span class="op">$</span>variates<span class="op">$</span>X, spls1.liver<span class="op">$</span>variates<span class="op">$</span>Y,</a>
+<a class="sourceLine" id="cb104-11" data-line-number="11">     <span class="dt">xlab =</span> <span class="st">&#39;X component&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;y component / scaled y&#39;</span>,</a>
+<a class="sourceLine" id="cb104-12" data-line-number="12">     <span class="dt">col =</span> col.liver, <span class="dt">pch =</span> pch.liver)</a>
+<a class="sourceLine" id="cb104-13" data-line-number="13"><span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="dt">col =</span> <span class="kw">color.mixo</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="dt">legend =</span> <span class="kw">levels</span>(time.liver),</a>
+<a class="sourceLine" id="cb104-14" data-line-number="14">       <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">title =</span> <span class="st">&#39;Time&#39;</span>)</a>
+<a class="sourceLine" id="cb104-15" data-line-number="15"><span class="kw">legend</span>(<span class="st">&#39;bottomright&#39;</span>, <span class="dt">legend =</span> <span class="kw">levels</span>(dose.liver), <span class="dt">pch =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb104-16" data-line-number="16">       <span class="dt">title =</span> <span class="st">&#39;Dose&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls1-comp1"></span>
+<img src="Figures/PLS/spls1-comp1-1.png" alt="Sample plot from the sPLS1 performed on the liver.toxicity data on one dimension. A reduced representation of the 20 genes selected and combined in the \(\boldsymbol X\) component on the \(x-\)axis with respect to the \(\boldsymbol y\) component value (equivalent to the scaled values of \(\boldsymbol y\)) on the \(y-\)axis. We observe a separation between the high doses 1500 and 2000 mg/kg (symbols \(+\) and \(\times\)) at and and while low and medium doses cluster in the middle of the plot. High doses for and have high scores for both components." width="50%" />
+<p class="caption">
+Figure 3.4: <strong>Sample plot from the sPLS1 performed on the <code>liver.toxicity</code> data on one dimension</strong>. A reduced representation of the 20 genes selected and combined in the <span class="math inline">\(\boldsymbol X\)</span> component on the <span class="math inline">\(x-\)</span>axis with respect to the <span class="math inline">\(\boldsymbol y\)</span> component value (equivalent to the scaled values of <span class="math inline">\(\boldsymbol y\)</span>) on the <span class="math inline">\(y-\)</span>axis. We observe a separation between the high doses 1500 and 2000 mg/kg (symbols <span class="math inline">\(+\)</span> and <span class="math inline">\(\times\)</span>) at  and and  while low and medium doses cluster in the middle of the plot. High doses for  and  have high scores for both components.
+</p>
+</div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">cor</span>(spls1.liver<span class="op">$</span>variates<span class="op">$</span>X, spls1.liver<span class="op">$</span>variates<span class="op">$</span>Y)</a></code></pre></div>
+<pre><code>##           comp1
+## comp1 0.7515489</code></pre>
+
+<p>Figure <a href="pls-liver-case.html#fig:spls1-comp1">3.4</a> is a reduced representation of a multivariate regression with PLS1. It shows that PLS1 effectively models a linear relationship between <span class="math inline">\(\boldsymbol y\)</span> and the combination of the 20 genes selected in <span class="math inline">\(\boldsymbol X\)</span>.</p>
+</div>
+<div id="pls1:perf" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Performance assessment of sPLS1</h3>
+<p>The performance of the final model can be assessed with the <code>perf()</code> function, using repeated cross-validation (CV). Because a single performance value has little meaning, we propose to compare the performances of a full PLS1 model (with no variable selection) with our sPLS1 model based on the MSEP (other criteria can be used):</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">33</span>)  <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb107-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb107-3" data-line-number="3"><span class="co"># PLS1 model and performance</span></a>
+<a class="sourceLine" id="cb107-4" data-line-number="4">pls1.liver &lt;-<span class="st"> </span><span class="kw">pls</span>(X, y, <span class="dt">ncomp =</span> choice.ncomp, <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb107-5" data-line-number="5">perf.pls1.liver &lt;-<span class="st"> </span><span class="kw">perf</span>(pls1.liver, <span class="dt">validation =</span> <span class="st">&quot;Mfold&quot;</span>, <span class="dt">folds =</span><span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb107-6" data-line-number="6">                   <span class="dt">nrepeat =</span> <span class="dv">5</span>, <span class="dt">progressBar =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb107-7" data-line-number="7">perf.pls1.liver<span class="op">$</span>measures<span class="op">$</span>MSEP<span class="op">$</span>summary</a></code></pre></div>
+<pre><code>##   feature comp      mean         sd
+## 1       Y    1 0.7281681 0.04134627</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="co"># To extract values across all repeats:</span></a>
+<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="co"># perf.pls1.liver$measures$MSEP$values</span></a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb109-4" data-line-number="4"><span class="co"># sPLS1 performance</span></a>
+<a class="sourceLine" id="cb109-5" data-line-number="5">perf.spls1.liver &lt;-<span class="st"> </span><span class="kw">perf</span>(spls1.liver, <span class="dt">validation =</span> <span class="st">&quot;Mfold&quot;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb109-6" data-line-number="6">                   <span class="dt">nrepeat =</span> <span class="dv">5</span>, <span class="dt">progressBar =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb109-7" data-line-number="7">perf.spls1.liver<span class="op">$</span>measures<span class="op">$</span>MSEP<span class="op">$</span>summary</a></code></pre></div>
+<pre><code>##   feature comp      mean         sd
+## 1       Y    1 0.5958565 0.02697727</code></pre>
+<p>The MSEP is lower with sPLS1 compared to PLS1, indicating that the <span class="math inline">\(\boldsymbol{X}\)</span> variables selected (listed above with <code>selectVar()</code>) can be considered as a good linear combination of predictors to explain <span class="math inline">\(\boldsymbol y\)</span>.</p>
+</div>
+</div>
+<div id="example-pls2-regression" class="section level2">
+<h2><span class="header-section-number">3.3</span> Example: PLS2 regression</h2>
+<p>PLS2 is a more complex problem than PLS1, as we are attempting to fit a linear combination of a subset of <span class="math inline">\(\boldsymbol{Y}\)</span> variables that are maximally covariant with a combination of <span class="math inline">\(\boldsymbol{X}\)</span> variables. The sparse variant allows for the selection of variables from both data sets.</p>
+<p>As a reminder, here are the dimensions of the <span class="math inline">\(\boldsymbol{Y}\)</span> matrix that includes clinical parameters associated with liver failure.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="kw">dim</span>(Y)</a></code></pre></div>
+<pre><code>## [1] 64 10</code></pre>
+<div id="number-of-dimensions-using-the-q2-criterion-1" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</h3>
+<p>Similar to PLS1, we first start by tuning the number of components to select by using the <code>perf()</code> function and the <span class="math inline">\(Q^2\)</span> criterion using repeated cross-validation.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">tune.pls2.liver &lt;-<span class="st"> </span><span class="kw">pls</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y, <span class="dt">ncomp =</span> <span class="dv">5</span>, <span class="dt">mode =</span> <span class="st">&#39;regression&#39;</span>)</a>
+<a class="sourceLine" id="cb113-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb113-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">33</span>)  <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb113-4" data-line-number="4">Q2.pls2.liver &lt;-<span class="st"> </span><span class="kw">perf</span>(tune.pls2.liver, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb113-5" data-line-number="5">                      <span class="dt">nrepeat =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb113-6" data-line-number="6"><span class="kw">plot</span>(Q2.pls2.liver, <span class="dt">criterion =</span> <span class="st">&#39;Q2.total&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:pls2-Q2"></span>
+<img src="Figures/PLS/pls2-Q2-1.png" alt="\(Q^2\) criterion to choose the number of components in PLS2. For each component added to the PLS2 model, the averaged \(Q^2\) across repeated cross-validation is shown, with the horizontal line of 0.0975 indicating the threshold below which the addition of a dimension may not be beneficial to improve accuracy." width="50%" />
+<p class="caption">
+Figure 3.5: <strong><span class="math inline">\(Q^2\)</span> criterion to choose the number of components in PLS2</strong>. For each component added to the PLS2 model, the averaged <span class="math inline">\(Q^2\)</span> across repeated cross-validation is shown, with the horizontal line of 0.0975 indicating the threshold below which the addition of a dimension may not be beneficial to improve accuracy.
+</p>
+</div>
+
+<p>Figure <a href="pls-liver-case.html#fig:pls2-Q2">3.5</a> shows that one dimension should be sufficient in PLS2. We will include a second dimension in the graphical outputs, whilst focusing our interpretation on the first dimension.</p>
+<p>Note:</p>
+<ul>
+<li><em>Here we chose repeated cross-validation, however, the conclusions were similar for <code>nrepeat = 1</code>.</em></li>
+</ul>
+</div>
+<div id="number-of-variables-to-select-in-both-boldsymbol-x-and-boldsymbol-y" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Number of variables to select in both <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol Y\)</span></h3>
+<p>Using the <code>tune.spls()</code> function, we can perform repeated cross-validation to obtain some indication of the number of variables to select. We show an example of code below which may take some time to run (see <code>?tune.spls()</code> to use parallel computing). We had refined the grid of tested values as the tuning function tended to favour a very small signature. Hence we decided to constrain the start of the grid to 3 for a more insightful signature. Both <code>measure = 'cor'</code> and <code>RSS</code> gave similar signature sizes, but this observation might differ for other case studies.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co"># This code may take several min to run, parallelisation option is possible</span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">list.keepX &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">5</span>, <span class="dv">50</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb114-3" data-line-number="3">list.keepY &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb114-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb114-5" data-line-number="5"><span class="kw">set.seed</span>(<span class="dv">33</span>)  <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb114-6" data-line-number="6">tune.spls.liver &lt;-<span class="st"> </span><span class="kw">tune.spls</span>(X, Y, <span class="dt">test.keepX =</span> list.keepX, </a>
+<a class="sourceLine" id="cb114-7" data-line-number="7">                             <span class="dt">test.keepY =</span> list.keepY, <span class="dt">ncomp =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb114-8" data-line-number="8">                             <span class="dt">nrepeat =</span> <span class="dv">1</span>, <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">mode =</span> <span class="st">&#39;regression&#39;</span>, </a>
+<a class="sourceLine" id="cb114-9" data-line-number="9">                             <span class="dt">measure =</span> <span class="st">&#39;cor&#39;</span>, </a>
+<a class="sourceLine" id="cb114-10" data-line-number="10">                            <span class="co">#   the following uses two CPUs for faster computation</span></a>
+<a class="sourceLine" id="cb114-11" data-line-number="11">                            <span class="co"># it can be commented out</span></a>
+<a class="sourceLine" id="cb114-12" data-line-number="12">                            <span class="dt">BPPARAM =</span> BiocParallel<span class="op">::</span><span class="kw">SnowParam</span>(<span class="dt">workers =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb114-13" data-line-number="13">                            )</a></code></pre></div>
+<p>The optimal parameters can be output, along with a plot showing the tuning results, as shown in Figure <a href="pls-liver-case.html#fig:spls2-tune">3.6</a>:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="kw">plot</span>(tune.spls.liver)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-tune"></span>
+<img src="Figures/PLS/spls2-tune-1.png" alt="Tuning plot for sPLS2. For every grid value of keepX and keepY, the averaged correlation coefficients between the \(\boldsymbol t\) and \(\boldsymbol u\) components are shown across repeated CV, with optimal values (here corresponding to the highest mean correlation) indicated in a for each dimension and data set." width="60%" />
+<p class="caption">
+Figure 3.6: <strong>Tuning plot for sPLS2</strong>. For every grid value of <code>keepX</code> and <code>keepY</code>, the averaged correlation coefficients between the <span class="math inline">\(\boldsymbol t\)</span> and <span class="math inline">\(\boldsymbol u\)</span> components are shown across repeated CV, with optimal values (here corresponding to the highest mean correlation) indicated in a  for each dimension and data set.
+</p>
+</div>
+
+</div>
+<div id="final-spls2" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Final sPLS2 model</h3>
+<p>Here is our final model with the tuned parameters for our sPLS2 regression analysis. Note that if you choose to not run the tuning step, you can still decide to set the parameters of your choice here.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="co">#Optimal parameters</span></a>
+<a class="sourceLine" id="cb116-2" data-line-number="2">choice.keepX &lt;-<span class="st"> </span>tune.spls.liver<span class="op">$</span>choice.keepX</a>
+<a class="sourceLine" id="cb116-3" data-line-number="3">choice.keepY &lt;-<span class="st"> </span>tune.spls.liver<span class="op">$</span>choice.keepY</a>
+<a class="sourceLine" id="cb116-4" data-line-number="4">choice.ncomp &lt;-<span class="st"> </span><span class="kw">length</span>(choice.keepX)</a>
+<a class="sourceLine" id="cb116-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb116-6" data-line-number="6">spls2.liver &lt;-<span class="st"> </span><span class="kw">spls</span>(X, Y, <span class="dt">ncomp =</span> choice.ncomp, </a>
+<a class="sourceLine" id="cb116-7" data-line-number="7">                   <span class="dt">keepX =</span> choice.keepX,</a>
+<a class="sourceLine" id="cb116-8" data-line-number="8">                   <span class="dt">keepY =</span> choice.keepY,</a>
+<a class="sourceLine" id="cb116-9" data-line-number="9">                   <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>)</a></code></pre></div>
+<div id="pls:result:num" class="section level4">
+<h4><span class="header-section-number">3.3.3.1</span> Numerical outputs</h4>
+<p>The amount of explained variance can be extracted for each dimension and each data set:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1">spls2.liver<span class="op">$</span>prop_expl_var</a></code></pre></div>
+<pre><code>## $X
+##      comp1      comp2 
+## 0.19955426 0.08074105 
+## 
+## $Y
+##     comp1     comp2 
+## 0.3650105 0.2159239</code></pre>
+<p>The selected variables can be extracted from the <code>selectVar()</code> function, for example for the <span class="math inline">\(\boldsymbol X\)</span> data set, with either their <code>$name</code> or the loading <code>$value</code> (not output here):</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="kw">selectVar</span>(spls2.liver, <span class="dt">comp =</span> <span class="dv">1</span>)<span class="op">$</span>X<span class="op">$</span>value</a></code></pre></div>
+<p>The VIP measure is exported for all variables in <span class="math inline">\(\boldsymbol X\)</span>, here we only subset those that were selected (non null loading value) for component 1:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1">vip.spls2.liver &lt;-<span class="st"> </span><span class="kw">vip</span>(spls2.liver)</a>
+<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="co"># just a head</span></a>
+<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="kw">head</span>(vip.spls2.liver[<span class="kw">selectVar</span>(spls2.liver, <span class="dt">comp =</span> <span class="dv">1</span>)<span class="op">$</span>X<span class="op">$</span>name,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## A_42_P620915  A_43_P14131 A_42_P578246  A_43_P11724 A_42_P840776 A_42_P675890 
+##     20.10394     18.76841     14.50085     14.03470     13.37657     12.82384</code></pre>
+<p>The (full) output shows that most <span class="math inline">\(\boldsymbol X\)</span> variables that were selected are important for explaining <span class="math inline">\(\boldsymbol Y\)</span>, since their VIP is greater than 1.</p>
+<p>We can examine how frequently each variable is selected when we subsample the data using the <code>perf()</code> function to measure how stable the signature is (Table <a href="pls-liver-case.html#tab:pls2stability">3.1</a>). The same could be output for other components and the <span class="math inline">\(\boldsymbol Y\)</span> data set.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">perf.spls2.liver &lt;-<span class="st"> </span><span class="kw">perf</span>(spls2.liver, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">nrepeat =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb122-2" data-line-number="2"><span class="co"># Extract stability</span></a>
+<a class="sourceLine" id="cb122-3" data-line-number="3">stab.spls2.liver.comp1 &lt;-<span class="st"> </span>perf.spls2.liver<span class="op">$</span>features<span class="op">$</span>stability.X<span class="op">$</span>comp1</a>
+<a class="sourceLine" id="cb122-4" data-line-number="4"><span class="co"># Averaged stability of the X selected features across CV runs, as shown in Table</span></a>
+<a class="sourceLine" id="cb122-5" data-line-number="5">stab.spls2.liver.comp1[<span class="dv">1</span><span class="op">:</span>choice.keepX[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb122-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb122-7" data-line-number="7"><span class="co"># We extract the stability measures of only the variables selected in spls2.liver</span></a>
+<a class="sourceLine" id="cb122-8" data-line-number="8">extr.stab.spls2.liver.comp1 &lt;-<span class="st"> </span>stab.spls2.liver.comp1[<span class="kw">selectVar</span>(spls2.liver, </a>
+<a class="sourceLine" id="cb122-9" data-line-number="9">                                                                  <span class="dt">comp =</span><span class="dv">1</span>)<span class="op">$</span>X<span class="op">$</span>name]</a></code></pre></div>
+<table>
+<caption>
+<span id="tab:pls2stability">Table 3.1: </span>Stability measure (occurence of selection) of the variables from X selected with sPLS2 across repeated 10-fold subsampling on component 1.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A_42_P620915
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P14131
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P578246
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P11724
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P840776
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P675890
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P809565
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P23376
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P10606
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P17415
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P758454
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P802628
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P22616
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P834104
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P705413
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P684538
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P16842
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P10003
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P825290
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P738559
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P11570
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P681650
+</td>
+<td style="text-align:right;">
+0.98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P586270
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P12400
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P769476
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P814010
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P484423
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P636498
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P12806
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P12832
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P610788
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P470649
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P15425
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P681533
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P669630
+</td>
+<td style="text-align:right;">
+0.66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P14864
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P698740
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P550264
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_43_P10006
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A_42_P469551
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+</tr>
+</tbody>
+</table>
+<p>We recommend to mainly focus on the interpretation of the most stable selected variables (with a frequency of occurrence greater than 0.8).</p>
+</div>
+<div id="pls:result:graph" class="section level4">
+<h4><span class="header-section-number">3.3.3.2</span> Graphical outputs</h4>
+<p>
+Using the <code>plotIndiv()</code> function, we display the sample and metadata information using the arguments <code>group</code> (colour) and <code>pch</code> (symbol) to better understand the similarities between samples modelled with sPLS2.</p>
+<p>The plot on the left hand side corresponds to the projection of the samples from the <span class="math inline">\(\boldsymbol X\)</span> data set (gene expression) and the plot on the right hand side the <span class="math inline">\(\boldsymbol Y\)</span> data set (clinical variables).</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="kw">plotIndiv</span>(spls2.liver, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb123-2" data-line-number="2">          <span class="dt">group =</span> liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Time.Group, </a>
+<a class="sourceLine" id="cb123-3" data-line-number="3">          <span class="dt">pch =</span> <span class="kw">as.factor</span>(liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Dose.Group), </a>
+<a class="sourceLine" id="cb123-4" data-line-number="4">          <span class="dt">col.per.group =</span> <span class="kw">color.mixo</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb123-5" data-line-number="5">          <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">legend.title =</span> <span class="st">&#39;Time&#39;</span>, </a>
+<a class="sourceLine" id="cb123-6" data-line-number="6">          <span class="dt">legend.title.pch =</span> <span class="st">&#39;Dose&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-plotIndiv"></span>
+<img src="Figures/PLS/spls2-plotIndiv-1.png" alt="Sample plot for sPLS2 performed on the liver.toxicity data. Samples are projected into the space spanned by the components associated to each data set (or block). We observe some agreement between the data sets, and a separation of the 1500 and 2000 mg doses (\(+\) and \(\times\)) in the , time points, and the time point." width="50%" />
+<p class="caption">
+Figure 3.7: <strong>Sample plot for sPLS2 performed on the <code>liver.toxicity</code> data</strong>. Samples are projected into the space spanned by the components associated to each data set (or block). We observe some agreement between the data sets, and a separation of the 1500 and 2000 mg doses (<span class="math inline">\(+\)</span> and <span class="math inline">\(\times\)</span>) in the ,  time points, and the  time point.
+</p>
+</div>
+
+<p>From Figure <a href="pls-liver-case.html#fig:spls2-plotIndiv">3.7</a> we observe an effect of low vs. high doses of acetaminophen (component 1) as well as time of necropsy (component 2). There is some level of agreement between the two data sets, but it is not perfect!</p>
+<p>If you run an sPLS with three dimensions, you can consider the 3D <code>plotIndiv()</code> by specifying <code>style = '3d'</code> in the function.</p>
+<p>The <code>plotArrow()</code> option is useful in this context to visualise the level of agreement between data sets. Recall that in this plot:</p>
+<ul>
+<li>The start of the arrow indicates the location of the sample in the <span class="math inline">\(\boldsymbol X\)</span> projection space,</li>
+<li>The end of the arrow indicates the location of the (same) sample in the <span class="math inline">\(\boldsymbol Y\)</span> projection space,</li>
+<li>Long arrows indicate a disagreement between the two projected spaces.</li>
+</ul>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">plotArrow</span>(spls2.liver, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb124-2" data-line-number="2">          <span class="dt">group =</span> liver.toxicity<span class="op">$</span>treatment<span class="op">$</span>Time.Group,</a>
+<a class="sourceLine" id="cb124-3" data-line-number="3">          <span class="dt">col.per.group =</span> <span class="kw">color.mixo</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb124-4" data-line-number="4">          <span class="dt">legend.title =</span> <span class="st">&#39;Time.Group&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-plotArrow"></span>
+<img src="Figures/PLS/spls2-plotArrow-1.png" alt="Arrow plot from the sPLS2 performed on the liver.toxicity data. The start of the arrow indicates the location of a given sample in the space spanned by the components associated to the gene data set, and the tip of the arrow the location of that same sample in the space spanned by the components associated to the clinical data set. We observe large shifts for , and samples for the high doses, however the clusters of samples remain the same, as we observed in Figure 3.7." width="50%" />
+<p class="caption">
+Figure 3.8: <strong>Arrow plot from the sPLS2 performed on the <code>liver.toxicity</code> data</strong>. The start of the arrow indicates the location of a given sample in the space spanned by the components associated to the gene data set, and the tip of the arrow the location of that same sample in the space spanned by the components associated to the clinical data set. We observe large shifts for ,  and  samples for the high doses, however the clusters of samples remain the same, as we observed in Figure <a href="pls-liver-case.html#fig:spls2-plotIndiv">3.7</a>.
+</p>
+</div>
+
+<p>In Figure <a href="pls-liver-case.html#fig:spls2-plotArrow">3.8</a> we observe that specific groups of samples seem to be located far apart from one data set to the other, indicating a potential discrepancy between the information extracted. However the groups of samples according to either dose or treatment remains similar.</p>
+<p>
+Correlation circle plots illustrate the correlation structure between the two types of variables. To display only the name of the variables from the <span class="math inline">\(\boldsymbol{Y}\)</span> data set, we use the argument <code>var.names = c(FALSE, TRUE)</code> where each boolean indicates whether the variable names should be output for each data set. We also modify the size of the font, as shown in Figure <a href="pls-liver-case.html#fig:spls2-plotVar">3.9</a>:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">plotVar</span>(spls2.liver, <span class="dt">cex =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">var.names =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-plotVar"></span>
+<img src="Figures/PLS/spls2-plotVar-1.png" alt="Correlation circle plot from the sPLS2 performed on the liver.toxicity data. The plot highlights correlations within selected genes (their names are not indicated here), within selected clinical parameters, and correlations between genes and clinical parameters on each dimension of sPLS2. This plot should be interpreted in relation to Figure 3.7 to better understand how the expression levels of these molecules may characterise specific sample groups." width="50%" />
+<p class="caption">
+Figure 3.9: <strong>Correlation circle plot from the sPLS2 performed on the <code>liver.toxicity</code> data</strong>. The plot highlights correlations <em>within</em> selected genes (their names are not indicated here), <em>within</em> selected clinical parameters, and correlations <em>between</em> genes and clinical parameters on each dimension of sPLS2. This plot should be interpreted in relation to Figure <a href="pls-liver-case.html#fig:spls2-plotIndiv">3.7</a> to better understand how the expression levels of these molecules may characterise specific sample groups.
+</p>
+</div>
+
+<p>To display variable names that are different from the original data matrix (e.g. gene ID), we set the argument <code>var.names</code> as a list for each type of label, with geneBank ID for the <span class="math inline">\(\boldsymbol X\)</span> data set, and <code>TRUE</code> for the <span class="math inline">\(\boldsymbol Y\)</span> data set:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">plotVar</span>(spls2.liver,</a>
+<a class="sourceLine" id="cb126-2" data-line-number="2">        <span class="dt">var.names =</span> <span class="kw">list</span>(<span class="dt">X.label =</span> liver.toxicity<span class="op">$</span>gene.ID[,<span class="st">&#39;geneBank&#39;</span>],</a>
+<a class="sourceLine" id="cb126-3" data-line-number="3">        <span class="dt">Y.label =</span> <span class="ot">TRUE</span>), <span class="dt">cex =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>))</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-plotVar2"></span>
+<img src="Figures/PLS/spls2-plotVar2-1.png" alt="Correlation circle plot from the sPLS2 performed on the liver.toxicity data. A variant of Figure 3.9 with gene names that are available in $gene.ID (Note: some gene names are missing)." width="50%" />
+<p class="caption">
+Figure 3.10: <strong>Correlation circle plot from the sPLS2 performed on the <code>liver.toxicity</code> data</strong>. A variant of Figure <a href="pls-liver-case.html#fig:spls2-plotVar">3.9</a> with gene names that are available in <code>$gene.ID</code> (Note: some gene names are missing).
+</p>
+</div>
+
+<p>The correlation circle plots highlight the contributing variables that, together, explain the covariance between the two data sets. In addition, specific subsets of molecules can be further investigated, and in relation with the sample group they may characterise. The latter can be examined with additional plots (for example boxplots with respect to known sample groups and expression levels of specific variables, as we showed in the PCA case study previously. The next step would be to examine the validity of the biological relationship between the clusters of genes with some of the clinical variables that we observe in this plot.</p>
+<p>A 3D plot is also available in <code>plotVar()</code> with the argument <code>style = '3d'</code>. It requires an sPLS2 model with at least three dimensions.</p>
+<p>Other plots are available to complement the information from the correlation circle plots, such as Relevance networks and Clustered Image Maps (CIMs), as described in Module 2.</p>
+<p>The network in sPLS2 displays only the variables selected by sPLS, with an additional <code>cutoff</code> similarity value argument (absolute value between 0 and 1) to improve interpretation. Because Rstudio sometimes struggles with the margin size of this plot, we can either launch <code>X11()</code> prior to plotting the network, or use the arguments <code>save</code> and <code>name.save</code> as shown below:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="co"># Define red and green colours for the edges</span></a>
+<a class="sourceLine" id="cb127-2" data-line-number="2">color.edge &lt;-<span class="st"> </span><span class="kw">color.GreenRed</span>(<span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb127-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb127-4" data-line-number="4"><span class="co"># X11()  # To open a new window for Rstudio</span></a>
+<a class="sourceLine" id="cb127-5" data-line-number="5"><span class="kw">network</span>(spls2.liver, <span class="dt">comp =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb127-6" data-line-number="6">        <span class="dt">cutoff =</span> <span class="fl">0.7</span>,</a>
+<a class="sourceLine" id="cb127-7" data-line-number="7">        <span class="dt">shape.node =</span> <span class="kw">c</span>(<span class="st">&quot;rectangle&quot;</span>, <span class="st">&quot;circle&quot;</span>),</a>
+<a class="sourceLine" id="cb127-8" data-line-number="8">        <span class="dt">color.node =</span> <span class="kw">c</span>(<span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;pink&quot;</span>),</a>
+<a class="sourceLine" id="cb127-9" data-line-number="9">        <span class="dt">color.edge =</span> color.edge,</a>
+<a class="sourceLine" id="cb127-10" data-line-number="10">        <span class="co"># To save the plot, otherwise comment out:</span></a>
+<a class="sourceLine" id="cb127-11" data-line-number="11">        <span class="dt">save =</span> <span class="st">&#39;pdf&#39;</span>, <span class="dt">name.save =</span> <span class="st">&#39;network_liver&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-network"></span>
+<img src="network_liver.pdf" alt="Network representation from the sPLS2 performed on the liver.toxicity data. The networks are bipartite, where each edge links a (rectangle) to a variable (circle) node, according to a similarity matrix described in Module 2. Only variables selected by sPLS2 on the two dimensions are represented and are further filtered here according to a cutoff argument (optional)." width="50%" />
+<p class="caption">
+Figure 3.11: <strong>Network representation from the sPLS2 performed on the <code>liver.toxicity</code> data</strong>. The networks are bipartite, where each edge links a  (rectangle) to a  variable (circle) node, according to a similarity matrix described in Module 2. Only variables selected by sPLS2 on the two dimensions are represented and are further filtered here according to a <code>cutoff</code> argument (optional).
+</p>
+</div>
+
+<p>Figure <a href="pls-liver-case.html#fig:spls2-network">3.11</a> shows two distinct groups of variables. The first cluster groups four clinical parameters that are mostly positively associated with selected genes. The second group includes one clinical parameter negatively associated with other selected genes. These observations are similar to what was observed in the correlation circle plot in Figure <a href="pls-liver-case.html#fig:spls2-plotVar">3.9</a>.</p>
+<p>Note:</p>
+<ul>
+<li><em>Whilst the edges and nodes in the network do not change, the appearance might be different from one run to another as it relies on a random process to use the space as best as possible (using the <code>igraph</code> R package <span class="citation">Csardi, Nepusz, and others (<a href="#ref-csa06">2006</a>)</span>).</em></li>
+</ul>
+<p>The Clustered Image Map also allows us to visualise correlations between variables. Here we choose to represent the variables selected on the two dimensions and we save the plot as a pdf figure.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="co"># X11()  # To open a new window if the graphic is too large</span></a>
+<a class="sourceLine" id="cb128-2" data-line-number="2"><span class="kw">cim</span>(spls2.liver, <span class="dt">comp =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">xlab =</span> <span class="st">&quot;clinic&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;genes&quot;</span>,</a>
+<a class="sourceLine" id="cb128-3" data-line-number="3">    <span class="co"># To save the plot, otherwise comment out:</span></a>
+<a class="sourceLine" id="cb128-4" data-line-number="4">    <span class="dt">save =</span> <span class="st">&#39;pdf&#39;</span>, <span class="dt">name.save =</span> <span class="st">&#39;cim_liver&#39;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:spls2-cim"></span>
+<img src="cim_liver.pdf" alt="Clustered Image Map from the sPLS2 performed on the liver.toxicity data. The plot displays the similarity values (as described in Module 2) between the \(\boldsymbol X\) and \(\boldsymbol Y\) variables selected across two dimensions, and clustered with a complete Euclidean distance method." width="50%" />
+<p class="caption">
+Figure 3.12: <strong>Clustered Image Map from the sPLS2 performed on the <code>liver.toxicity</code> data</strong>. The plot displays the similarity values (as described in Module 2) between the <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol Y\)</span> variables selected across two dimensions, and clustered with a complete Euclidean distance method.
+</p>
+</div>
+
+<p>The CIM in Figure <a href="pls-liver-case.html#fig:spls2-cim">3.12</a> shows that the clinical variables can be separated into three clusters, each of them either positively or negatively associated with two groups of genes. This is similar to what we have observed in Figure <a href="pls-liver-case.html#fig:spls2-plotVar">3.9</a>. We would give a similar interpretation to the relevance network, had we also used a <code>cutoff</code> threshold in <code>cim()</code>.</p>
+<p>Note:</p>
+<ul>
+<li><em>A biplot for PLS objects is also available.</em></li>
+</ul>
+</div>
+<div id="performance" class="section level4">
+<h4><span class="header-section-number">3.3.3.3</span> Performance</h4>
+<p>To finish, we assess the performance of sPLS2. As an element of comparison, we consider sPLS2 and PLS2 that includes all variables, to give insights into the different methods.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="co"># Comparisons of final models (PLS, sPLS)</span></a>
+<a class="sourceLine" id="cb129-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb129-3" data-line-number="3"><span class="co">## PLS</span></a>
+<a class="sourceLine" id="cb129-4" data-line-number="4">pls.liver &lt;-<span class="st"> </span><span class="kw">pls</span>(X, Y, <span class="dt">mode =</span> <span class="st">&#39;regression&#39;</span>, <span class="dt">ncomp =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb129-5" data-line-number="5">perf.pls.liver &lt;-<span class="st">  </span><span class="kw">perf</span>(pls.liver, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb129-6" data-line-number="6">                        <span class="dt">nrepeat =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb129-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb129-8" data-line-number="8"><span class="co">## Performance for the sPLS model ran earlier</span></a>
+<a class="sourceLine" id="cb129-9" data-line-number="9">perf.spls.liver &lt;-<span class="st">  </span><span class="kw">perf</span>(spls2.liver, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb129-10" data-line-number="10">                         <span class="dt">nrepeat =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), perf.pls.liver<span class="op">$</span>measures<span class="op">$</span>cor.upred<span class="op">$</span>summary<span class="op">$</span>mean, </a>
+<a class="sourceLine" id="cb130-2" data-line-number="2">     <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, </a>
+<a class="sourceLine" id="cb130-3" data-line-number="3">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">0.6</span>,<span class="dv">1</span>), <span class="dt">xaxt =</span> <span class="st">&#39;n&#39;</span>,</a>
+<a class="sourceLine" id="cb130-4" data-line-number="4">     <span class="dt">xlab =</span> <span class="st">&#39;Component&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;t or u Cor&#39;</span>, </a>
+<a class="sourceLine" id="cb130-5" data-line-number="5">     <span class="dt">main =</span> <span class="st">&#39;s/PLS performance based on Correlation&#39;</span>)</a>
+<a class="sourceLine" id="cb130-6" data-line-number="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)  <span class="co"># X-axis label</span></a>
+<a class="sourceLine" id="cb130-7" data-line-number="7"><span class="kw">points</span>(perf.pls.liver<span class="op">$</span>measures<span class="op">$</span>cor.tpred<span class="op">$</span>summary<span class="op">$</span>mean, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb130-8" data-line-number="8"><span class="kw">points</span>(perf.spls.liver<span class="op">$</span>measures<span class="op">$</span>cor.upred<span class="op">$</span>summary<span class="op">$</span>mean, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">pch =</span> <span class="dv">17</span>)</a>
+<a class="sourceLine" id="cb130-9" data-line-number="9"><span class="kw">points</span>(perf.spls.liver<span class="op">$</span>measures<span class="op">$</span>cor.tpred<span class="op">$</span>summary<span class="op">$</span>mean, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">pch =</span> <span class="dv">17</span>)</a>
+<a class="sourceLine" id="cb130-10" data-line-number="10"><span class="kw">legend</span>(<span class="st">&#39;bottomleft&#39;</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>), </a>
+<a class="sourceLine" id="cb130-11" data-line-number="11">       <span class="dt">pch =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">17</span>), <span class="kw">c</span>(<span class="st">&#39;u PLS&#39;</span>, <span class="st">&#39;t PLS&#39;</span>, <span class="st">&#39;u sPLS&#39;</span>, <span class="st">&#39;t sPLS&#39;</span>))</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:pls-perf-spls2"></span>
+<img src="Figures/PLS/pls-perf-spls2-1.png" alt="Comparison of the performance of PLS2 and sPLS2, based on the correlation between the actual and predicted components \(\boldsymbol{t,u}\) associated to each data set for each component." width="70%" />
+<p class="caption">
+Figure 3.13: <strong>Comparison of the performance of PLS2 and sPLS2</strong>, based on the correlation between the actual and predicted components <span class="math inline">\(\boldsymbol{t,u}\)</span> associated to each data set for each component.
+</p>
+</div>
+
+<p>We extract the correlation between the actual and predicted components <span class="math inline">\(\boldsymbol{t,u}\)</span> associated to each data set in Figure <a href="pls-liver-case.html#fig:pls-perf-spls2">3.13</a>. The correlation remains high on the first dimension, even when variables are selected. On the second dimension the correlation coefficients are equivalent or slightly lower in sPLS compared to PLS. Overall this performance comparison indicates that the variable selection in sPLS still retains relevant information compared to a model that includes all variables.</p>
+<p>Note:</p>
+<ul>
+<li><em>Had we run a similar procedure but based on the RSS, we would have observed a lower RSS for sPLS compared to PLS.</em></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Bus07">
+<p>Bushel, Pierre R, Russell D Wolfinger, and Greg Gibson. 2007. “Simultaneous Clustering of Gene Expression Data with Clinical Chemistry and Pathological Evaluatio Ns Reveals Phenotypic Prototypes.” <em>BMC Systems Biology</em> 1 (1). BioMed Central Ltd: 15.</p>
+</div>
+<div id="ref-csa06">
+<p>Csardi, Gabor, Tamas Nepusz, and others. 2006. “The Igraph Software Package for Complex Network Research.” <em>InterJournal, Complex Systems</em> 1695 (5): 1–9.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="plsda-srbct-case.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="blockplsda-tcga-case.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-PLS.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["hands-on.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
