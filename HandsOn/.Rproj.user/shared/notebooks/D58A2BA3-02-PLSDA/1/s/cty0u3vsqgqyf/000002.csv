@@ -1,0 +1,6 @@
+"0","# First extract the name of selected var:"
+"0","select.name <- selectVar(splsda.srbct, comp = 1)$name"
+"0","# Then extract the stability values from perf:"
+"0","stability <- perf.splsda.srbct$features$stable$comp1[select.name]"
+"0","# Just the head of the stability of the selected var:"
+"0","head(cbind(selectVar(splsda.srbct, comp = 1)$value, stability))"

@@ -1,0 +1,8 @@
+"0","# Comparisons of final models (PLS, sPLS)"
+"0","## PLS"
+"0","pls.liver <- pls(X, Y, mode = 'regression', ncomp = 2)"
+"0","perf.pls.liver <-  perf(pls.liver, validation = 'Mfold', folds = 10, "
+"0","                        nrepeat = 5)"
+"0","## Performance for the sPLS model ran earlier"
+"0","perf.spls.liver <-  perf(spls2.liver, validation = 'Mfold', folds = 10, "
+"0","                         nrepeat = 5)"

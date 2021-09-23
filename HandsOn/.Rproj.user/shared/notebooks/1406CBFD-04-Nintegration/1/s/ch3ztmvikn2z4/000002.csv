@@ -1,0 +1,6 @@
+"0","diablo.tcga <- block.splsda(X, Y, ncomp = ncomp, "
+"0","                            keepX = list.keepX, design = design)"
+"2","Design matrix has changed to include Y; each block will be
+            linked to Y.
+"
+"0","#diablo.tcga   # Lists the different functions of interest related to that object"

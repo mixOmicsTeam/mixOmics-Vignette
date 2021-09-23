@@ -1,0 +1,2 @@
+"0","auc.diablo.tcga <- auroc(diablo.tcga, roc.block = ""miRNA"", roc.comp = 2,"
+"0","                   print = FALSE)"

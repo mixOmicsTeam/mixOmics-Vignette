@@ -125,7 +125,7 @@ plot(perf.diablo.tcga)
 \caption{(ref:diablo-perf)}(\#fig:diablo-perf)
 \end{figure}
 
-(ref:diablo-perf) **Choosing the number of components in `block.plsda` using `perf()` with 10 × 10-fold CV function in the `breast.TCGA` study**. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the  number of components on the x-axis for each prediction distance presented in PLS-DA in Seciton 3.4 and detailed in Extra reading material 3 from Module 3. Bars show the standard deviation across the 10 repeated folds. The plot shows that the error rate reaches a minimum from 2 to 3 dimensions.
+(ref:diablo-perf) **Choosing the number of components in `block.plsda` using `perf()` with 10 x 10-fold CV function in the `breast.TCGA` study**. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the  number of components on the x-axis for each prediction distance presented in PLS-DA in Seciton 3.4 and detailed in Extra reading material 3 from Module 3. Bars show the standard deviation across the 10 repeated folds. The plot shows that the error rate reaches a minimum from 2 to 3 dimensions.
 
 The performance plot indicates that two components should be sufficient in the final model, and that the centroids distance might lead to better prediction. A balanced error rate (BER) should be considered for further analysis. 
 
@@ -457,6 +457,11 @@ The `cimDiablo()` function is a clustered image map specifically implemented to 
 ```r
 cimDiablo(diablo.tcga, color.blocks = c('darkorchid', 'brown1', 'lightgreen'),
           comp = 1, margin=c(8,20), legend.position = "right")
+```
+
+```
+## 
+## trimming values to [-3, 3] range for cim visualisation. See 'trim' arg in ?cimDiablo
 ```
 
 \begin{figure}

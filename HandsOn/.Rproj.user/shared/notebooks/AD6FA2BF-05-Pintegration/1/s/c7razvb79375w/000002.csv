@@ -1,0 +1,3 @@
+"0","final.mint.splsda.stem <- mint.splsda(X = X, Y = Y, study = study, ncomp = 2,  "
+"0","                              keepX = tune.mint.splsda.stem$choice.keepX)"
+"0","#mint.splsda.stem.final # Lists useful functions that can be used with a MINT object"

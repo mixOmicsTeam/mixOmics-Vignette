@@ -55,66 +55,41 @@ document.write('<div class="logos"><img src="data:image/jpeg;base64,/9j/4AAQSkZJ
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -217,6 +192,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="mint-stemcell-case.html"><a href="mint-stemcell-case.html#detour:mint:predict"><i class="fa fa-check"></i><b>5.4.2</b> Prediction on an external study</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i><b>6</b> Session Information</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -238,33 +215,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">Hands-on activities</h1>
 <p class="author"><em>Kim-Anh Le Cao</em></p>
 <address class="author_afil">
-Melbourne Integrative Genomics &amp; School of Mathematics and Statistics, The University of Melbourne, Australia<br><a class="author_email" href="mailto:#"><a href="mailto:kimanh.lecao@unimelb.edu.au" class="email">kimanh.lecao@unimelb.edu.au</a></a>
+Melbourne Integrative Genomics &amp; School of Mathematics and Statistics, The University of Melbourne, Australia<br><a class="author_email" href="mailto:#"><a href="mailto:kimanh.lecao@unimelb.edu.au">kimanh.lecao@unimelb.edu.au</a></a>
 </address>
 </div>
 <div id="preamble" class="section level1 unnumbered">
 <h1>Preamble</h1>
-<p>The following vignettes serve as support for our <a href="https://study.unimelb.edu.au/find/short-courses/mixomics-r-essentials-for-biological-data-integration/#course-specifics">online course</a>. More information about the methods can be found at <a href="www.mixOmics.org">www.mixOmics.org</a></p>
+<p>The following vignettes serve as support for our <a href="https://study.unimelb.edu.au/find/short-courses/mixomics-r-essentials-for-biological-data-integration/#course-specifics">online course</a>. More information about the methods can be found at <a href="www.mixOmics.org" class="uri">www.mixOmics.org</a></p>
 <div class="figure"><span id="fig:methods-fig"></span>
-<img src="XtraFigs/MixOmicsAnalysesV2.pdf" alt="(ref:methods)"  />
+<img src="XtraFigs/MixOmicsAnalysesV2.pdf" alt="**Different types of analyses with mixOmics** [@mixomics].The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from @Ten11) can integrate more than two data sets. In P-integration, our method MINT is based on multi-group PLS [@Esl14b].The following activities cover some of these methods."  />
 <p class="caption">
-Figure 0.1: (ref:methods)
+Figure 0.1: <strong>Different types of analyses with mixOmics</strong> <span class="citation">(Rohart, Gautier, Singh, and Le Cao <a href="references.html#ref-mixomics">2017</a>)</span>.The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from <span class="citation">Tenenhaus and Tenenhaus (<a href="references.html#ref-Ten11">2011</a>)</span>) can integrate more than two data sets. In P-integration, our method MINT is based on multi-group PLS <span class="citation">(Eslami et al. <a href="references.html#ref-Esl14b">2014</a>)</span>.The following activities cover some of these methods.
 </p>
 </div>
-<p>(ref:methods) <strong>Different types of analyses with mixOmics</strong> <span class="citation">(Florian et al. <a href="#ref-mixomics">2017</a>)</span>. The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from <span class="citation">Tenenhaus and Tenenhaus (<a href="#ref-Ten11">2011</a>)</span>) can integrate more than two data sets. In P-integration, our method
-MINT is based on multi-group PLS <span class="citation">(Eslami et al. <a href="#ref-Esl14b">2014</a>)</span>. The following activities cover some of these methods.</p>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-Esl14b">
-<p>Eslami, A, EM Qannari, A Kohler, and S Bougeard. 2014. “Two-Block Multi-Group Data Analysis. Application to Epidemiology.” In <em>New Perspectives in Partial Least Squares and Related Methods</em>. Springer Verlag.</p>
-</div>
-<div id="ref-mixomics">
-<p>Florian, Rohart, Gautier Benoit, Singh Amrit, and Le Cao Kim-Anh. 2017. “MixOmics: An R Package for ‘Omics Feature Selection and Multiple Data Integration.” <em>PLoS Computational Biology</em>. Cold Spring Harbor Labs Journals.</p>
-</div>
-<div id="ref-Ten11">
-<p>Tenenhaus, Arthur, and Michel Tenenhaus. 2011. “Regularized Generalized Canonical Correlation Analysis.” <em>Psychometrika</em> 76 (2). Springer: 257–84.</p>
-</div>
 </div>
             </section>
 
@@ -327,7 +290,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

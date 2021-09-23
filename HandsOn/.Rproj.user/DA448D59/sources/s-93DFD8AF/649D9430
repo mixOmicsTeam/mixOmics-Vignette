@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1632354099482.000,
+    "dirty" : false,
+    "encoding" : "ISO-8859-1",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "649D9430",
+    "lastKnownWriteTime" : 1632362444,
+    "last_content_update" : 1632362444327,
+    "path" : "~/Documents/Packages/mixOmics/MSPACE/HandsOn/HandsOn/04-Nintegration.Rmd",
+    "project_path" : "04-Nintegration.Rmd",
+    "properties" : {
+        "chunk_output_type" : "console",
+        "cursorPosition" : "291,364",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

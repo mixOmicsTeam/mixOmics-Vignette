@@ -1,0 +1,2 @@
+"0","biplot(final.pca.multi, group = multidrug$cell.line$Class, "
+"0","       legend.title = 'Cell line')"

@@ -1,0 +1,4 @@
+"0","plotVar(diablo.tcga, var.names = FALSE, style = 'graphics', legend = TRUE, "
+"0","        pch = c(16, 17, 15), cex = c(2,2,2), "
+"0","        col = c('darkorchid', 'brown1', 'lightgreen'),"
+"0","        title = 'TCGA, DIABLO comp 1 - 2')"

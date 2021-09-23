@@ -1,0 +1,5 @@
+"0","# If facing margin issues, use either X11() or save the plot using the"
+"0","# arguments save and name.save"
+"0","cim(final.mint.splsda.stem, comp = 1, margins=c(10,5), "
+"0","    row.sideColors = color.mixo(as.numeric(Y)), row.names = FALSE,"
+"0","    title = ""MINT sPLS-DA, component 1"")"

@@ -1,0 +1,1 @@
+"0","knitr::kable(extr.stab.spls2.liver.comp1, caption = 'Stability measure (occurence of selection) of the variables from X selected with sPLS2 across repeated 10-fold subsampling on component 1.', longtable = TRUE)"

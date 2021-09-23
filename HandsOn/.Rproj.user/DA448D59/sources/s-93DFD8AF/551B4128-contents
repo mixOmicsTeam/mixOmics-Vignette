@@ -1,0 +1,49 @@
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{color}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\usepackage{fancyhdr}
+\usepackage{xcolor, hyperref}
+%%\usepackage{lipsum}
+\setlength{\headheight}{47pt} % 28pt is too small
+\setlength{\footskip}{25pt}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\lhead{\includegraphics[width=10cm,height=1.5cm]{XtraFigs/logo-mixomics.png}}
+\rhead{\thepage}
+\hypersetup{colorlinks   = true, linkcolor=blue, urlcolor  = blue}
+\fancypagestyle{plain}{\pagestyle{fancy}}
+\cfoot{\scriptsize Melbourne Integrative Genomics, School of Mathematics and Statistics | The University of Melbourne, Australia  \\ \url{http://mixomics.org}}
+
+\usepackage{subfig}
+\usepackage{amsmath, array}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage[shortlabels]{enumitem}
+\usepackage{caption}
+\usepackage{mdframed}
+\usepackage{lscape}
+
+\definecolor{blue}{HTML}{388ECC}
+\definecolor{orange}{HTML}{F68B33}
+\definecolor{grey}{HTML}{585858} 
+\definecolor{dimgrey}{HTML}{585858} 
+\definecolor{green}{HTML}{009E73} 
+\definecolor{pink}{HTML}{CC79A7} 
+\definecolor{yellow}{HTML}{999900}
+\definecolor{brown}{HTML}{654321}
+\definecolor{darkblue}{HTML}{0072B2}
+\definecolor{darkorchid}{HTML}{9932cc}
+\definecolor{brown}{HTML}{ff4040}
+\definecolor{chocolate3}{HTML}{3f000f}
+\definecolor{lightgreen}{HTML}{90EE90}  
+\definecolor{darkred}{HTML}{CC0000}  
+\definecolor{turquoise}{HTML}{00CED1}  

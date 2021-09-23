@@ -1,0 +1,21 @@
+"0","title: 'Hands-on activities'
+author:
+- name: Kim-Anh Le Cao
+  email: kimanh.lecao@unimelb.edu.au
+  affiliation: Melbourne Integrative Genomics & School of Mathematics and Statistics, The University of Melbourne, Australia
+
+package: mixOmics
+date: '\today'
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    includes:
+     in_header: header.html
+documentclass: book
+bibliography: [""mybib3.bib""]
+biblio-style: apalike
+link-citations: true
+github-repo: mixOmicsTeam/mixOmics
+description: ""Hands-on activities using the R package mixOmics"""
+"2","/bin/sh: ---: command not found
+"

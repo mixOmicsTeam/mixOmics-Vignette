@@ -1,0 +1,8 @@
+"0","cimDiablo(diablo.tcga, color.blocks = c('darkorchid', 'brown1', 'lightgreen'),"
+"0","          comp = 1, margin=c(8,20), legend.position = ""right"")"
+"1","
+trimming values to [-3, 3] range for cim visualisation. See 'trim' arg in ?cimDiablo
+"
+"2","Error in strwidth(legend, units = ""user"", cex = cex, font = text.font) : 
+  plot.new has not been called yet
+"

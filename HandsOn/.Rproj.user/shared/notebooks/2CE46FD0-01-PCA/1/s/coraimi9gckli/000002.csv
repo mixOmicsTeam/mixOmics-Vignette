@@ -1,0 +1,2 @@
+"0","final.pca.multi <- pca(X, ncomp = 3, center = TRUE, scale = TRUE)"
+"0","# final.pca.multi  # Lists possible outputs"

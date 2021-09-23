@@ -1,0 +1,2 @@
+"0","# Just the head:"
+"0","head(data.frame(predict.splsda.srbct$class, Truth = Y.test))"

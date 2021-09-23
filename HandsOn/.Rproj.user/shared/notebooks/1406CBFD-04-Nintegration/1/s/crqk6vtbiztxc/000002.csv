@@ -1,0 +1,6 @@
+"0","diablo.tcga <- block.plsda(X, Y, ncomp = 5, design = design)"
+"0","set.seed(123) # For reproducibility, remove for your analyses"
+"0","perf.diablo.tcga = perf(diablo.tcga, validation = 'Mfold', folds = 10, nrepeat = 10)"
+"0","#perf.diablo.tcga$error.rate  # Lists the different types of error rates"
+"0","# Plot of the error rates based on weighted vote"
+"0","plot(perf.diablo.tcga)"

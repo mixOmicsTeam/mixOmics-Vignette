@@ -1,0 +1,11 @@
+"0","set.seed(2543)  # For a reproducible result here, remove for your own analyses"
+"0","tune.mint.splsda.stem <- tune(X = X, Y = Y, study = study, "
+"0","                 ncomp = 2, test.keepX = seq(1, 100, 1),"
+"0","                 method = 'mint.splsda', #Specify the method"
+"0","                 measure = 'BER',"
+"0","                 dist = ""centroids.dist"")"
+"2","Calling 'tune.mint.splsda' with Leave-One-Group-Out Cross Validation (nrepeat = 1)
+"
+"0","#tune.mint.splsda.stem # Lists the different types of outputs"
+"0","# Mean error rate per component and per tested keepX value:"
+"0","#tune.mint.splsda.stem$error.rate[1:5,]"

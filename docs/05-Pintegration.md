@@ -210,15 +210,6 @@ tune.mint.splsda.stem$choice.keepX
 plot(tune.mint.splsda.stem)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-tune-1} 
-
-}
-
-\caption{(ref:MINT-tune)}(\#fig:MINT-tune)
-\end{figure}
-
 (ref:MINT-tune) **Tuning `keepX` in MINT sPLS-DA performed on the `stemcells` gene expression data.** Each coloured line represents the balanced error rate (y-axis) per component across all tested `keepX` values (x-axis). The diamond indicates the optimal `keepX` value on a particular component which achieves the lowest classification error rate as determined with a one-sided $t-$test across the studies. 
 
 The tuning plot in Figure \@ref(fig:MINT-tune) indicates the optimal number of variables to select on component 1 (24) and on component 2 (45). In fact, whilst the BER decreases with the addition of component 2, the standard deviation remains large, and thus only one component is optimal. However, the addition of this second component is useful for the graphical outputs, and also to attempt to discriminate the hESC and hiPCS cell types.

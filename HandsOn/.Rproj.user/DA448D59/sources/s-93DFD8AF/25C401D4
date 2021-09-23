@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1632375148239.000,
+    "dirty" : false,
+    "encoding" : "ISO-8859-1",
+    "folds" : "",
+    "hash" : "780095404",
+    "id" : "25C401D4",
+    "lastKnownWriteTime" : 1632375155,
+    "last_content_update" : 1632375155978,
+    "path" : "~/Documents/Packages/mixOmics/MSPACE/HandsOn/HandsOn/06-SessionInfo.Rmd",
+    "project_path" : "06-SessionInfo.Rmd",
+    "properties" : {
+        "cursorPosition" : "3,6",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

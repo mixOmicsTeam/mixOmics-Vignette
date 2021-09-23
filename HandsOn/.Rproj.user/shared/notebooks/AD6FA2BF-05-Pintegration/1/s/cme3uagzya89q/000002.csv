@@ -1,0 +1,3 @@
+"0","plotLoadings(final.mint.splsda.stem, contrib = ""max"", method = 'mean', comp=1, "
+"0","             study=""all.partial"", title=""Contribution on comp 1"", "
+"0","             subtitle = paste(""Study"",1:4))"

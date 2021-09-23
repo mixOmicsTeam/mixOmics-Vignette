@@ -1,0 +1,6 @@
+"0","spls1.liver.c2 <- spls(X, y, ncomp = 2, keepX = c(rep(choice.keepX, 2)), "
+"0","                   mode = ""regression"")"
+"0","plotIndiv(spls1.liver.c2,"
+"0","          group = liver.toxicity$treatment$Time.Group,"
+"0","          pch = as.factor(liver.toxicity$treatment$Dose.Group),"
+"0","          legend = TRUE, legend.title = 'Time', legend.title.pch = 'Dose')"

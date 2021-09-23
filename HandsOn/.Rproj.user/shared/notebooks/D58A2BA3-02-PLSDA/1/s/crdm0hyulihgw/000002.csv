@@ -1,0 +1,2 @@
+"0","predict.splsda.srbct <- predict(train.splsda.srbct, X.test, "
+"0","                                dist = ""mahalanobis.dist"")"

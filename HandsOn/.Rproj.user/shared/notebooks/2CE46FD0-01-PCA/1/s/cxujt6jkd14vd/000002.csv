@@ -1,0 +1,2 @@
+"0","# Top variables on the first component only:"
+"0","head(selectVar(final.pca.multi, comp = 1)$value)"

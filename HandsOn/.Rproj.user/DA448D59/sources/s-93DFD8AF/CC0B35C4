@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1632350330607.000,
+    "dirty" : false,
+    "encoding" : "ISO-8859-1",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CC0B35C4",
+    "lastKnownWriteTime" : 1632362294,
+    "last_content_update" : 1632362294723,
+    "path" : "~/Documents/Packages/mixOmics/MSPACE/HandsOn/HandsOn/01-PCA.Rmd",
+    "project_path" : "01-PCA.Rmd",
+    "properties" : {
+        "cursorPosition" : "49,30",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

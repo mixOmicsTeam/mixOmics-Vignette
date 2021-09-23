@@ -1,0 +1,6 @@
+"0","# Prediction error rate"
+"0","(sum(conf.mat) - sum(diag(conf.mat)))/sum(conf.mat)"
+"1","[1]"
+"1"," 0.3809524"
+"1","
+"

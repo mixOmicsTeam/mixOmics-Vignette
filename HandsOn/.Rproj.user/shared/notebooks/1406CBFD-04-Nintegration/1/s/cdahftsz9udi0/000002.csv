@@ -1,0 +1,18 @@
+"0","# chunk takes about 2 min to run"
+"0","set.seed(123) # for reproducibility"
+"0","test.keepX <- list(mRNA = c(5:9, seq(10, 25, 5)),"
+"0","                   miRNA = c(5:9, seq(10, 20, 2)),"
+"0","                   proteomics = c(seq(5, 25, 5)))"
+"0","tune.diablo.tcga <- tune.block.splsda(X, Y, ncomp = 2, "
+"0","                              test.keepX = test.keepX, design = design,"
+"0","                              validation = 'Mfold', folds = 10, nrepeat = 1, "
+"0","                              # use two CPUs for faster computation"
+"0","                              BPPARAM = BiocParallel::SnowParam(workers = 2),"
+"0","                              dist = ""centroids.dist"")"
+"2","Design matrix has changed to include Y; each block will be
+            linked to Y.
+"
+"2","
+You have provided a sequence of keepX of length:  9 for block mRNA and 11 for block miRNA and  5 for block proteomics.
+This results in 495 models being fitted for each component and each nrepeat, this may take some time to run, be patient!
+"

@@ -1,0 +1,2 @@
+"0","biplot(final.spca.multi, group = multidrug$cell.line$Class, "
+"0","       legend =FALSE)"

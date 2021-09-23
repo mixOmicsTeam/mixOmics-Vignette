@@ -1,0 +1,1 @@
+"0","train.splsda.srbct <- splsda(X.train, Y.train, ncomp = 3, keepX = c(20,30,40))"

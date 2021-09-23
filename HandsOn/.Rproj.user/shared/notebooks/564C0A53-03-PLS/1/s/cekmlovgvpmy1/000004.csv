@@ -1,0 +1,2 @@
+"0","legend('topleft', col = color.mixo(1:4), legend = levels(time.liver),"
+"0","       lty = 1, title = 'Time')"

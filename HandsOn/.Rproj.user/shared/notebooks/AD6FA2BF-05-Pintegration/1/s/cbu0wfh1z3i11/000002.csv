@@ -1,0 +1,5 @@
+"0","# If facing margin issues, use either X11() or save the plot using the"
+"0","# arguments save and name.save"
+"0","network(final.mint.splsda.stem, comp = 1,"
+"0","        color.node = c(color.mixo(1), color.mixo(2)), "
+"0","        shape.node = c(""rectangle"", ""circle""))"

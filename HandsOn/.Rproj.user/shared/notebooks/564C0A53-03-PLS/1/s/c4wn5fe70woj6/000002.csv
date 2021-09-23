@@ -1,0 +1,5 @@
+"0","plot(c(1,2), perf.pls.liver$measures$cor.upred$summary$mean, "
+"0","     col = 'blue', pch = 16, "
+"0","     ylim = c(0.6,1), xaxt = 'n',"
+"0","     xlab = 'Component', ylab = 't or u Cor', "
+"0","     main = 's/PLS performance based on Correlation')"

@@ -99,7 +99,7 @@ final.pca.multi$prop_expl_var$X
 
 ```
 ##        PC1        PC2        PC3 
-## 0.12677541 0.10194930 0.07011818
+## 0.12677541 0.10194929 0.07011818
 ```
 
 The cumulative proportion of variance explained can also be extracted (as displayed in Figure \@ref(fig:screeplot-fig)):
@@ -125,12 +125,12 @@ head(selectVar(final.pca.multi, comp = 1)$value)
 
 ```
 ##        value.var
-## ABCE1  0.3242159
-## ABCD3  0.2647558
-## ABCF3  0.2613063
-## ABCA8 -0.2609389
-## ABCB7  0.2493682
-## ABCF1  0.2424243
+## ABCE1  0.3242162
+## ABCD3  0.2647565
+## ABCF3  0.2613074
+## ABCA8 -0.2609394
+## ABCB7  0.2493680
+## ABCF1  0.2424253
 ```
 
 Note: 

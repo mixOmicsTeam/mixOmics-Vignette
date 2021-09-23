@@ -1,0 +1,6 @@
+"0","set.seed(33)  # For reproducibility with this handbook, remove otherwise"
+"0","# PLS1 model and performance"
+"0","pls1.liver <- pls(X, y, ncomp = choice.ncomp, mode = ""regression"")"
+"0","perf.pls1.liver <- perf(pls1.liver, validation = ""Mfold"", folds =10, "
+"0","                   nrepeat = 5, progressBar = FALSE)"
+"0","perf.pls1.liver$measures$MSEP$summary"

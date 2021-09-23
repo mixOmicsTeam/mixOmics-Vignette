@@ -1,0 +1,6 @@
+"0","plsda.srbct <- plsda(X,Y, ncomp = 10)"
+"0","set.seed(30) # For reproducibility with this handbook, remove otherwise"
+"0","perf.plsda.srbct <- perf(plsda.srbct, validation = 'Mfold', folds = 3, "
+"0","                  progressBar = FALSE,  # Set to TRUE to track progress"
+"0","                  nrepeat = 10)         # We suggest nrepeat = 50"
+"0","plot(perf.plsda.srbct, sd = TRUE, legend.position = 'horizontal')"

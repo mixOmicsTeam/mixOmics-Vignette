@@ -1,0 +1,6 @@
+"0","ABCC2.scale <- scale(X[, 'ABCC2'], center = TRUE, scale = TRUE)"
+"0","boxplot(ABCC2.scale ~"
+"0","        multidrug$cell.line$Class, col = color.mixo(1:9),"
+"0","        xlab = 'Cell lines', ylab = 'Expression levels, scaled',"
+"0","        par(cex.axis = 0.5), # Font size"
+"0","        main = 'ABCC2 transporter')"

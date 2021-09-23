@@ -1,0 +1,2 @@
+"0","# To show the error bars across the repeats:"
+"0","plot(tune.splsda.srbct, sd = TRUE)"
