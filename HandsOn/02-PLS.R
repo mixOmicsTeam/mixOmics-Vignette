@@ -1,20 +1,62 @@
+## ----global_options, include=FALSE----------------------------------------------------------------------------------------------------------------
+library(knitr)
+# global options
+knitr::opts_chunk$set(dpi = 100, echo=TRUE, warning=FALSE, message=FALSE, eval = TRUE,
+                      fig.show=TRUE, fig.width= 7,fig.height= 6,fig.align='center', out.width = '50%', message = FALSE,
+                      fig.path= 'Figures/PLS/')
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+# The libraries to load
+library(kableExtra)
+
+
+## ---- include=FALSE-------------------------------------------------------------------------------------------------------------------------------
+colorize <- function(color, x) {
+  if (knitr::is_html_output()) {
+    htmlcolor = "black"
+    if(color == "blue"){
+      htmlcolor = "#388ECC"
+    }
+    if(color == "orange"){
+      htmlcolor = "#F68B33"
+    }
+    if(color == "grey"){
+      htmlcolor = "#585858"
+    }
+    if(color == "green"){
+      htmlcolor = "#009E73"
+    }
+    if(color == "pink"){
+      htmlcolor = "#CC79A7"
+    }
+    if(color == "yellow"){
+      htmlcolor = "#999900"
+    }
+    if(color == "darkred"){
+      htmlcolor = "#CC0000"
+    }
+    sprintf("<span style='color: %s;'>%s</span>", htmlcolor, x)
+  } else {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+    }
+}
+
+
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 library(mixOmics)
 data(liver.toxicity)
 X <- liver.toxicity$gene
 Y <- liver.toxicity$clinic
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 head(data.frame(rownames(X), rownames(Y)))
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 y <- liver.toxicity$clinic[, "ALB.g.dL."]
 
 
-## ----pls1-Q2, eval = TRUE, fig.cap='(ref:pls1-Q2)'-------------------------------------------------------------------------------------------------
+## ----pls1-Q2, eval = TRUE, fig.cap='(ref:pls1-Q2)'------------------------------------------------------------------------------------------------
 tune.pls1.liver <- pls(X = X, Y = y, ncomp = 4, mode = 'regression')
 set.seed(33)  # For reproducibility with this handbook, remove otherwise
 Q2.pls1.liver <- perf(tune.pls1.liver, validation = 'Mfold', 
@@ -22,7 +64,7 @@ Q2.pls1.liver <- perf(tune.pls1.liver, validation = 'Mfold',
 plot(Q2.pls1.liver, criterion = 'Q2')
 
 
-## ----spls1-MAE, fig.cap='(ref:spls1-MAE)'----------------------------------------------------------------------------------------------------------
+## ----spls1-MAE, fig.cap='(ref:spls1-MAE)'---------------------------------------------------------------------------------------------------------
 # Set up a grid of values: 
 list.keepX <- c(5:10, seq(15, 50, 5))     
 
@@ -38,7 +80,7 @@ tune.spls1.MAE <- tune.spls(X, y, ncomp= 2,
 plot(tune.spls1.MAE)
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 choice.ncomp <- tune.spls1.MAE$choice.ncomp$ncomp
 # Optimal number of variables to select in X based on the MAE criterion
 # We stop at choice.ncomp
@@ -48,21 +90,21 @@ choice.ncomp
 choice.keepX
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 spls1.liver <- spls(X, y, ncomp = choice.ncomp, keepX = choice.keepX, 
                     mode = "regression")
 
 
-## ---- eval = FALSE---------------------------------------------------------------------------------------------------------------------------------
+## ---- eval = FALSE--------------------------------------------------------------------------------------------------------------------------------
 ## selectVar(spls1.liver, comp = 1)$X$name
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 spls1.liver$prop_expl_var$X
 tune.pls1.liver$prop_expl_var$X
 
 
-## ----spls1-ext, fig.cap='(ref:spls1-ext)', message=FALSE-------------------------------------------------------------------------------------------
+## ----spls1-ext, fig.cap='(ref:spls1-ext)', message=FALSE------------------------------------------------------------------------------------------
 spls1.liver.c2 <- spls(X, y, ncomp = 2, keepX = c(rep(choice.keepX, 2)), 
                    mode = "regression")
 
@@ -73,7 +115,7 @@ plotIndiv(spls1.liver.c2,
 
 
 
-## ----spls1-comp1, fig.cap='(ref:spls1-comp1)'------------------------------------------------------------------------------------------------------
+## ----spls1-comp1, fig.cap='(ref:spls1-comp1)'-----------------------------------------------------------------------------------------------------
 # Define factors for colours matching plotIndiv above
 time.liver <- factor(liver.toxicity$treatment$Time.Group, 
                      levels = c('18', '24', '48', '6'))
@@ -94,7 +136,7 @@ legend('bottomright', legend = levels(dose.liver), pch = 1:4,
 cor(spls1.liver$variates$X, spls1.liver$variates$Y)
 
 
-## ---- eval = TRUE----------------------------------------------------------------------------------------------------------------------------------
+## ---- eval = TRUE---------------------------------------------------------------------------------------------------------------------------------
 set.seed(33)  # For reproducibility with this handbook, remove otherwise
 
 # PLS1 model and performance
@@ -111,11 +153,11 @@ perf.spls1.liver <- perf(spls1.liver, validation = "Mfold", folds = 10,
 perf.spls1.liver$measures$MSEP$summary
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 dim(Y)
 
 
-## ----pls2-Q2, fig.cap='(ref:pls2-Q2)'--------------------------------------------------------------------------------------------------------------
+## ----pls2-Q2, fig.cap='(ref:pls2-Q2)'-------------------------------------------------------------------------------------------------------------
 
 tune.pls2.liver <- pls(X = X, Y = Y, ncomp = 5, mode = 'regression')
 
@@ -125,7 +167,7 @@ Q2.pls2.liver <- perf(tune.pls2.liver, validation = 'Mfold', folds = 10,
 plot(Q2.pls2.liver, criterion = 'Q2.total')
 
 
-## ---- echo = TRUE, eval = TRUE, warning=FALSE------------------------------------------------------------------------------------------------------
+## ---- echo = TRUE, eval = TRUE, warning=FALSE-----------------------------------------------------------------------------------------------------
 # This code may take several min to run, parallelisation option is possible
 list.keepX <- c(seq(5, 50, 5))
 list.keepY <- c(3:10)
@@ -141,11 +183,11 @@ tune.spls.liver <- tune.spls(X, Y, test.keepX = list.keepX,
                             )
 
 
-## ----spls2-tune, fig.cap='(ref:spls2-tune)', out.width = '60%'-------------------------------------------------------------------------------------
+## ----spls2-tune, fig.cap='(ref:spls2-tune)', out.width = '60%'------------------------------------------------------------------------------------
 plot(tune.spls.liver)
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 #Optimal parameters
 choice.keepX <- tune.spls.liver$choice.keepX
 choice.keepY <- tune.spls.liver$choice.keepY
@@ -157,21 +199,21 @@ spls2.liver <- spls(X, Y, ncomp = choice.ncomp,
                    mode = "regression")
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 spls2.liver$prop_expl_var
 
 
-## ---- eval = FALSE---------------------------------------------------------------------------------------------------------------------------------
+## ---- eval = FALSE--------------------------------------------------------------------------------------------------------------------------------
 ## selectVar(spls2.liver, comp = 1)$X$value
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 vip.spls2.liver <- vip(spls2.liver)
 # just a head
 head(vip.spls2.liver[selectVar(spls2.liver, comp = 1)$X$name,1])
 
 
-## ---- results = 'hide'-----------------------------------------------------------------------------------------------------------------------------
+## ---- results = 'hide'----------------------------------------------------------------------------------------------------------------------------
 perf.spls2.liver <- perf(spls2.liver, validation = 'Mfold', folds = 10, nrepeat = 5)
 # Extract stability
 stab.spls2.liver.comp1 <- perf.spls2.liver$features$stability.X$comp1
@@ -183,11 +225,11 @@ extr.stab.spls2.liver.comp1 <- stab.spls2.liver.comp1[selectVar(spls2.liver,
                                                                   comp =1)$X$name]
 
 
-## ----pls2stability, echo = FALSE-------------------------------------------------------------------------------------------------------------------
+## ----pls2stability, echo = FALSE------------------------------------------------------------------------------------------------------------------
 knitr::kable(extr.stab.spls2.liver.comp1, caption = 'Stability measure (occurence of selection) of the variables from X selected with sPLS2 across repeated 10-fold subsampling on component 1.', longtable = TRUE)
 
 
-## ----spls2-plotIndiv, fig.cap='(ref:spls2-plotIndiv)'----------------------------------------------------------------------------------------------
+## ----spls2-plotIndiv, fig.cap='(ref:spls2-plotIndiv)'---------------------------------------------------------------------------------------------
 plotIndiv(spls2.liver, ind.names = FALSE, 
           group = liver.toxicity$treatment$Time.Group, 
           pch = as.factor(liver.toxicity$treatment$Dose.Group), 
@@ -196,24 +238,24 @@ plotIndiv(spls2.liver, ind.names = FALSE,
           legend.title.pch = 'Dose')
 
 
-## ----spls2-plotArrow, fig.cap='(ref:spls2-plotArrow)'----------------------------------------------------------------------------------------------
+## ----spls2-plotArrow, fig.cap='(ref:spls2-plotArrow)'---------------------------------------------------------------------------------------------
 plotArrow(spls2.liver, ind.names = FALSE, 
           group = liver.toxicity$treatment$Time.Group,
           col.per.group = color.mixo(1:4),
           legend.title = 'Time.Group')
 
 
-## ----spls2-plotVar, fig.cap='(ref:spls2-plotVar)'--------------------------------------------------------------------------------------------------
+## ----spls2-plotVar, fig.cap='(ref:spls2-plotVar)'-------------------------------------------------------------------------------------------------
 plotVar(spls2.liver, cex = c(3,4), var.names = c(FALSE, TRUE))
 
 
-## ----spls2-plotVar2, fig.cap='(ref:spls2-plotVar2)'------------------------------------------------------------------------------------------------
+## ----spls2-plotVar2, fig.cap='(ref:spls2-plotVar2)'-----------------------------------------------------------------------------------------------
 plotVar(spls2.liver,
         var.names = list(X.label = liver.toxicity$gene.ID[,'geneBank'],
         Y.label = TRUE), cex = c(3,4))
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 # Define red and green colours for the edges
 color.edge <- color.GreenRed(50)
 
@@ -227,22 +269,22 @@ network(spls2.liver, comp = 1:2,
         save = 'pdf', name.save = 'network_liver')
 
 
-## ----spls2-network, eval=TRUE, echo=FALSE,fig.cap='(ref:spls2-network)'----------------------------------------------------------------------------
+## ----spls2-network, eval=TRUE, echo=FALSE,fig.cap='(ref:spls2-network)'---------------------------------------------------------------------------
 knitr::include_graphics("network_liver.pdf")
 
 
-## --------------------------------------------------------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------------------------------------------------------
 # X11()  # To open a new window if the graphic is too large
 cim(spls2.liver, comp = 1:2, xlab = "clinic", ylab = "genes",
     # To save the plot, otherwise comment out:
     save = 'pdf', name.save = 'cim_liver')
 
 
-## ----spls2-cim, eval=TRUE, echo=FALSE, fig.cap='(ref:spls2-cim)'-----------------------------------------------------------------------------------
+## ----spls2-cim, eval=TRUE, echo=FALSE, fig.cap='(ref:spls2-cim)'----------------------------------------------------------------------------------
 knitr::include_graphics("cim_liver.pdf")
 
 
-## ---- eval = TRUE----------------------------------------------------------------------------------------------------------------------------------
+## ---- eval = TRUE---------------------------------------------------------------------------------------------------------------------------------
 # Comparisons of final models (PLS, sPLS)
 
 ## PLS
@@ -255,7 +297,7 @@ perf.spls.liver <-  perf(spls2.liver, validation = 'Mfold', folds = 10,
                          nrepeat = 5)
 
 
-## ----pls-perf-spls2, fig.cap='(ref:pls-perf-spls2)', out.width = '70%'-----------------------------------------------------------------------------
+## ----pls-perf-spls2, fig.cap='(ref:pls-perf-spls2)', out.width = '70%'----------------------------------------------------------------------------
 plot(c(1,2), perf.pls.liver$measures$cor.upred$summary$mean, 
      col = 'blue', pch = 16, 
      ylim = c(0.6,1), xaxt = 'n',
