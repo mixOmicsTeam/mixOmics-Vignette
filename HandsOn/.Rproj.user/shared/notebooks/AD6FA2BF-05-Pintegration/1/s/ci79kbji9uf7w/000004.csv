@@ -1,4 +1,0 @@
-"0","final.mint.plsda.stem <- mint.plsda(X = X, Y = Y, study = study, ncomp = 2)"
-"0","#final.mint.plsda.stem # Lists the different functions"
-"0","plotIndiv(final.mint.plsda.stem, legend = TRUE, title = 'MINT PLS-DA', "
-"0","          subtitle = 'stem cell study', ellipse = T)"

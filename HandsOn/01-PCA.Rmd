@@ -16,9 +16,6 @@ library(kableExtra)
 
 ```{r, include=FALSE}
 colorize <- function(color, x) {
-  if (knitr::is_latex_output()) {
-    sprintf("\\textcolor{%s}{%s}", color, x)
-  } 
   if (knitr::is_html_output()) {
     htmlcolor = "black"
     if(color == "blue"){
@@ -43,7 +40,9 @@ colorize <- function(color, x) {
       htmlcolor = "#CC0000"
     }
     sprintf("<span style='color: %s;'>%s</span>", htmlcolor, x)
-  } else x
+  } else {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+    }
 }
 ```
 

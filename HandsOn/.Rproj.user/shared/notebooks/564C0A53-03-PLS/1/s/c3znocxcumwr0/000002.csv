@@ -1,5 +1,0 @@
-"0","tune.pls1.liver <- pls(X = X, Y = y, ncomp = 4, mode = 'regression')"
-"0","set.seed(33)  # For reproducibility with this handbook, remove otherwise"
-"0","Q2.pls1.liver <- perf(tune.pls1.liver, validation = 'Mfold', "
-"0","                      folds = 10, nrepeat = 5)"
-"0","plot(Q2.pls1.liver, criterion = 'Q2')"

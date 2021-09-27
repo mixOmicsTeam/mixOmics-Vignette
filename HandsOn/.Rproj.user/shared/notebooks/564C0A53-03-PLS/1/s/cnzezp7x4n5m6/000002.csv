@@ -1,4 +1,0 @@
-"0","library(mixOmics)"
-"0","data(liver.toxicity)"
-"0","X <- liver.toxicity$gene"
-"0","Y <- liver.toxicity$clinic"

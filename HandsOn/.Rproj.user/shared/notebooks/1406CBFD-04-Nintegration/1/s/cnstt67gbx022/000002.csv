@@ -1,7 +1,0 @@
-"0","# Prepare test set data: here one block (proteins) is missing"
-"0","data.test.tcga <- list(mRNA = breast.TCGA$data.test$mrna, "
-"0","                      miRNA = breast.TCGA$data.test$mirna)"
-"0","predict.diablo.tcga <- predict(diablo.tcga, newdata = data.test.tcga)"
-"2","Some blocks are missing in 'newdata'; the prediction is based on the following blocks only: mRNA, miRNA"
-"0","# The warning message will inform us that one block is missing"
-"0","#predict.diablo # List the different outputs"

@@ -1,6 +1,0 @@
-"0","output <- plotVar(final.mint.splsda.stem, cex = 2, plot = FALSE)"
-"0","col.var <- rep(color.mixo(1), ncol(X))"
-"0","names(col.var) = colnames(X)"
-"0","col.var[rownames(output)[output$x > 0.8]] <- color.mixo(4)"
-"0","col.var[rownames(output)[output$x < (-0.8)]] <- color.mixo(5)"
-"0","plotVar(final.mint.splsda.stem, cex = 2, col= list(col.var))"

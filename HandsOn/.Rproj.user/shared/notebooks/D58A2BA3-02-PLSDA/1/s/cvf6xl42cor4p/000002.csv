@@ -1,6 +1,0 @@
-"0","background.cent <- background.predict(final.plsda.srbct, "
-"0","                                      comp.predicted = 2,"
-"0","                                      dist = 'centroids.dist') "
-"0","plotIndiv(final.plsda.srbct, comp = 1:2, group = srbct$class,"
-"0","          ind.names = FALSE, title = 'Centroids distance',"
-"0","          legend = TRUE,  background = background.cent)"

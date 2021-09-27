@@ -1,3 +1,0 @@
-"0","plotVar(spls2.liver,"
-"0","        var.names = list(X.label = liver.toxicity$gene.ID[,'geneBank'],"
-"0","        Y.label = TRUE), cex = c(3,4))"

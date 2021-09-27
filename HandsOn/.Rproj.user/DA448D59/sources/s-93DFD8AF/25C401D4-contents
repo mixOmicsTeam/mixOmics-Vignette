@@ -1,6 +1,0 @@
-
-# Session Information
-
-```{r sessionInfo}
-sessionInfo()
-```

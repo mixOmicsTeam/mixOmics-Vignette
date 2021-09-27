@@ -1,7 +1,0 @@
-"0","plot(tune.mint.splsda.stem)"
-"2","sd bars cannot be calculated when nrepeat = 1.
-
-"
-"2","Error in plot.tune.splsda(tune.mint.splsda.stem) : 
-  object 'error.rate.sd' not found
-"

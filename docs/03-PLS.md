@@ -2,6 +2,9 @@
 
 
 
+
+
+
 # PLS on the liver toxicity study {#pls-liver-case}
 
 The data come from a liver toxicity study in which 64 male rats were exposed to non-toxic (50 or 150 mg/kg), moderately toxic (1500 mg/kg) or severely toxic (2000 mg/kg) doses of acetaminophen (paracetamol)  [@Bus07]. Necropsy was performed at 6, 18, 24 and 48 hours after exposure and the mRNA was extracted from the liver. Ten clinical measurements of markers for liver injury are available for each subject. The microarray data contain expression levels of 3,116 genes. The data were normalised and preprocessed by @Bus07.
@@ -65,14 +68,10 @@ Q2.pls1.liver <- perf(tune.pls1.liver, validation = 'Mfold',
 plot(Q2.pls1.liver, criterion = 'Q2')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/pls1-Q2-1} 
-
-}
-
-\caption{(ref:pls1-Q2)}(\#fig:pls1-Q2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/pls1-Q2-1.png" alt="(ref:pls1-Q2)" width="50%" />
+<p class="caption">(\#fig:pls1-Q2)(ref:pls1-Q2)</p>
+</div>
 
 (ref:pls1-Q2) **$Q^2$ criterion to choose the number of components in PLS1**. For each dimension added to the PLS model, the $Q^2$ value is shown. The horizontal line of 0.0975 indicates the threshold below which adding a dimension may not be beneficial to improve accuracy in PLS.
 
@@ -102,16 +101,12 @@ tune.spls1.MAE <- tune.spls(X, y, ncomp= 2,
 plot(tune.spls1.MAE)
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls1-MAE-1.png" alt="(ref:spls1-MAE)" width="50%" />
+<p class="caption">(\#fig:spls1-MAE)(ref:spls1-MAE)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls1-MAE-1} 
-
-}
-
-\caption{(ref:spls1-MAE)}(\#fig:spls1-MAE)
-\end{figure}
-
-(ref:spls1-MAE) **Mean Absolute Error criterion to choose the number of variables to select in PLS1**, using repeated CV times for a grid of variables to select. The MAE increases with the addition of a second dimension (\textcolor{orange}{comp 1 to 2}), suggesting that only one dimension is sufficient. The optimal `keepX` is indicated with a diamond.
+(ref:spls1-MAE) **Mean Absolute Error criterion to choose the number of variables to select in PLS1**, using repeated CV times for a grid of variables to select. The MAE increases with the addition of a second dimension <span style='color: #F68B33;'>comp 1 to 2</span>, suggesting that only one dimension is sufficient. The optimal `keepX` is indicated with a diamond.
 
 Figure \@ref(fig:spls1-MAE) confirms that one dimension is sufficient to reach minimal MAE. Based on the `tune.spls()` function we extract the final parameters:
 
@@ -193,16 +188,12 @@ plotIndiv(spls1.liver.c2,
           legend = TRUE, legend.title = 'Time', legend.title.pch = 'Dose')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls1-ext-1.png" alt="(ref:spls1-ext)" width="50%" />
+<p class="caption">(\#fig:spls1-ext)(ref:spls1-ext)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls1-ext-1} 
-
-}
-
-\caption{(ref:spls1-ext)}(\#fig:spls1-ext)
-\end{figure}
-
-(ref:spls1-ext) **Sample plot from the PLS1 performed on the `liver.toxicity` data with two dimensions**. Components associated to each data set (or block) are shown. Focusing only on the projection of the sample on the first component shows that the genes selected in $\boldsymbol X$ tend to explain the \textcolor{grey}{48h} length of treatment vs the earlier time points. This is somewhat in agreement with the levels of the $\boldsymbol y$ variable. However, more insight can be obtained by plotting the first components only, as shown in Figure \@ref(fig:spls1-comp1). 
+(ref:spls1-ext) **Sample plot from the PLS1 performed on the `liver.toxicity` data with two dimensions**. Components associated to each data set (or block) are shown. Focusing only on the projection of the sample on the first component shows that the genes selected in $\boldsymbol X$ tend to explain the <span style='color: #585858;'>48h</span> length of treatment vs the earlier time points. This is somewhat in agreement with the levels of the $\boldsymbol y$ variable. However, more insight can be obtained by plotting the first components only, as shown in Figure \@ref(fig:spls1-comp1). 
 
 The alternative is to plot the component associated to the $\boldsymbol X$ data set (here corresponding to a linear combination of the selected genes) vs. the component associated to the $\boldsymbol y$ variable (corresponding to the scaled $\boldsymbol y$ variable in PLS1 with one dimension), or calculate the correlation between both components:
 
@@ -226,14 +217,10 @@ legend('bottomright', legend = levels(dose.liver), pch = 1:4,
        title = 'Dose')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls1-comp1-1} 
-
-}
-
-\caption{(ref:spls1-comp1)}(\#fig:spls1-comp1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls1-comp1-1.png" alt="(ref:spls1-comp1)" width="50%" />
+<p class="caption">(\#fig:spls1-comp1)(ref:spls1-comp1)</p>
+</div>
 
 ```r
 cor(spls1.liver$variates$X, spls1.liver$variates$Y)
@@ -244,7 +231,7 @@ cor(spls1.liver$variates$X, spls1.liver$variates$Y)
 ## comp1 0.7515489
 ```
 
-(ref:spls1-comp1) **Sample plot from the sPLS1 performed on the `liver.toxicity` data on one dimension**. A reduced representation of the 20 genes selected and combined in the $\boldsymbol X$ component on the $x-$axis with respect to the $\boldsymbol y$ component value (equivalent to the scaled values of $\boldsymbol y$) on the $y-$axis. We observe a separation between the high doses 1500 and 2000 mg/kg (symbols $+$ and $\times$) at \textcolor{grey}{48h} and  and \textcolor{grey}{18h} while low and medium doses cluster in the middle of the plot. High doses for \textcolor{green}{6h} and \textcolor{blue}{18h} have high scores for both components. 
+(ref:spls1-comp1) **Sample plot from the sPLS1 performed on the `liver.toxicity` data on one dimension**. A reduced representation of the 20 genes selected and combined in the $\boldsymbol X$ component on the $x-$axis with respect to the $\boldsymbol y$ component value (equivalent to the scaled values of $\boldsymbol y$) on the $y-$axis. We observe a separation between the high doses 1500 and 2000 mg/kg (symbols $+$ and $\times$) at <span style='color: #585858;'>48h</span> and <span style='color: #388ECC;'>18h</span> while low and medium doses cluster in the middle of the plot. High doses for <span style='color: #009E73;'>6h</span> and <span style='color: #388ECC;'>18h</span> have high scores for both components. 
 
 Figure \@ref(fig:spls1-comp1) is a reduced representation of a multivariate regression with PLS1. It shows that PLS1 effectively models a linear relationship between $\boldsymbol y$ and the combination of the 20 genes selected in $\boldsymbol X$.
 
@@ -316,14 +303,10 @@ Q2.pls2.liver <- perf(tune.pls2.liver, validation = 'Mfold', folds = 10,
 plot(Q2.pls2.liver, criterion = 'Q2.total')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/pls2-Q2-1} 
-
-}
-
-\caption{(ref:pls2-Q2)}(\#fig:pls2-Q2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/pls2-Q2-1.png" alt="(ref:pls2-Q2)" width="50%" />
+<p class="caption">(\#fig:pls2-Q2)(ref:pls2-Q2)</p>
+</div>
 
 (ref:pls2-Q2) **$Q^2$ criterion to choose the number of components in PLS2**. For each component added to the PLS2 model, the averaged $Q^2$ across repeated cross-validation is shown, with the horizontal line of 0.0975 indicating the threshold below which the addition of a dimension may not be beneficial to improve accuracy.
 
@@ -361,16 +344,12 @@ The optimal parameters can be output, along with a plot showing the tuning resul
 plot(tune.spls.liver)
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls2-tune-1.png" alt="(ref:spls2-tune)" width="60%" />
+<p class="caption">(\#fig:spls2-tune)(ref:spls2-tune)</p>
+</div>
 
-{\centering \includegraphics[width=0.6\linewidth]{Figures/PLS/spls2-tune-1} 
-
-}
-
-\caption{(ref:spls2-tune)}(\#fig:spls2-tune)
-\end{figure}
-
-(ref:spls2-tune) **Tuning plot for sPLS2**. For every grid value of `keepX` and `keepY`, the averaged correlation coefficients between the $\boldsymbol t$ and $\boldsymbol u$ components are shown across repeated CV, with optimal values (here corresponding to the highest mean correlation) indicated in a \textcolor{green}{green square} for each dimension and data set.  
+(ref:spls2-tune) **Tuning plot for sPLS2**. For every grid value of `keepX` and `keepY`, the averaged correlation coefficients between the $\boldsymbol t$ and $\boldsymbol u$ components are shown across repeated CV, with optimal values (here corresponding to the highest mean correlation) indicated in a <span style='color: #009E73;'>green square</span> for each dimension and data set.  
 
 
 
@@ -447,93 +426,177 @@ extr.stab.spls2.liver.comp1 <- stab.spls2.liver.comp1[selectVar(spls2.liver,
 ```
 
 
-
-\begin{longtable}[t]{l|r}
-\caption{(\#tab:pls2stability)Stability measure (occurence of selection) of the variables from X selected with sPLS2 across repeated 10-fold subsampling on component 1.}\\
-\hline
-  & x\\
-\hline
-A\_42\_P620915 & 1.00\\
-\hline
-A\_43\_P14131 & 1.00\\
-\hline
-A\_42\_P578246 & 1.00\\
-\hline
-A\_43\_P11724 & 1.00\\
-\hline
-A\_42\_P840776 & 1.00\\
-\hline
-A\_42\_P675890 & 1.00\\
-\hline
-A\_42\_P809565 & 1.00\\
-\hline
-A\_43\_P23376 & 1.00\\
-\hline
-A\_43\_P10606 & 1.00\\
-\hline
-A\_43\_P17415 & 1.00\\
-\hline
-A\_42\_P758454 & 1.00\\
-\hline
-A\_42\_P802628 & 1.00\\
-\hline
-A\_43\_P22616 & 1.00\\
-\hline
-A\_42\_P834104 & 1.00\\
-\hline
-A\_42\_P705413 & 1.00\\
-\hline
-A\_42\_P684538 & 1.00\\
-\hline
-A\_43\_P16842 & 1.00\\
-\hline
-A\_43\_P10003 & 1.00\\
-\hline
-A\_42\_P825290 & 1.00\\
-\hline
-A\_42\_P738559 & 1.00\\
-\hline
-A\_43\_P11570 & 0.92\\
-\hline
-A\_42\_P681650 & 0.98\\
-\hline
-A\_42\_P586270 & 0.92\\
-\hline
-A\_43\_P12400 & 1.00\\
-\hline
-A\_42\_P769476 & 0.94\\
-\hline
-A\_42\_P814010 & 1.00\\
-\hline
-A\_42\_P484423 & 0.96\\
-\hline
-A\_42\_P636498 & 0.90\\
-\hline
-A\_43\_P12806 & 0.88\\
-\hline
-A\_43\_P12832 & 0.86\\
-\hline
-A\_42\_P610788 & 0.72\\
-\hline
-A\_42\_P470649 & 0.86\\
-\hline
-A\_43\_P15425 & 0.72\\
-\hline
-A\_42\_P681533 & 0.86\\
-\hline
-A\_42\_P669630 & 0.66\\
-\hline
-A\_43\_P14864 & 0.60\\
-\hline
-A\_42\_P698740 & 0.56\\
-\hline
-A\_42\_P550264 & 0.52\\
-\hline
-A\_43\_P10006 & 0.42\\
-\hline
-A\_42\_P469551 & 0.34\\
-\hline
-\end{longtable}
+<table>
+<caption>(\#tab:pls2stability)Stability measure (occurence of selection) of the variables from X selected with sPLS2 across repeated 10-fold subsampling on component 1.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> x </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A_42_P620915 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P14131 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P578246 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P11724 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P840776 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P675890 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P809565 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P23376 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P10606 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P17415 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P758454 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P802628 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P22616 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P834104 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P705413 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P684538 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P16842 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P10003 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P825290 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P738559 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P11570 </td>
+   <td style="text-align:right;"> 0.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P681650 </td>
+   <td style="text-align:right;"> 0.98 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P586270 </td>
+   <td style="text-align:right;"> 0.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P12400 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P769476 </td>
+   <td style="text-align:right;"> 0.94 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P814010 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P484423 </td>
+   <td style="text-align:right;"> 0.96 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P636498 </td>
+   <td style="text-align:right;"> 0.90 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P12806 </td>
+   <td style="text-align:right;"> 0.88 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P12832 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P610788 </td>
+   <td style="text-align:right;"> 0.72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P470649 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P15425 </td>
+   <td style="text-align:right;"> 0.72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P681533 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P669630 </td>
+   <td style="text-align:right;"> 0.66 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P14864 </td>
+   <td style="text-align:right;"> 0.60 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P698740 </td>
+   <td style="text-align:right;"> 0.56 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P550264 </td>
+   <td style="text-align:right;"> 0.52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_43_P10006 </td>
+   <td style="text-align:right;"> 0.42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A_42_P469551 </td>
+   <td style="text-align:right;"> 0.34 </td>
+  </tr>
+</tbody>
+</table>
 
 We recommend to mainly focus on the interpretation of the most stable selected variables (with a frequency of occurrence greater than 0.8).
 
@@ -554,16 +617,12 @@ plotIndiv(spls2.liver, ind.names = FALSE,
           legend.title.pch = 'Dose')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls2-plotIndiv-1.png" alt="(ref:spls2-plotIndiv)" width="50%" />
+<p class="caption">(\#fig:spls2-plotIndiv)(ref:spls2-plotIndiv)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls2-plotIndiv-1} 
-
-}
-
-\caption{(ref:spls2-plotIndiv)}(\#fig:spls2-plotIndiv)
-\end{figure}
-
-(ref:spls2-plotIndiv) **Sample plot for sPLS2 performed on the `liver.toxicity` data**. Samples are projected into the space spanned by the components associated to each data set (or block). We observe some agreement between the data sets, and a separation of the 1500 and 2000 mg doses ($+$ and $\times$) in the \textcolor{blue}{18h}, \textcolor{orange}{24h} time points, and the \textcolor{grey}{48h} time point.  
+(ref:spls2-plotIndiv) **Sample plot for sPLS2 performed on the `liver.toxicity` data**. Samples are projected into the space spanned by the components associated to each data set (or block). We observe some agreement between the data sets, and a separation of the 1500 and 2000 mg doses ($+$ and $\times$) in the <span style='color: #388ECC;'>18h</span>, <span style='color: #F68B33;'>24h</span> time points, and the <span style='color: #585858;'>48h</span> time point.  
 
 From Figure \@ref(fig:spls2-plotIndiv) we observe an effect of low vs. high doses of acetaminophen (component 1) as well as time of necropsy (component 2). There is some level of agreement between the two data sets, but it is not perfect!
 
@@ -584,16 +643,12 @@ plotArrow(spls2.liver, ind.names = FALSE,
           legend.title = 'Time.Group')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls2-plotArrow-1.png" alt="(ref:spls2-plotArrow)" width="50%" />
+<p class="caption">(\#fig:spls2-plotArrow)(ref:spls2-plotArrow)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls2-plotArrow-1} 
-
-}
-
-\caption{(ref:spls2-plotArrow)}(\#fig:spls2-plotArrow)
-\end{figure}
-
-(ref:spls2-plotArrow) **Arrow plot from the sPLS2 performed on the `liver.toxicity` data**. The start of the arrow indicates the location of a given sample in the space spanned by the components associated to the gene data set, and the tip of the arrow the location of that same sample in the space spanned by the components associated to the clinical data set. We observe large shifts for \textcolor{blue}{18h}, \textcolor{orange}{24h}  and \textcolor{grey}{48h} samples for the high doses, however the clusters of samples remain the same, as we observed in Figure \@ref(fig:spls2-plotIndiv).  
+(ref:spls2-plotArrow) **Arrow plot from the sPLS2 performed on the `liver.toxicity` data**. The start of the arrow indicates the location of a given sample in the space spanned by the components associated to the gene data set, and the tip of the arrow the location of that same sample in the space spanned by the components associated to the clinical data set. We observe large shifts for <span style='color: #388ECC;'>18h</span>, <span style='color: #F68B33;'>24</span>  and <span style='color: #585858;'>48h</span> samples for the high doses, however the clusters of samples remain the same, as we observed in Figure \@ref(fig:spls2-plotIndiv).  
 
 In Figure \@ref(fig:spls2-plotArrow) we observe that specific groups of samples seem to be located far apart from one data set to the other, indicating a potential discrepancy between the information extracted. However the groups of samples according to either dose or treatment remains similar.
 
@@ -605,14 +660,10 @@ Correlation circle plots illustrate the correlation structure between the two ty
 plotVar(spls2.liver, cex = c(3,4), var.names = c(FALSE, TRUE))
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls2-plotVar-1} 
-
-}
-
-\caption{(ref:spls2-plotVar)}(\#fig:spls2-plotVar)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls2-plotVar-1.png" alt="(ref:spls2-plotVar)" width="50%" />
+<p class="caption">(\#fig:spls2-plotVar)(ref:spls2-plotVar)</p>
+</div>
 
 (ref:spls2-plotVar) **Correlation circle plot from the sPLS2 performed on the `liver.toxicity` data**. The plot highlights correlations *within* selected genes (their names are not indicated here), *within* selected clinical parameters, and correlations *between* genes and clinical parameters on each dimension of sPLS2. This plot should be interpreted in relation to Figure \@ref(fig:spls2-plotIndiv) to better understand how the expression levels of these molecules may characterise specific sample groups.
 
@@ -625,14 +676,10 @@ plotVar(spls2.liver,
         Y.label = TRUE), cex = c(3,4))
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLS/spls2-plotVar2-1} 
-
-}
-
-\caption{(ref:spls2-plotVar2)}(\#fig:spls2-plotVar2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/spls2-plotVar2-1.png" alt="(ref:spls2-plotVar2)" width="50%" />
+<p class="caption">(\#fig:spls2-plotVar2)(ref:spls2-plotVar2)</p>
+</div>
 
 (ref:spls2-plotVar2) **Correlation circle plot from the sPLS2 performed on the `liver.toxicity` data**. A variant of Figure \@ref(fig:spls2-plotVar) with gene names that are available in `$gene.ID` (Note: some gene names are missing).
 
@@ -661,16 +708,12 @@ network(spls2.liver, comp = 1:2,
 ```
 
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="network_liver.pdf" alt="(ref:spls2-network)" width="50%" />
+<p class="caption">(\#fig:spls2-network)(ref:spls2-network)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{network_liver} 
-
-}
-
-\caption{(ref:spls2-network)}(\#fig:spls2-network)
-\end{figure}
-
-(ref:spls2-network) **Network representation from the sPLS2 performed on the `liver.toxicity` data**. The networks are bipartite, where each edge links a \textcolor{turquoise}{gene} (rectangle) to a \textcolor{pink}{clinical} variable (circle) node, according to a similarity matrix described in Module 2. Only variables selected by sPLS2 on the two dimensions are represented and are further filtered here according to a `cutoff` argument (optional).
+(ref:spls2-network) **Network representation from the sPLS2 performed on the `liver.toxicity` data**. The networks are bipartite, where each edge links a <span style='color: black;'>gene</span> (rectangle) to a <span style='color: #CC79A7;'>clinical</span> variable (circle) node, according to a similarity matrix described in Module 2. Only variables selected by sPLS2 on the two dimensions are represented and are further filtered here according to a `cutoff` argument (optional).
 
 Figure \@ref(fig:spls2-network) shows two distinct groups of variables. The first cluster groups four clinical parameters that are mostly positively associated with selected genes. The second group includes one clinical parameter negatively associated with other selected genes. These observations are similar to what was observed in the correlation circle plot in Figure \@ref(fig:spls2-plotVar).
 
@@ -689,14 +732,10 @@ cim(spls2.liver, comp = 1:2, xlab = "clinic", ylab = "genes",
 ```
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{cim_liver} 
-
-}
-
-\caption{(ref:spls2-cim)}(\#fig:spls2-cim)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="cim_liver.pdf" alt="(ref:spls2-cim)" width="50%" />
+<p class="caption">(\#fig:spls2-cim)(ref:spls2-cim)</p>
+</div>
 
 (ref:spls2-cim) **Clustered Image Map from the sPLS2 performed on the `liver.toxicity` data**. The plot displays the similarity values (as described in Module 2) between the $\boldsymbol X$ and $\boldsymbol Y$ variables selected across two dimensions, and clustered with a complete Euclidean distance method.
 
@@ -740,14 +779,10 @@ legend('bottomleft', col = c('blue', 'red', 'blue', 'red'),
        pch = c(16, 16, 17, 17), c('u PLS', 't PLS', 'u sPLS', 't sPLS'))
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{Figures/PLS/pls-perf-spls2-1} 
-
-}
-
-\caption{(ref:pls-perf-spls2)}(\#fig:pls-perf-spls2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLS/pls-perf-spls2-1.png" alt="(ref:pls-perf-spls2)" width="70%" />
+<p class="caption">(\#fig:pls-perf-spls2)(ref:pls-perf-spls2)</p>
+</div>
 
 (ref:pls-perf-spls2) **Comparison of the performance of PLS2 and sPLS2**, based on the correlation between the actual and predicted components $\boldsymbol{t,u}$ associated to each data set for each component. 
 

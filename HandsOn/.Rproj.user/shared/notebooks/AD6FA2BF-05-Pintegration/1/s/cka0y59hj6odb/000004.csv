@@ -1,4 +1,0 @@
-"0","plsda.stem <- plsda(X = X, Y = Y, ncomp = 2)"
-"0","plotIndiv(plsda.stem, pch = study,"
-"0","          legend = TRUE, title = 'Classic PLS-DA',"
-"0","          legend.title = 'Cell type', legend.title.pch = 'Study')"

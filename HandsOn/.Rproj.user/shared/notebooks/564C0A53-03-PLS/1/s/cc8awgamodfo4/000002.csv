@@ -1,4 +1,0 @@
-"0","plotArrow(spls2.liver, ind.names = FALSE, "
-"0","          group = liver.toxicity$treatment$Time.Group,"
-"0","          col.per.group = color.mixo(1:4),"
-"0","          legend.title = 'Time.Group')"

@@ -1,5 +1,0 @@
-"0","plotIndiv(splsda.srbct, comp = c(1,2),"
-"0","          ind.names = FALSE,"
-"0","          ellipse = TRUE, legend = TRUE,"
-"0","          star = TRUE,"
-"0","          title = 'SRBCT, sPLS-DA comp 1 - 2')"

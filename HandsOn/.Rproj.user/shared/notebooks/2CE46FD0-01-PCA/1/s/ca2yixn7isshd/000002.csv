@@ -1,6 +1,0 @@
-"0","plotIndiv(final.spca.multi,"
-"0","          comp = c(1, 2),   # Specify components to plot"
-"0","          ind.names = TRUE, # Show row names of samples"
-"0","          group = multidrug$cell.line$Class,"
-"0","          title = 'ABC transporters, sPCA comp 1 - 2',"
-"0","          legend = TRUE, legend.title = 'Cell line')"

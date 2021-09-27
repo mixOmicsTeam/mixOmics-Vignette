@@ -52,14 +52,10 @@ tune.pca.multi <- tune.pca(X, ncomp = 10, scale = TRUE)
 plot(tune.pca.multi)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/screeplot-fig-1} 
-
-}
-
-\caption{(ref:screeplot-fig)}(\#fig:screeplot-fig)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/screeplot-fig-1.png" alt="(ref:screeplot-fig)" width="50%" />
+<p class="caption">(\#fig:screeplot-fig)(ref:screeplot-fig)</p>
+</div>
 
 ```r
 # tune.pca.multidrug$cum.var       # Outputs cumulative proportion of variance
@@ -99,7 +95,7 @@ final.pca.multi$prop_expl_var$X
 
 ```
 ##        PC1        PC2        PC3 
-## 0.12677541 0.10194929 0.07011818
+## 0.12677541 0.10194930 0.07011818
 ```
 
 The cumulative proportion of variance explained can also be extracted (as displayed in Figure \@ref(fig:screeplot-fig)):
@@ -125,12 +121,12 @@ head(selectVar(final.pca.multi, comp = 1)$value)
 
 ```
 ##        value.var
-## ABCE1  0.3242162
-## ABCD3  0.2647565
-## ABCF3  0.2613074
-## ABCA8 -0.2609394
-## ABCB7  0.2493680
-## ABCF1  0.2424253
+## ABCE1  0.3242159
+## ABCD3  0.2647558
+## ABCF3  0.2613063
+## ABCA8 -0.2609389
+## ABCB7  0.2493682
+## ABCF1  0.2424243
 ```
 
 Note: 
@@ -151,14 +147,10 @@ plotIndiv(final.pca.multi,
           legend = TRUE, legend.title = 'Cell line')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/pca-ABCtrans-group-1} 
-
-}
-
-\caption{(ref:pca-ABCtrans-group)}(\#fig:pca-ABCtrans-group)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/pca-ABCtrans-group-1.png" alt="(ref:pca-ABCtrans-group)" width="50%" />
+<p class="caption">(\#fig:pca-ABCtrans-group)(ref:pca-ABCtrans-group)</p>
+</div>
 
 (ref:pca-ABCtrans-group) **Sample plot from the PCA performed on the `ABC.trans` data**. Samples are projected into the space spanned by the first two principal components, and coloured according to cell line type. Numbers indicate the rownames of the data.
 
@@ -172,7 +164,7 @@ plotIndiv(final.pca.multi, style = '3d',
           title = 'ABC transporters, PCA comp 1 - 3')
 ```
 
-These plots suggest that the largest source of variation explained by the first two components can be attributed to the melanoma cell line, while the third component highlights a single outlier sample. Hence, the interpretation of the following outputs should primarily focus on the first two components.
+These plots suggest that the largest source of variation explained by the first two components can be attributed to the <span style='color: #CC79A7;'>melanoma</span> cell line, while the third component highlights a single outlier sample. Hence, the interpretation of the following outputs should primarily focus on the first two components.
 
 Note: 
 
@@ -191,18 +183,14 @@ plotVar(final.pca.multi, comp = c(1, 2),
         title = 'Multidrug transporter, PCA comp 1 - 2')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/pca-var-ABStrans-ccp-1.png" alt="(ref:pca-var-ABStrans-ccp)" width="50%" />
+<p class="caption">(\#fig:pca-var-ABStrans-ccp)(ref:pca-var-ABStrans-ccp)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/pca-var-ABStrans-ccp-1} 
+(ref:pca-var-ABStrans-ccp) **Correlation Circle plot from the PCA performed on the `ABC.trans` data**. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in <span style='color: #F68B33;'>orange</span>), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in <span style='color: #CC79A7;'>pink</span> and <span style='color: #999900;'>yellow</span>.
 
-}
-
-\caption{(ref:pca-var-ABStrans-ccp)}(\#fig:pca-var-ABStrans-ccp)
-\end{figure}
-
-(ref:pca-var-ABStrans-ccp) **Correlation Circle plot from the PCA performed on the `ABC.trans` data**. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in orange), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in pink and yellow.
-
-The plot in Figure \@ref(fig:pca-var-ABStrans-ccp) highlights a group of ABC transporters that contribute to PC1: ABCE1, and to some extent the group clustered with ABCB8 that contributes positively to PC1, while ABCA8 contributes negatively. We also observe a group of transporters that contribute to both PC1 and PC2: the group clustered with ABCC2 contributes positively to PC2 and negatively to PC1, and a cluster of ABCC12 and ABCD2 that contributes negatively to both PC1 and PC2. We observe that several transporters are inside the small circle. However, examining the third component (argument `comp = c(1, 3)`) does not appear to reveal further transporters that contribute to this third component. The additional argument `cutoff = 0.5` could further simplify this plot.
+The plot in Figure \@ref(fig:pca-var-ABStrans-ccp) highlights a group of ABC transporters that contribute to PC1: <span style='color: #F68B33;'>ABCE1</span>, and to some extent the group clustered with <span style='color: #F68B33;'>ABCB8</span> that contributes positively to PC1, while <span style='color: #009E73;'>ABCA8</span> contributes negatively. We also observe a group of transporters that contribute to both PC1 and PC2: the group clustered with <span style='color: #CC79A7;'>ABCC2</span> contributes positively to PC2 and negatively to PC1, and a cluster of <span style='color: #999900;'>ABCC12</span> and <span style='color: #999900;'>ABCD2</span> that contributes negatively to both PC1 and PC2. We observe that several transporters are inside the small circle. However, examining the third component (argument `comp = c(1, 3)`) does not appear to reveal further transporters that contribute to this third component. The additional argument `cutoff = 0.5` could further simplify this plot.
 
 ### Biplot: samples and variables
 
@@ -214,18 +202,14 @@ biplot(final.pca.multi, group = multidrug$cell.line$Class,
        legend.title = 'Cell line')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/pca-ABStrans-biplot-1.png" alt="(ref:pca-ABStrans-biplot)" width="50%" />
+<p class="caption">(\#fig:pca-ABStrans-biplot)(ref:pca-ABStrans-biplot)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/pca-ABStrans-biplot-1} 
+(ref:pca-ABStrans-biplot) **Biplot from the PCA performed on the `ABS.trans` data**. The plot highlights which transporter expression levels may be related to specific cell lines, such as <span style='color: #CC79A7;'>melanoma</span>.
 
-}
-
-\caption{(ref:pca-ABStrans-biplot)}(\#fig:pca-ABStrans-biplot)
-\end{figure}
-
-(ref:pca-ABStrans-biplot) **Biplot from the PCA performed on the `ABS.trans` data**. The plot highlights which transporter expression levels may be related to specific cell lines, such as melanoma.
-
-The biplot in Figure \@ref(fig:pca-ABStrans-biplot) shows that the melanoma cell lines seem to be characterised by a subset of transporters such as the cluster around ABCC2 as highlighted previously  in Figure \@ref(fig:pca-var-ABStrans-ccp). Further examination of the data, such as boxplots (as shown in Fig. \@ref(fig:pca-ABCtrans-boxplot)), can further elucidate the transporter expression levels for these specific samples.
+The biplot in Figure \@ref(fig:pca-ABStrans-biplot) shows that the <span style='color: #CC79A7;'>melanoma</span> cell lines seem to be characterised by a subset of transporters such as the cluster around <span style='color: #CC79A7;'>ABCC2</span> as highlighted previously  in Figure \@ref(fig:pca-var-ABStrans-ccp). Further examination of the data, such as boxplots (as shown in Fig. \@ref(fig:pca-ABCtrans-boxplot)), can further elucidate the transporter expression levels for these specific samples.
 
 
 ```r
@@ -238,16 +222,12 @@ boxplot(ABCC2.scale ~
         main = 'ABCC2 transporter')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/pca-ABCtrans-boxplot-1.png" alt="(ref:pca-ABCtrans-boxplot)" width="50%" />
+<p class="caption">(\#fig:pca-ABCtrans-boxplot)(ref:pca-ABCtrans-boxplot)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/pca-ABCtrans-boxplot-1} 
-
-}
-
-\caption{(ref:pca-ABCtrans-boxplot)}(\#fig:pca-ABCtrans-boxplot)
-\end{figure}
-
-(ref:pca-ABCtrans-boxplot) **Boxplots of the transporter ABCC2** identified from the PCA correlation circle plot (Fig. \@ref(fig:pca-var-ABStrans-ccp)) and the biplot (Fig. \@ref(fig:pca-ABStrans-biplot)) show the level of ABCC2 expression related to cell line types. The expression level of ABCC2 was centered and scaled in the PCA, but similar patterns are also observed in the original data.  
+(ref:pca-ABCtrans-boxplot) **Boxplots of the transporter <span style='color: #CC79A7;'>ABCC2</span>** identified from the PCA correlation circle plot (Fig. \@ref(fig:pca-var-ABStrans-ccp)) and the biplot (Fig. \@ref(fig:pca-ABStrans-biplot)) show the level of <span style='color: #CC79A7;'>ABCC2</span> expression related to cell line types. The expression level of <span style='color: #CC79A7;'>ABCC2</span> was centered and scaled in the PCA, but similar patterns are also observed in the original data.  
 
 ## Example: sparse PCA {#spca:ex}
 
@@ -282,14 +262,10 @@ tune.spca.result$choice.keepX
 plot(tune.spca.result)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/spca-tuning-ABStrans-1} 
-
-}
-
-\caption{(ref:spca-tuning-ABStrans)}(\#fig:spca-tuning-ABStrans)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/spca-tuning-ABStrans-1.png" alt="(ref:spca-tuning-ABStrans)" width="50%" />
+<p class="caption">(\#fig:spca-tuning-ABStrans)(ref:spca-tuning-ABStrans)</p>
+</div>
 
 (ref:spca-tuning-ABStrans) **Tuning the number of variables to select with sPCA on the `ABC.trans` data**. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided $t-$tests and is indicated with a diamond. 
 
@@ -334,18 +310,14 @@ plotIndiv(final.spca.multi,
           legend = TRUE, legend.title = 'Cell line')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/spca-ABCtrans-group-1} 
-
-}
-
-\caption{(ref:spca-ABCtrans-group)}(\#fig:spca-ABCtrans-group)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/spca-ABCtrans-group-1.png" alt="(ref:spca-ABCtrans-group)" width="50%" />
+<p class="caption">(\#fig:spca-ABCtrans-group)(ref:spca-ABCtrans-group)</p>
+</div>
 
 (ref:spca-ABCtrans-group) **Sample plot from the sPCA performed on the `ABC.trans` data**. Samples are projected onto the space spanned by the first two sparse principal components that are calculated based on a subset of selected variables. Samples are coloured by cell line type and numbers indicate the sample IDs.
 
-In Figure \@ref(fig:spca-ABCtrans-group), component 2 in sPCA shows clearer separation of the melanoma samples compared to the full PCA. Component 1 is similar to the full PCA. Overall, this sample plot shows that little information is lost compared to a full PCA.
+In Figure \@ref(fig:spca-ABCtrans-group), component 2 in sPCA shows clearer separation of the <span style='color: #CC79A7;'>melanoma</span> samples compared to the full PCA. Component 1 is similar to the full PCA. Overall, this sample plot shows that little information is lost compared to a full PCA.
 
 
 A biplot can also be plotted that only shows the selected transporters (Figure \@ref(fig:spca-ABCtrans-biplot)):
@@ -356,14 +328,10 @@ biplot(final.spca.multi, group = multidrug$cell.line$Class,
        legend =FALSE)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/spca-ABCtrans-biplot-1} 
-
-}
-
-\caption{(ref:spca-ABCtrans-biplot)}(\#fig:spca-ABCtrans-biplot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/spca-ABCtrans-biplot-1.png" alt="(ref:spca-ABCtrans-biplot)" width="50%" />
+<p class="caption">(\#fig:spca-ABCtrans-biplot)(ref:spca-ABCtrans-biplot)</p>
+</div>
 
 (ref:spca-ABCtrans-biplot) **Biplot from the sPCA performed on the `ABS.trans` data after variable selection**. The plot highlights in more detail which transporter expression levels may be related to specific cell lines, such as melanoma, compared to a classical PCA.
 
@@ -377,18 +345,14 @@ plotVar(final.spca.multi, comp = c(1, 2), var.names = TRUE,
         title = 'Multidrug transporter, sPCA comp 1 - 2')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/spca-var-ABStrans-ccp-1.png" alt="(ref:spca-var-ABCtrans-ccp)" width="50%" />
+<p class="caption">(\#fig:spca-var-ABStrans-ccp)(ref:spca-var-ABCtrans-ccp)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/spca-var-ABStrans-ccp-1} 
+(ref:spca-var-ABCtrans-ccp) **Correlation Circle plot from the sPCA performed on the `ABC.trans` data**. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in <span style='color: #009E73;'>green</span> are discussed in the text.
 
-}
-
-\caption{(ref:spca-var-ABCtrans-ccp)}(\#fig:spca-var-ABStrans-ccp)
-\end{figure}
-
-(ref:spca-var-ABCtrans-ccp) **Correlation Circle plot from the sPCA performed on the `ABC.trans` data**. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in green are discussed in the text.
-
-The transporters selected by sPCA are amongst the top important ones in PCA. Those coloured in green in  Figure \@ref(fig:pca-var-ABStrans-ccp) (ABCA9, ABCB5, ABCC2 and ABCD1) show an example of variables that contribute positively to component 2, but with a larger weight than in PCA. Thus, they appear as a clearer cluster in the top part of the correlation circle plot compared to PCA. As shown in the biplot in Figure \@ref(fig:spca-ABCtrans-biplot), they contribute in explaining the variation in the melanoma samples.
+The transporters selected by sPCA are amongst the top important ones in PCA. Those coloured in green in  Figure \@ref(fig:pca-var-ABStrans-ccp) (<span style='color: #009E73;'>ABCA9, ABCB5, ABCC2</span> and <span style='color: #009E73;'>ABCD1</span>) show an example of variables that contribute positively to component 2, but with a larger weight than in PCA. Thus, they appear as a clearer cluster in the top part of the correlation circle plot compared to PCA. As shown in the biplot in Figure \@ref(fig:spca-ABCtrans-biplot), they contribute in explaining the variation in the <span style='color: #CC79A7;'>melanoma</span> samples.
 
 
 We can extract the variable names and their positive or negative contribution to a given component (here 2), using the `selectVar()` function:
@@ -416,14 +380,10 @@ The loading weights can also be visualised with `plotLoading()`, as described in
 plotLoadings(final.spca.multi, comp = 2)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PCA/spca-plotLoading-1} 
-
-}
-
-\caption{(ref:spca-plotLoading)}(\#fig:spca-plotLoading)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PCA/spca-plotLoading-1.png" alt="(ref:spca-plotLoading)" width="50%" />
+<p class="caption">(\#fig:spca-plotLoading)(ref:spca-plotLoading)</p>
+</div>
 
 (ref:spca-plotLoading) **sPCA loading plot of the `ABS.trans` data for component 2**. Only the transporters selected by sPCA on component 2 are shown, and are ranked from least important (top) to most important. Bar length indicates the loading weight in PC2.
 

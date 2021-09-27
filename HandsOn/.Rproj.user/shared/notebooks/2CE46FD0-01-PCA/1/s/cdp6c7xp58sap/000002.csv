@@ -1,6 +1,0 @@
-"0","col.var <- c(rep(color.mixo(1), ncol(X)))"
-"0","names(col.var) <- colnames(X)"
-"0","col.var[c(""ABCA9"", ""ABCB5"", ""ABCC2"",""ABCD1"")] <- color.mixo(4)"
-"0","plotVar(final.spca.multi, comp = c(1, 2), var.names = TRUE,"
-"0","        col = list(col.var), cex = 3, # To change the font size"
-"0","        title = 'Multidrug transporter, sPCA comp 1 - 2')"

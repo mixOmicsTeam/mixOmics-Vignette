@@ -1,6 +1,0 @@
-"0","# To extract values across all repeats:"
-"0","# perf.pls1.liver$measures$MSEP$values"
-"0","# sPLS1 performance"
-"0","perf.spls1.liver <- perf(spls1.liver, validation = ""Mfold"", folds = 10, "
-"0","                   nrepeat = 5, progressBar = FALSE)"
-"0","perf.spls1.liver$measures$MSEP$summary"

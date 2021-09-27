@@ -1,2 +1,0 @@
-"0","legend('bottomright', legend = levels(dose.liver), pch = 1:4,"
-"0","       title = 'Dose')"

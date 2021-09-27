@@ -1,4 +1,0 @@
-"0","plotIndiv(final.plsda.srbct, ind.names = FALSE, legend=TRUE,"
-"0","          comp=c(1,2), ellipse = TRUE, "
-"0","          title = 'PLS-DA on SRBCT comp 1-2',"
-"0","          X.label = 'PLS-DA comp 1', Y.label = 'PLS-DA comp 2')"

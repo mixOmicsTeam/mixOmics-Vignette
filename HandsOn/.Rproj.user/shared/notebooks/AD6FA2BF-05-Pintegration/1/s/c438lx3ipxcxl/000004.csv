@@ -1,4 +1,0 @@
-"0","mint.plsda.stem <- mint.plsda(X = X, Y = Y, study = study, ncomp = 5)"
-"0","set.seed(2543) # For reproducible results here, remove for your own analyses"
-"0","perf.mint.plsda.stem <- perf(mint.plsda.stem) "
-"0","plot(perf.mint.plsda.stem)"

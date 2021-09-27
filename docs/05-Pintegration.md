@@ -3,6 +3,7 @@
 
 
 
+
 # MINT on the stem cell case study {#mint-stemcell-case}
 
 We integrate four transcriptomics studies of microarray stem cells (125 samples in total). The original data set from the Stemformatics database^[www.stemformatics.org] [@Well13] was reduced to fit into the package, and includes a randomly-chosen subset of the expression levels of 400 genes. The aim is to classify three types of human cells: human fibroblasts (Fib) and human induced Pluripotent Stem Cells (hiPSC & hESC). 
@@ -90,14 +91,10 @@ perf.mint.plsda.stem <- perf(mint.plsda.stem)
 plot(perf.mint.plsda.stem)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-perf-1} 
-
-}
-
-\caption{(ref:MINT-perf)}(\#fig:MINT-perf)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-perf-1.png" alt="(ref:MINT-perf)" width="50%" />
+<p class="caption">(\#fig:MINT-perf)(ref:MINT-perf)</p>
+</div>
 
 (ref:MINT-perf) **Choosing the number of components in `mint.plsda` using `perf()` with LOGOCV in the `stemcells` study**. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Section 3.4 and Extra Reading material 3 from Module 3 for a refresher). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance.
 
@@ -133,18 +130,14 @@ plotIndiv(final.mint.plsda.stem, legend = TRUE, title = 'MINT PLS-DA',
           subtitle = 'stem cell study', ellipse = T)
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-plsda-indiv-1.png" alt="(ref:MINT-plsda-indiv)" width="50%" />
+<p class="caption">(\#fig:MINT-plsda-indiv)(ref:MINT-plsda-indiv)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-plsda-indiv-1} 
+(ref:MINT-plsda-indiv)  **Sample plot from the MINT PLS-DA performed on the `stemcells` gene expression data**. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate the study membership. Component 1 discriminates <span style='color: #388ECC;'>fibroblast</span> vs. the others, while component 2 discriminates some of the <span style='color: #585858;'>hiPSC</span> vs. <span style='color: #F68B33;'>hESC</span>.  
 
-}
-
-\caption{(ref:MINT-plsda-indiv)}(\#fig:MINT-plsda-indiv)
-\end{figure}
-
-(ref:MINT-plsda-indiv)  **Sample plot from the MINT PLS-DA performed on the `stemcells` gene expression data**. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate the study membership. Component 1 discriminates \textcolor{blue}{fibroblast} vs. the others, while component 2 discriminates some of the \textcolor{grey}{hiPSC} vs. \textcolor{orange}{hESC}.  
-
-The sample plot (Fig \@ref(fig:MINT-plsda-indiv)) shows that \textcolor{blue}{fibroblasts} are separated on the first component. We observe that while deemed not crucial for an optimal discrimination, the second component seems to help separate \textcolor{orange}{hESC} and \textcolor{grey}{hiPSC} further. The effect of study after MINT modelling is not strong. 
+The sample plot (Fig \@ref(fig:MINT-plsda-indiv)) shows that <span style='color: #388ECC;'>fibroblast</span> are separated on the first component. We observe that while deemed not crucial for an optimal discrimination, the second component seems to help separate <span style='color: #F68B33;'>hESC</span> and <span style='color: #585858;'>hiPSC</span> further. The effect of study after MINT modelling is not strong. 
 
 We can compare this output to a classical PLS-DA to visualise the study effect (Figure \@ref(fig:stem-plsda-indiv)):
 
@@ -157,14 +150,10 @@ plotIndiv(plsda.stem, pch = study,
           legend.title = 'Cell type', legend.title.pch = 'Study')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/stem-plsda-indiv-1} 
-
-}
-
-\caption{(ref:stem-plsda-indiv)}(\#fig:stem-plsda-indiv)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/stem-plsda-indiv-1.png" alt="(ref:stem-plsda-indiv)" width="50%" />
+<p class="caption">(\#fig:stem-plsda-indiv)(ref:stem-plsda-indiv)</p>
+</div>
 
 (ref:stem-plsda-indiv)  **Sample plot from a classic PLS-DA performed on the `stemcells` gene expression data** that highlights the study effect (indicated by symbols). Samples are projected into the space spanned by the first two components. We still do observe some discrimination between the cell types. 
 
@@ -210,6 +199,11 @@ tune.mint.splsda.stem$choice.keepX
 plot(tune.mint.splsda.stem)
 ```
 
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-tune-1.png" alt="(ref:MINT-tune)" width="50%" />
+<p class="caption">(\#fig:MINT-tune)(ref:MINT-tune)</p>
+</div>
+
 (ref:MINT-tune) **Tuning `keepX` in MINT sPLS-DA performed on the `stemcells` gene expression data.** Each coloured line represents the balanced error rate (y-axis) per component across all tested `keepX` values (x-axis). The diamond indicates the optimal `keepX` value on a particular component which achieves the lowest classification error rate as determined with a one-sided $t-$test across the studies. 
 
 The tuning plot in Figure \@ref(fig:MINT-tune) indicates the optimal number of variables to select on component 1 (24) and on component 2 (45). In fact, whilst the BER decreases with the addition of component 2, the standard deviation remains large, and thus only one component is optimal. However, the addition of this second component is useful for the graphical outputs, and also to attempt to discriminate the hESC and hiPCS cell types.
@@ -250,16 +244,12 @@ plotIndiv(final.mint.splsda.stem, study = 'all.partial', legend = TRUE,
 ```
 
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-indiv-global-1.png" alt="(ref:MINT-indiv)" width="50%" /><img src="Figures/MINT/MINT-indiv-local-1.png" alt="(ref:MINT-indiv)" width="50%" />
+<p class="caption">(\#fig:MINT-indiv)(ref:MINT-indiv)</p>
+</div>
 
-{\centering \subfloat[(\#fig:MINT-indiv-1)]{\includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-indiv-global-1} }\subfloat[(\#fig:MINT-indiv-2)]{\includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-indiv-local-1} }
-
-}
-
-\caption{(ref:MINT-indiv)}(\#fig:MINT-indiv)
-\end{figure}
-
-(ref:MINT-indiv)  **Sample plots from the MINT sPLS-DA performed on the `stemcells` gene expression data**. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership.  (a) Global components from the model with 95\% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies.  Component 1 discriminates \textcolor{blue}{fibroblasts} vs. the rest, component 2 discriminates further \textcolor{orange}{hESC} vs. \textcolor{grey}{hiPSC}. 
+(ref:MINT-indiv)  **Sample plots from the MINT sPLS-DA performed on the `stemcells` gene expression data**. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership.  (a) Global components from the model with 95\% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies.  Component 1 discriminates <span style='color: #388ECC;'>fibroblast</span> vs. the rest, component 2 discriminates further <span style='color: #F68B33;'>hESC</span> vs. <span style='color: #585858;'>hiPSC</span>. 
 
 The visualisation of the partial components enables us to examine each study individually and check that the model is able to extract a good agreement between studies. 
 
@@ -277,21 +267,19 @@ We can examine our molecular signature selected with MINT sPLS-DA. The correlati
 plotVar(final.mint.splsda.stem)
 ```
 
+<img src="Figures/MINT/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" />
+
 <!-- Code below to highlight specific genes -->
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-var-col-1.png" alt="(ref:MINT-var-col)" width="50%" />
+<p class="caption">(\#fig:MINT-var-col)(ref:MINT-var-col)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-var-col-1} 
-
-}
-
-\caption{(ref:MINT-var-col)}(\#fig:MINT-var-col)
-\end{figure}
-
-(ref:MINT-var-col) **Correlation circle plot representing the genes selected by MINT sPLS-DA performed on the `stemcells` gene expression data** to examine the association of the genes selected on the first two components. We mainly observe two groups of genes, either \textcolor{green}{positively} or \textcolor{pink}{negatively} associated with component 1 along the x-axis. This graphic should be interpreted in conjunction with the sample plot.
+(ref:MINT-var-col) **Correlation circle plot representing the genes selected by MINT sPLS-DA performed on the `stemcells` gene expression data** to examine the association of the genes selected on the first two components. We mainly observe two groups of genes, either <span style='color: #009E73;'>positively</span> or <span style='color: #CC79A7;'>negatively</span> associated with component 1 along the x-axis. This graphic should be interpreted in conjunction with the sample plot.
 
 
-We observe a \textcolor{pink}{subset of genes that are strongly correlated and negatively} associated to component 1 (negative values on the x-axis), which are likely to characterise the groups of samples hiPSC and hESC, and a \textcolor{green}{subset of genes positively} associated to component 1 that may characterise the fibroblast samples (and are negatively correlated to the previous group of genes). 
+We observe a <span style='color: #CC79A7;'>subset of genes that are strongly correlated and negatively</span> associated to component 1 (negative values on the x-axis), which are likely to characterise the groups of samples hiPSC and hESC, and a <span style='color: #009E73;'>subset of genes positively</span> associated to component 1 that may characterise the fibroblast samples (and are negatively correlated to the previous group of genes). 
 
 Note:
 
@@ -310,18 +298,14 @@ cim(final.mint.splsda.stem, comp = 1, margins=c(10,5),
     title = "MINT sPLS-DA, component 1")
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-cim-1.png" alt="(ref:MINT-cim)" width="50%" />
+<p class="caption">(\#fig:MINT-cim)(ref:MINT-cim)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-cim-1} 
+(ref:MINT-cim) **Clustered Image Map of the genes selected by MINT sPLS-DA on the `stemcells` gene expression data for component 1 only**. A hierarchical clustering based on the gene expression levels of the selected genes on component 1, with samples in rows coloured according to cell type showing a separation of the <span style='color: #388ECC;'>fibroblast</span> vs. the other cell types.
 
-}
-
-\caption{(ref:MINT-cim)}(\#fig:MINT-cim)
-\end{figure}
-
-(ref:MINT-cim) **Clustered Image Map of the genes selected by MINT sPLS-DA on the `stemcells` gene expression data for component 1 only**. A hierarchical clustering based on the gene expression levels of the selected genes on component 1, with samples in rows coloured according to cell type showing a separation of the \textcolor{blue}{fibroblasts} vs. the other cell types.
-
-As expected and observed from the sample plot Figure \@ref(fig:MINT-indiv), we observe in the CIM that the expression of the genes selected on component 1 discriminates primarily the \textcolor{blue}{fibroblasts} vs. the other cell types.
+As expected and observed from the sample plot Figure \@ref(fig:MINT-indiv), we observe in the CIM that the expression of the genes selected on component 1 discriminates primarily the <span style='color: #388ECC;'>fibroblast</span> vs. the other cell types.
 
 #### Relevance networks
 
@@ -336,16 +320,12 @@ network(final.mint.splsda.stem, comp = 1,
         shape.node = c("rectangle", "circle"))
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-network-1.png" alt="(ref:MINT-network)" width="50%" />
+<p class="caption">(\#fig:MINT-network)(ref:MINT-network)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-network-1} 
-
-}
-
-\caption{(ref:MINT-network)}(\#fig:MINT-network)
-\end{figure}
-
-(ref:MINT-network) **Relevance network of the genes selected by MINT sPLS-DA performed on the `stemcells` gene expression data for component 1 only**. Associations between variables from $\boldsymbol X$ and the dummy matrix $\boldsymbol Y$ are calculated as detailed in Extra Reading material from Module 2.  Edges indicate \textcolor{darkred}{high} or \textcolor{green}{low} association between the genes and the different cell types. 
+(ref:MINT-network) **Relevance network of the genes selected by MINT sPLS-DA performed on the `stemcells` gene expression data for component 1 only**. Associations between variables from $\boldsymbol X$ and the dummy matrix $\boldsymbol Y$ are calculated as detailed in Extra Reading material from Module 2.  Edges indicate <span style='color: #CC0000;'>high</span> or <span style='color: #009E73;'>low</span> association between the genes and the different cell types. 
 
 
 #### Variable selection and loading plots
@@ -377,18 +357,14 @@ plotLoadings(final.mint.splsda.stem, contrib = "max", method = 'mean', comp=1,
              subtitle = paste("Study",1:4))
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-loading-1.png" alt="(ref:MINT-loading)" width="50%" />
+<p class="caption">(\#fig:MINT-loading)(ref:MINT-loading)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-loading-1} 
+(ref:MINT-loading) **Loading plots of the genes selected by the MINT sPLS-DA performed on the `stemcells` data, on component 1 per study**. Each plot represents one study, and the variables are coloured according to the cell type they are maximally expressed in, on average. The length of the bars indicate the loading coefficient values that define the component. Several <span style='color: #388ECC;'>genes</span> distinguish between <span style='color: #388ECC;'>fibroblast</span> and the other cell types, and are consistently overexpressed in these samples across all studies. We observe slightly more variability in whether the expression levels of the other genes are more indicative of <span style='color: #585858;'>hiPSC</span> or <span style='color: #F68B33;'>hESC</span> cell types. 
 
-}
-
-\caption{(ref:MINT-loading)}(\#fig:MINT-loading)
-\end{figure}
-
-(ref:MINT-loading) **Loading plots of the genes selected by the MINT sPLS-DA performed on the `stemcells` data, on component 1 per study**. Each plot represents one study, and the variables are coloured according to the cell type they are maximally expressed in, on average. The length of the bars indicate the loading coefficient values that define the component. Several \textcolor{blue}{genes} distinguish between \textcolor{blue}{fibroblasts} and the other cell types, and are consistently overexpressed in these samples across all studies. We observe slightly more variability in whether the expression levels of the other genes are more indicative of \textcolor{grey}{hiPSC} or \textcolor{orange}{hESC} cell types. 
-
-Several \textcolor{blue}{genes} are consistently over-expressed on average in the \textcolor{blue}{fibroblast} samples in each of the studies, however, we observe a less consistent pattern for the other genes that characterise \textcolor{grey}{hiPSC} and \textcolor{orange}{hESC}. This can be explained as the discrimination between both classes is challenging on component 1 (see sample plot in Figure \@ref(fig:MINT-indiv)).
+Several <span style='color: #388ECC;'>genes</span> are consistently over-expressed on average in the <span style='color: #388ECC;'>fibroblast</span> samples in each of the studies, however, we observe a less consistent pattern for the other genes that characterise <span style='color: #585858;'>hiPSC</span>} and <span style='color: #F68B33;'>hESC</span>. This can be explained as the discrimination between both classes is challenging on component 1 (see sample plot in Figure \@ref(fig:MINT-indiv)).
 
 ### Classification performance {#mint:result:perf}
 
@@ -443,16 +419,12 @@ auroc(final.mint.splsda.stem, roc.comp = 1, roc.study = '2')
 ```
 
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/MINT/MINT-auc1-1.png" alt="(ref:MINT-auc)" width="50%" /><img src="Figures/MINT/MINT-auc2-1.png" alt="(ref:MINT-auc)" width="50%" />
+<p class="caption">(\#fig:MINT-auc)(ref:MINT-auc)</p>
+</div>
 
-{\centering \subfloat[(\#fig:MINT-auc-1)]{\includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-auc1-1} }\subfloat[(\#fig:MINT-auc-2)]{\includegraphics[width=0.5\linewidth]{Figures/MINT/MINT-auc2-1} }
-
-}
-
-\caption{(ref:MINT-auc)}(\#fig:MINT-auc)
-\end{figure}
-
-(ref:MINT-auc) **ROC curve and AUC from the MINT sPLS-DA performed on the `stemcells` gene expression data for global and specific studies**, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test $p-$value for each 'one vs. other' class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but *should not be used for tuning* (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying \textcolor{darkred}{fibroblasts versus the other cell types}, and less accurate in distinguishing \textcolor{green}{hESC versus the other cell types} or \textcolor{blue}{hiPS versus the other cell types}.
+(ref:MINT-auc) **ROC curve and AUC from the MINT sPLS-DA performed on the `stemcells` gene expression data for global and specific studies**, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test $p-$value for each 'one vs. other' class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but *should not be used for tuning* (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying <span style='color: #CC0000;'>fibroblasts versus the other cell types</span>, and less accurate in distinguishing <span style='color: #009E73;'>hESC versus the other cell types</span> or <span style='color: #388ECC;'>hiPSC versus the other cell types</span>.
 
 
 ### Prediction on an external study {#detour:mint:predict}

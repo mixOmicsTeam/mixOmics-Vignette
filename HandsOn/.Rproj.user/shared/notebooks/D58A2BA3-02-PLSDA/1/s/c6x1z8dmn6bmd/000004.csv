@@ -1,5 +1,0 @@
-"0","# For component 2"
-"0","stable.comp2 <- perf.splsda.srbct$features$stable$comp2"
-"0","barplot(stable.comp2, xlab = 'variables selected across CV folds', "
-"0","        ylab = 'Stability frequency',"
-"0","        main = 'Feature stability for comp = 2')"

@@ -1,6 +1,0 @@
-"0","background.mah <- background.predict(final.plsda.srbct, "
-"0","                                     comp.predicted = 2,"
-"0","                                     dist = 'mahalanobis.dist') "
-"0","plotIndiv(final.plsda.srbct, comp = 1:2, group = srbct$class,"
-"0","          ind.names = FALSE, title = 'Mahalanobis distance',"
-"0","          legend = TRUE,  background = background.mah)"

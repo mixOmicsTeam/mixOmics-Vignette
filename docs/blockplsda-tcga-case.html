@@ -55,41 +55,66 @@ document.write('<div class="logos"><img src="data:image/jpeg;base64,/9j/4AAQSkZJ
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -227,18 +252,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">4.1</span> Load the data</h2>
 <p>To illustrate the multiblock sPLS-DA approach, we will integrate the expression levels of miRNA, mRNA and the abundance of proteins while discriminating the subtypes of breast cancer, then predict the subtypes of the samples in the test set.</p>
 <p>The input data is first set up as a list of <span class="math inline">\(Q\)</span> matrices <span class="math inline">\(\boldsymbol X_1, \dots, \boldsymbol X_Q\)</span> and a factor indicating the class membership of each sample <span class="math inline">\(\boldsymbol Y\)</span>. Each data frame in <span class="math inline">\(\boldsymbol X\)</span> <em>should be named</em> as we will match these names with the <code>keepX</code> parameter for the sparse method.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mixOmics)
-<span class="kw">data</span>(breast.TCGA)
-
-<span class="co"># Extract training data and name each data frame</span>
-<span class="co"># Store as list</span>
-X &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mRNA =</span> breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>mrna, 
-          <span class="dt">miRNA =</span> breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>mirna, 
-          <span class="dt">protein =</span> breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>protein)
-
-<span class="co"># Outcome</span>
-Y &lt;-<span class="st"> </span>breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>subtype
-<span class="kw">summary</span>(Y)</code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">library</span>(mixOmics)</a>
+<a class="sourceLine" id="cb131-2" data-line-number="2"><span class="kw">data</span>(breast.TCGA)</a>
+<a class="sourceLine" id="cb131-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb131-4" data-line-number="4"><span class="co"># Extract training data and name each data frame</span></a>
+<a class="sourceLine" id="cb131-5" data-line-number="5"><span class="co"># Store as list</span></a>
+<a class="sourceLine" id="cb131-6" data-line-number="6">X &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mRNA =</span> breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>mrna, </a>
+<a class="sourceLine" id="cb131-7" data-line-number="7">          <span class="dt">miRNA =</span> breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>mirna, </a>
+<a class="sourceLine" id="cb131-8" data-line-number="8">          <span class="dt">protein =</span> breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>protein)</a>
+<a class="sourceLine" id="cb131-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb131-10" data-line-number="10"><span class="co"># Outcome</span></a>
+<a class="sourceLine" id="cb131-11" data-line-number="11">Y &lt;-<span class="st"> </span>breast.TCGA<span class="op">$</span>data.train<span class="op">$</span>subtype</a>
+<a class="sourceLine" id="cb131-12" data-line-number="12"><span class="kw">summary</span>(Y)</a></code></pre></div>
 <pre><code>## Basal  Her2  LumA 
 ##    45    30    75</code></pre>
 </div>
@@ -251,10 +276,10 @@ Y &lt;-<span class="st"> </span>breast.TCGA<span class="op">$</span>data.train<s
 <li><p>Biological apriori knowledge: Should we expect <code>mRNA</code> and <code>miRNA</code> to be highly correlated?</p></li>
 <li><p>Analytical aims: As further developed in <span class="citation">Singh et al. (<a href="references.html#ref-Sin19">2019</a>)</span>, a compromise needs to be achieved between a classification and prediction task, and extracting the correlation structure of the data sets. A full design with weights = 1 will favour the latter, but at the expense of classification accuracy, whereas a design with small weights will lead to a highly predictive signature. This pertains to the complexity of the analytical task involved as several constraints are included in the optimisation procedure. For example, here we choose a 0.1 weighted model as we are interested in predicting test samples later in this case study.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">design &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="fl">0.1</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(X), <span class="dt">nrow =</span> <span class="kw">length</span>(X), 
-                <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">names</span>(X), <span class="kw">names</span>(X)))
-<span class="kw">diag</span>(design) &lt;-<span class="st"> </span><span class="dv">0</span>
-design </code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">design &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="fl">0.1</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(X), <span class="dt">nrow =</span> <span class="kw">length</span>(X), </a>
+<a class="sourceLine" id="cb133-2" data-line-number="2">                <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">names</span>(X), <span class="kw">names</span>(X)))</a>
+<a class="sourceLine" id="cb133-3" data-line-number="3"><span class="kw">diag</span>(design) &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb133-4" data-line-number="4">design </a></code></pre></div>
 <pre><code>##         mRNA miRNA protein
 ## mRNA     0.0   0.1     0.1
 ## miRNA    0.1   0.0     0.1
@@ -263,14 +288,14 @@ design </code></pre></div>
 <ul>
 <li>Data-driven option: we could perform regression analyses with PLS to further understand the correlation between data sets. Here for example, we run PLS with one component and calculate the cross-correlations between components associated to each data set:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res1.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span class="op">$</span>mRNA, X<span class="op">$</span>protein, <span class="dt">ncomp =</span> <span class="dv">1</span>)
-<span class="kw">cor</span>(res1.pls.tcga<span class="op">$</span>variates<span class="op">$</span>X, res1.pls.tcga<span class="op">$</span>variates<span class="op">$</span>Y)
-
-res2.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span class="op">$</span>mRNA, X<span class="op">$</span>miRNA, <span class="dt">ncomp =</span> <span class="dv">1</span>)
-<span class="kw">cor</span>(res2.pls.tcga<span class="op">$</span>variates<span class="op">$</span>X, res2.pls.tcga<span class="op">$</span>variates<span class="op">$</span>Y)
-
-res3.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span class="op">$</span>protein, X<span class="op">$</span>miRNA, <span class="dt">ncomp =</span> <span class="dv">1</span>)
-<span class="kw">cor</span>(res3.pls.tcga<span class="op">$</span>variates<span class="op">$</span>X, res3.pls.tcga<span class="op">$</span>variates<span class="op">$</span>Y)</code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">res1.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span class="op">$</span>mRNA, X<span class="op">$</span>protein, <span class="dt">ncomp =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb135-2" data-line-number="2"><span class="kw">cor</span>(res1.pls.tcga<span class="op">$</span>variates<span class="op">$</span>X, res1.pls.tcga<span class="op">$</span>variates<span class="op">$</span>Y)</a>
+<a class="sourceLine" id="cb135-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb135-4" data-line-number="4">res2.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span class="op">$</span>mRNA, X<span class="op">$</span>miRNA, <span class="dt">ncomp =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb135-5" data-line-number="5"><span class="kw">cor</span>(res2.pls.tcga<span class="op">$</span>variates<span class="op">$</span>X, res2.pls.tcga<span class="op">$</span>variates<span class="op">$</span>Y)</a>
+<a class="sourceLine" id="cb135-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb135-7" data-line-number="7">res3.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span class="op">$</span>protein, X<span class="op">$</span>miRNA, <span class="dt">ncomp =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb135-8" data-line-number="8"><span class="kw">cor</span>(res3.pls.tcga<span class="op">$</span>variates<span class="op">$</span>X, res3.pls.tcga<span class="op">$</span>variates<span class="op">$</span>Y)</a></code></pre></div>
 <pre><code>##           comp1
 ## comp1 0.9031761
 ##           comp1
@@ -282,15 +307,15 @@ res3.pls.tcga &lt;-<span class="st"> </span><span class="kw">pls</span>(X<span c
 <div id="number-of-components" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Number of components</h3>
 <p>As in the PLS-DA framework presented in Section 3.4, we first fit a <code>block.plsda</code> model without variable selection to assess the global performance of the model and choose the number of components. We run <code>perf()</code> with 10-fold cross validation repeated 10 times for up to 5 components and with our specified design matrix. Similar to PLS-DA, we obtain the performance of the model with respect to the different prediction distances (Figure <a href="blockplsda-tcga-case.html#fig:diablo-perf">4.1</a>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diablo.tcga &lt;-<span class="st"> </span><span class="kw">block.plsda</span>(X, Y, <span class="dt">ncomp =</span> <span class="dv">5</span>, <span class="dt">design =</span> design)
-
-<span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility, remove for your analyses</span>
-perf.diablo.tcga =<span class="st"> </span><span class="kw">perf</span>(diablo.tcga, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">nrepeat =</span> <span class="dv">10</span>)
-
-<span class="co">#perf.diablo.tcga$error.rate  # Lists the different types of error rates</span>
-
-<span class="co"># Plot of the error rates based on weighted vote</span>
-<span class="kw">plot</span>(perf.diablo.tcga)</code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">diablo.tcga &lt;-<span class="st"> </span><span class="kw">block.plsda</span>(X, Y, <span class="dt">ncomp =</span> <span class="dv">5</span>, <span class="dt">design =</span> design)</a>
+<a class="sourceLine" id="cb137-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb137-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility, remove for your analyses</span></a>
+<a class="sourceLine" id="cb137-4" data-line-number="4">perf.diablo.tcga =<span class="st"> </span><span class="kw">perf</span>(diablo.tcga, <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">nrepeat =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb137-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb137-6" data-line-number="6"><span class="co">#perf.diablo.tcga$error.rate  # Lists the different types of error rates</span></a>
+<a class="sourceLine" id="cb137-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb137-8" data-line-number="8"><span class="co"># Plot of the error rates based on weighted vote</span></a>
+<a class="sourceLine" id="cb137-9" data-line-number="9"><span class="kw">plot</span>(perf.diablo.tcga)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-perf"></span>
 <img src="Figures/DIABLO/diablo-perf-1.png" alt="Choosing the number of components in block.plsda using perf() with 10 x 10-fold CV function in the breast.TCGA study. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance presented in PLS-DA in Seciton 3.4 and detailed in Extra reading material 3 from Module 3. Bars show the standard deviation across the 10 repeated folds. The plot shows that the error rate reaches a minimum from 2 to 3 dimensions." width="50%" />
 <p class="caption">
@@ -300,35 +325,35 @@ Figure 4.1: <strong>Choosing the number of components in <code>block.plsda</code
 
 <p>The performance plot indicates that two components should be sufficient in the final model, and that the centroids distance might lead to better prediction. A balanced error rate (BER) should be considered for further analysis.</p>
 <p>The following outputs the optimal number of components according to the prediction distance and type of error rate (overall or balanced), as well as a prediction weighting scheme illustrated further below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">perf.diablo.tcga<span class="op">$</span>choice.ncomp<span class="op">$</span>WeightedVote</code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">perf.diablo.tcga<span class="op">$</span>choice.ncomp<span class="op">$</span>WeightedVote</a></code></pre></div>
 <pre><code>##             max.dist centroids.dist mahalanobis.dist
 ## Overall.ER         3              2                3
 ## Overall.BER        3              2                3</code></pre>
 <p>Thus, here we choose our final <code>ncomp</code> value:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncomp &lt;-<span class="st"> </span>perf.diablo.tcga<span class="op">$</span>choice.ncomp<span class="op">$</span>WeightedVote[<span class="st">&quot;Overall.BER&quot;</span>, <span class="st">&quot;centroids.dist&quot;</span>]</code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1">ncomp &lt;-<span class="st"> </span>perf.diablo.tcga<span class="op">$</span>choice.ncomp<span class="op">$</span>WeightedVote[<span class="st">&quot;Overall.BER&quot;</span>, <span class="st">&quot;centroids.dist&quot;</span>]</a></code></pre></div>
 </div>
 <div id="diablo:numvar" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Number of variables to select</h3>
 <p>We then choose the optimal number of variables to select in each data set using the <code>tune.block.splsda</code> function. The function <code>tune()</code> is run with 10-fold cross validation, but repeated only once (<code>nrepeat = 1</code>) for illustrative and computational reasons here. For a thorough tuning process, we advise increasing the <code>nrepeat</code> argument to 10-50, or more.</p>
 <p>We choose a <code>keepX</code> grid that is relatively fine at the start, then coarse. If the data sets are easy to classify, the tuning step may indicate the smallest number of variables to separate the sample groups. Hence, we start our grid at the value <code>5</code> to avoid a too small signature that may preclude biological interpretation.</p>
 <!-- Zoe, below I produce 2 codes, one that does not use parallel and is not running to compile the book. -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This code may take several min to run, parallelisation is possible</span>
-<span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span>
-test.keepX &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mRNA =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">9</span>, <span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">5</span>)),
-                   <span class="dt">miRNA =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">9</span>, <span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">2</span>)),
-                   <span class="dt">proteomics =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">5</span>, <span class="dv">25</span>, <span class="dv">5</span>)))
-
-tune.diablo.tcga &lt;-<span class="st"> </span><span class="kw">tune.block.splsda</span>(X, Y, <span class="dt">ncomp =</span> <span class="dv">2</span>, 
-                              <span class="dt">test.keepX =</span> test.keepX, <span class="dt">design =</span> design,
-                              <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">nrepeat =</span> <span class="dv">1</span>, 
-                              <span class="dt">dist =</span> <span class="st">&quot;centroids.dist&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="co"># This code may take several min to run, parallelisation is possible</span></a>
+<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb141-3" data-line-number="3">test.keepX &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mRNA =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">9</span>, <span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">5</span>)),</a>
+<a class="sourceLine" id="cb141-4" data-line-number="4">                   <span class="dt">miRNA =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">9</span>, <span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb141-5" data-line-number="5">                   <span class="dt">proteomics =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">5</span>, <span class="dv">25</span>, <span class="dv">5</span>)))</a>
+<a class="sourceLine" id="cb141-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb141-7" data-line-number="7">tune.diablo.tcga &lt;-<span class="st"> </span><span class="kw">tune.block.splsda</span>(X, Y, <span class="dt">ncomp =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb141-8" data-line-number="8">                              <span class="dt">test.keepX =</span> test.keepX, <span class="dt">design =</span> design,</a>
+<a class="sourceLine" id="cb141-9" data-line-number="9">                              <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, <span class="dt">nrepeat =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb141-10" data-line-number="10">                              <span class="dt">dist =</span> <span class="st">&quot;centroids.dist&quot;</span>)</a></code></pre></div>
 <p>Note:</p>
 <ul>
 <li><em>For fast computation, we can use parallel computing here - this option is also enabled on a laptop or workstation, see <code>?tune.block.splsda</code>.</em></li>
 </ul>
 <p>The number of features to select on each component is returned and stored for the final model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list.keepX &lt;-<span class="st"> </span>tune.diablo.tcga<span class="op">$</span>choice.keepX
-list.keepX</code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">list.keepX &lt;-<span class="st"> </span>tune.diablo.tcga<span class="op">$</span>choice.keepX</a>
+<a class="sourceLine" id="cb142-2" data-line-number="2">list.keepX</a></code></pre></div>
 <pre><code>## $mRNA
 ## [1]  8 25
 ## 
@@ -341,27 +366,27 @@ list.keepX</code></pre></div>
 <ul>
 <li><em>You can skip any of the tuning steps above, and hard code your chosen <code>ncomp</code> and <code>keepX</code> parameters (as a list for the latter, as shown below).</em></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list.keepX &lt;-<span class="st"> </span><span class="kw">list</span>( <span class="dt">mRNA =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">25</span>), <span class="dt">miRNA =</span> <span class="kw">c</span>(<span class="dv">14</span>,<span class="dv">5</span>), <span class="dt">protein =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">5</span>))</code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1">list.keepX &lt;-<span class="st"> </span><span class="kw">list</span>( <span class="dt">mRNA =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">25</span>), <span class="dt">miRNA =</span> <span class="kw">c</span>(<span class="dv">14</span>,<span class="dv">5</span>), <span class="dt">protein =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">5</span>))</a></code></pre></div>
 </div>
 </div>
 <div id="final-model" class="section level2">
 <h2><span class="header-section-number">4.3</span> Final model</h2>
 <p>The final multiblock sPLS-DA model includes the tuned parameters and is run as:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diablo.tcga &lt;-<span class="st"> </span><span class="kw">block.splsda</span>(X, Y, <span class="dt">ncomp =</span> ncomp, 
-                            <span class="dt">keepX =</span> list.keepX, <span class="dt">design =</span> design)</code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">diablo.tcga &lt;-<span class="st"> </span><span class="kw">block.splsda</span>(X, Y, <span class="dt">ncomp =</span> ncomp, </a>
+<a class="sourceLine" id="cb145-2" data-line-number="2">                            <span class="dt">keepX =</span> list.keepX, <span class="dt">design =</span> design)</a></code></pre></div>
 <pre><code>## Design matrix has changed to include Y; each block will be
 ##             linked to Y.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#diablo.tcga   # Lists the different functions of interest related to that object</span></code></pre></div>
-<p>A warning message informs us that the outcome <span class="math inline">\(\boldsymbol Y\)</span> has been included automatically in the design, so that the covariance between each block's component and the outcome is maximised, as shown in the final design output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diablo.tcga<span class="op">$</span>design</code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="co">#diablo.tcga   # Lists the different functions of interest related to that object</span></a></code></pre></div>
+<p>A warning message informs us that the outcome <span class="math inline">\(\boldsymbol Y\)</span> has been included automatically in the design, so that the covariance between each block’s component and the outcome is maximised, as shown in the final design output:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1">diablo.tcga<span class="op">$</span>design</a></code></pre></div>
 <pre><code>##         mRNA miRNA protein Y
 ## mRNA     0.0   0.1     0.1 1
 ## miRNA    0.1   0.0     0.1 1
 ## protein  0.1   0.1     0.0 1
 ## Y        1.0   1.0     1.0 0</code></pre>
 <p>The selected variables can be extracted with the function <code>selectVar()</code>, for example in the mRNA block, along with their loading weights (not output here):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mRNA variables selected on component 1</span>
-<span class="kw">selectVar</span>(diablo.tcga, <span class="dt">block =</span> <span class="st">&#39;mRNA&#39;</span>, <span class="dt">comp =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="co"># mRNA variables selected on component 1</span></a>
+<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="kw">selectVar</span>(diablo.tcga, <span class="dt">block =</span> <span class="st">&#39;mRNA&#39;</span>, <span class="dt">comp =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><em>Note:</em></p>
 <ul>
 <li><em>The stability of the selected variables can be extracted from the <code>perf()</code> function, similar to the example given in the PLS-DA analysis (Section 3.4).</em></li>
@@ -372,11 +397,11 @@ list.keepX</code></pre></div>
 <div id="plotdiablo" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> <code>plotDiablo</code></h3>
 <p><code>plotDiablo()</code> is a diagnostic plot to check whether the correlations between components from each data set were maximised as specified in the design matrix. We specify the dimension to be assessed with the <code>ncomp</code> argument (Figure <a href="blockplsda-tcga-case.html#fig:plot-diablo">4.2</a>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotDiablo</span>(diablo.tcga, <span class="dt">ncomp =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="kw">plotDiablo</span>(diablo.tcga, <span class="dt">ncomp =</span> <span class="dv">1</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:plot-diablo"></span>
-<img src="Figures/DIABLO/plot-diablo-1.png" alt="Diagnostic plot from multiblock sPLS-DA applied on the breast.TCGA study. Samples are represented based on the specified component (here ncomp = 1) for each data set (mRNA, miRNA and protein). Samples are coloured by breast cancer subtype (, and ) and 95% confidence ellipse plots are represented. The bottom left numbers indicate the correlation coefficients between the first components from each data set. In this example, mRNA expression and protein concentration are highly correlated on the first dimension." width="50%" />
+<img src="Figures/DIABLO/plot-diablo-1.png" alt="Diagnostic plot from multiblock sPLS-DA applied on the breast.TCGA study. Samples are represented based on the specified component (here ncomp = 1) for each data set (mRNA, miRNA and protein). Samples are coloured by breast cancer subtype (Basal, Her2 and LumA) and 95% confidence ellipse plots are represented. The bottom left numbers indicate the correlation coefficients between the first components from each data set. In this example, mRNA expression and protein concentration are highly correlated on the first dimension." width="50%" />
 <p class="caption">
-Figure 4.2: <strong>Diagnostic plot from multiblock sPLS-DA applied on the <code>breast.TCGA</code> study.</strong> Samples are represented based on the specified component (here <code>ncomp = 1</code>) for each data set (mRNA, miRNA and protein). Samples are coloured by breast cancer subtype (,  and ) and 95% confidence ellipse plots are represented. The bottom left numbers indicate the correlation coefficients between the first components from each data set. In this example, mRNA expression and protein concentration are highly correlated on the first dimension.
+Figure 4.2: <strong>Diagnostic plot from multiblock sPLS-DA applied on the <code>breast.TCGA</code> study.</strong> Samples are represented based on the specified component (here <code>ncomp = 1</code>) for each data set (mRNA, miRNA and protein). Samples are coloured by breast cancer subtype (<span style="color: #388ECC;">Basal</span>, <span style="color: #F68B33;">Her2</span> and <span style="color: #585858;">LumA</span>) and 95% confidence ellipse plots are represented. The bottom left numbers indicate the correlation coefficients between the first components from each data set. In this example, mRNA expression and protein concentration are highly correlated on the first dimension.
 </p>
 </div>
 
@@ -385,8 +410,8 @@ Figure 4.2: <strong>Diagnostic plot from multiblock sPLS-DA applied on the <code
 <div id="plotindiv" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> <code>plotIndiv</code></h3>
 <p>The sample plot with the <code>plotIndiv()</code> function projects each sample into the space spanned by the components from <em>each</em> block, resulting in a series of graphs corresponding to each data set (Figure <a href="blockplsda-tcga-case.html#fig:diablo-plotindiv">4.3</a>). The optional argument <code>blocks</code> can output a specific data set. Ellipse plots are also available (argument <code>ellipse = TRUE</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotIndiv</span>(diablo.tcga, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, 
-          <span class="dt">title =</span> <span class="st">&#39;TCGA, DIABLO comp 1 - 2&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="kw">plotIndiv</span>(diablo.tcga, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb152-2" data-line-number="2">          <span class="dt">title =</span> <span class="st">&#39;TCGA, DIABLO comp 1 - 2&#39;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-plotindiv"></span>
 <img src="Figures/DIABLO/diablo-plotindiv-1.png" alt="Sample plot from multiblock sPLS-DA performed on the breast.TCGA study. The samples are plotted according to their scores on the first 2 components for each data set. Samples are coloured by cancer subtype and are classified into three classes: , and . The plot shows the degree of agreement between the different data sets and the discriminative ability of each data set." width="50%" />
 <p class="caption">
@@ -403,8 +428,8 @@ Figure 4.3: <strong>Sample plot from multiblock sPLS-DA performed on the <code>b
 <div id="plotarrow" class="section level3">
 <h3><span class="header-section-number">4.4.3</span> <code>plotArrow</code></h3>
 <p>In the arrow plot in Figure <a href="blockplsda-tcga-case.html#fig:diablo-plotarrow">4.4</a>, the start of the arrow indicates the centroid between all data sets for a given sample and the tip of the arrow the location of that same sample but in each block. Such graphics highlight the agreement between all data sets at the sample level when modelled with multiblock sPLS-DA.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotArrow</span>(diablo.tcga, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, 
-          <span class="dt">title =</span> <span class="st">&#39;TCGA, DIABLO comp 1 - 2&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1"><span class="kw">plotArrow</span>(diablo.tcga, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb153-2" data-line-number="2">          <span class="dt">title =</span> <span class="st">&#39;TCGA, DIABLO comp 1 - 2&#39;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-plotarrow"></span>
 <img src="Figures/DIABLO/diablo-plotarrow-1.png" alt="Arrow plot from multiblock sPLS-DA performed on the breast.TCGA study. The samples are projected into the space spanned by the first two components for each data set then overlaid across data sets. The start of the arrow indicates the centroid between all data sets for a given sample and the tip of the arrow the location of the same sample in each block. Arrows further from their centroid indicate some disagreement between the data sets. Samples are coloured by cancer subtype (, and )." width="50%" />
 <p class="caption">
@@ -421,10 +446,10 @@ Figure 4.4: <strong>Arrow plot from multiblock sPLS-DA performed on the <code>br
 <div id="plotvar" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> <code>plotVar</code></h3>
 <p>The correlation circle plot highlights the contribution of each selected variable to each component. Important variables should be close to the large circle (see Section 2.2). Here, only the variables selected on components 1 and 2 are depicted (across all blocks), see Figure <a href="blockplsda-tcga-case.html#fig:diablo-plotvar">4.5</a>. Clusters of points indicate a strong correlation between variables. For better visibility we chose to hide the variable names.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotVar</span>(diablo.tcga, <span class="dt">var.names =</span> <span class="ot">FALSE</span>, <span class="dt">style =</span> <span class="st">&#39;graphics&#39;</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, 
-        <span class="dt">pch =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">15</span>), <span class="dt">cex =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), 
-        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),
-        <span class="dt">title =</span> <span class="st">&#39;TCGA, DIABLO comp 1 - 2&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="kw">plotVar</span>(diablo.tcga, <span class="dt">var.names =</span> <span class="ot">FALSE</span>, <span class="dt">style =</span> <span class="st">&#39;graphics&#39;</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb154-2" data-line-number="2">        <span class="dt">pch =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">15</span>), <span class="dt">cex =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb154-3" data-line-number="3">        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),</a>
+<a class="sourceLine" id="cb154-4" data-line-number="4">        <span class="dt">title =</span> <span class="st">&#39;TCGA, DIABLO comp 1 - 2&#39;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-plotvar"></span>
 <img src="Figures/DIABLO/diablo-plotvar-1.png" alt="Correlation circle plot from multiblock sPLS-DA performed on the breast.TCGA study. The variable coordinates are defined according to their correlation with the first and second components for each data set. Variable types are indicated with different symbols and colours, and are overlaid on the same plot. The plot highlights the potential associations within and between different variable types when they are important in defining their own component." width="50%" />
 <p class="caption">
@@ -442,9 +467,9 @@ Figure 4.5: <strong>Correlation circle plot from multiblock sPLS-DA performed on
 <div id="circosplot" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> <code>circosPlot</code></h3>
 <p>The circos plot represents the correlations between variables of different types, represented on the side quadrants. Several display options are possible, to show within and between connections between blocks, and expression levels of each variable according to each class (argument <code>line = TRUE</code>). The circos plot is built based on a similarity matrix, which was extended to the case of multiple data sets from <span class="citation">González et al. (<a href="references.html#ref-Gon12">2012</a>)</span> (see also Section 2.2 and Extra Reading material from that section). A <code>cutoff</code> argument can be further included to visualise correlation coefficients above this threshold in the multi-omics signature (Figure <a href="blockplsda-tcga-case.html#fig:diablo-circos">4.6</a>). The colours for the blocks and correlation lines can be chosen with <code>color.blocks</code> and <code>color.cor</code> respectively:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">circosPlot</span>(diablo.tcga, <span class="dt">cutoff =</span> <span class="fl">0.7</span>, <span class="dt">line =</span> <span class="ot">TRUE</span>, 
-           <span class="dt">color.blocks =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),
-           <span class="dt">color.cor =</span> <span class="kw">c</span>(<span class="st">&quot;chocolate3&quot;</span>,<span class="st">&quot;grey20&quot;</span>), <span class="dt">size.labels =</span> <span class="fl">1.5</span>)</code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1"><span class="kw">circosPlot</span>(diablo.tcga, <span class="dt">cutoff =</span> <span class="fl">0.7</span>, <span class="dt">line =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb155-2" data-line-number="2">           <span class="dt">color.blocks =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),</a>
+<a class="sourceLine" id="cb155-3" data-line-number="3">           <span class="dt">color.cor =</span> <span class="kw">c</span>(<span class="st">&quot;chocolate3&quot;</span>,<span class="st">&quot;grey20&quot;</span>), <span class="dt">size.labels =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-circos"></span>
 <img src="Figures/DIABLO/diablo-circos-1.png" alt="Circos plot from multiblock sPLS-DA performed on the breast.TCGA study. The plot represents the correlations greater than 0.7 between variables of different types, represented on the side quadrants. The internal connecting lines show the () correlations. The outer lines show the expression levels of each variable in each sample group (, and )." width="50%" />
 <p class="caption">
@@ -456,33 +481,33 @@ Figure 4.6: <strong>Circos plot from multiblock sPLS-DA performed on the <code>b
 </div>
 <div id="network" class="section level3">
 <h3><span class="header-section-number">4.5.3</span> <code>network</code></h3>
-<p>Relevance networks, which are also built on the similarity matrix, can also visualise the correlations between the different types of variables. Each colour represents a type of variable. A threshold can also be set using the argument <code>cutoff</code> (Figure <a href="blockplsda-tcga-case.html#fig:diablo-network">4.7</a>). By default the network includes only variables selected on component 1, unless specified in <code>comp</code>.</p>
+<p>Relevance networks, which are also built on the similarity matrix, can also visualise the correlations between the different types of variables. Each colour represents a type of variable. A threshold can also be set using the argument <code>cutoff</code> (Figure <a href="#fig:diablo-network"><strong>??</strong></a>). By default the network includes only variables selected on component 1, unless specified in <code>comp</code>.</p>
 <p>Note that sometimes the output may not show with Rstudio due to margin issues. We can either use <code>X11()</code> to open a new window, or save the plot as an image using the arguments <code>save</code> and <code>name.save</code>, as we show below. An <code>interactive</code> argument is also available for the <code>cutoff</code> argument, see details in <code>?network</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># X11()   # Opens a new window</span>
-<span class="kw">network</span>(diablo.tcga, <span class="dt">blocks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), 
-        <span class="dt">cutoff =</span> <span class="fl">0.4</span>,
-        <span class="dt">color.node =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),
-        <span class="co"># To save the plot, comment out otherwise</span>
-        <span class="dt">save =</span> <span class="st">&#39;pdf&#39;</span>, <span class="dt">name.save =</span> <span class="st">&#39;diablo-network&#39;</span>
-        )</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:diablo-network"></span>
-<img src="Figures/DIABLO/diablo-network.pdf" alt="Relevance network for the variables selected by multiblock sPLS-DA performed on the breast.TCGA study on component 1. Each node represents a selected variable with colours indicating their type. The colour of the edges represent positive or negative correlations. Further tweaking of this plot can be obtained, see the help file ?network." width="50%" />
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="co"># X11()   # Opens a new window</span></a>
+<a class="sourceLine" id="cb156-2" data-line-number="2"><span class="kw">network</span>(diablo.tcga, <span class="dt">blocks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb156-3" data-line-number="3">        <span class="dt">cutoff =</span> <span class="fl">0.4</span>,</a>
+<a class="sourceLine" id="cb156-4" data-line-number="4">        <span class="dt">color.node =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),</a>
+<a class="sourceLine" id="cb156-5" data-line-number="5">        <span class="co"># To save the plot, comment out otherwise</span></a>
+<a class="sourceLine" id="cb156-6" data-line-number="6">        <span class="dt">save =</span> <span class="st">&#39;png&#39;</span>, <span class="dt">name.save =</span> <span class="st">&#39;diablo-network&#39;</span></a>
+<a class="sourceLine" id="cb156-7" data-line-number="7">        )</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:diablo-network2"></span>
+<img src="Figures/DIABLO/diablo-network.png" alt="Relevance network for the variables selected by multiblock sPLS-DA performed on the breast.TCGA study on component 1. Each node represents a selected variable with colours indicating their type. The colour of the edges represent positive or negative correlations. Further tweaking of this plot can be obtained, see the help file ?network." width="50%" />
 <p class="caption">
 Figure 4.7: <strong>Relevance network for the variables selected by multiblock sPLS-DA performed on the <code>breast.TCGA</code> study on component 1.</strong> Each node represents a selected variable with colours indicating their type. The colour of the edges represent positive or negative correlations. Further tweaking of this plot can be obtained, see the help file <code>?network</code>.
 </p>
 </div>
 
-<p>The relevance network in Figure <a href="blockplsda-tcga-case.html#fig:diablo-network">4.7</a> shows two groups of features of different types. Within each group we observe positive and negative correlations. The visualisation of this plot could be further improved by changing the names of the original features.</p>
+<p>The relevance network in Figure <a href="#fig:diablo-network"><strong>??</strong></a> shows two groups of features of different types. Within each group we observe positive and negative correlations. The visualisation of this plot could be further improved by changing the names of the original features.</p>
 <p>Note that the network can be saved in a .gml format to be input into the software Cytoscape, using the R package <code>igraph</code> <span class="citation">(Csardi, Nepusz, and others <a href="references.html#ref-csa06">2006</a>)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Not run</span>
-<span class="kw">library</span>(igraph)
-myNetwork &lt;-<span class="st"> </span><span class="kw">network</span>(diablo.tcga, <span class="dt">blocks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">cutoff =</span> <span class="fl">0.4</span>)
-<span class="kw">write.graph</span>(myNetwork<span class="op">$</span>gR, <span class="dt">file =</span> <span class="st">&quot;myNetwork.gml&quot;</span>, <span class="dt">format =</span> <span class="st">&quot;gml&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="co"># Not run</span></a>
+<a class="sourceLine" id="cb157-2" data-line-number="2"><span class="kw">library</span>(igraph)</a>
+<a class="sourceLine" id="cb157-3" data-line-number="3">myNetwork &lt;-<span class="st"> </span><span class="kw">network</span>(diablo.tcga, <span class="dt">blocks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">cutoff =</span> <span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb157-4" data-line-number="4"><span class="kw">write.graph</span>(myNetwork<span class="op">$</span>gR, <span class="dt">file =</span> <span class="st">&quot;myNetwork.gml&quot;</span>, <span class="dt">format =</span> <span class="st">&quot;gml&quot;</span>)</a></code></pre></div>
 </div>
 <div id="plotloadings" class="section level3">
 <h3><span class="header-section-number">4.5.4</span> <code>plotLoadings</code></h3>
 <p><code>plotLoadings()</code> visualises the loading weights of each selected variable on each component and each data set. The colour indicates the class in which the variable has the maximum level of expression (<code>contrib = 'max'</code>) or minimum (<code>contrib = 'min'</code>), on average (<code>method = 'mean'</code>) or using the median (<code>method = 'median'</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotLoadings</span>(diablo.tcga, <span class="dt">comp =</span> <span class="dv">1</span>, <span class="dt">contrib =</span> <span class="st">&#39;max&#39;</span>, <span class="dt">method =</span> <span class="st">&#39;median&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">plotLoadings</span>(diablo.tcga, <span class="dt">comp =</span> <span class="dv">1</span>, <span class="dt">contrib =</span> <span class="st">&#39;max&#39;</span>, <span class="dt">method =</span> <span class="st">&#39;median&#39;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-loading"></span>
 <img src="Figures/DIABLO/diablo-loading-1.png" alt="Loading plot for the variables selected by multiblock sPLS-DA performed on the breast.TCGA study on component 1. The most important variables (according to the absolute value of their coefficients) are ordered from bottom to top. As this is a supervised analysis, colours indicate the class for which the median expression value is the highest for each feature (variables selected characterise and )." width="50%" />
 <p class="caption">
@@ -490,15 +515,13 @@ Figure 4.8: <strong>Loading plot for the variables selected by multiblock sPLS-D
 </p>
 </div>
 
-<p>The loading plot shows the multi-omics signature selected on component 1, where each panel represents one data type. The importance of each variable is visualised by the length of the bar (i.e. its loading coefficient value). The combination of the sign of the coefficient (positive / negative) and the colours indicate that component 1 discriminates primarily the  samples vs. the  samples (see the sample plots also). The features selected are highly expressed in one of these two subtypes. One could also plot the second component that discriminates the  samples.</p>
+<p>The loading plot shows the multi-omics signature selected on component 1, where each panel represents one data type. The importance of each variable is visualised by the length of the bar (i.e. its loading coefficient value). The combination of the sign of the coefficient (positive / negative) and the colours indicate that component 1 discriminates primarily the  samples vs. the  samples (see the sample plots also). The features selected are highly expressed in one of these two subtypes. One could also plot the second component that discriminates the  samples.</p>
 </div>
 <div id="cimdiablo" class="section level3">
 <h3><span class="header-section-number">4.5.5</span> <code>cimDiablo</code></h3>
 <p>The <code>cimDiablo()</code> function is a clustered image map specifically implemented to represent the multi-omics molecular signature expression for each sample. It is very similar to a classical hierarchical clustering (Figure <a href="blockplsda-tcga-case.html#fig:diablo-cim">4.9</a>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cimDiablo</span>(diablo.tcga, <span class="dt">color.blocks =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),
-          <span class="dt">comp =</span> <span class="dv">1</span>, <span class="dt">margin=</span><span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">20</span>), <span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>)</code></pre></div>
-<pre><code>## 
-## trimming values to [-3, 3] range for cim visualisation. See &#39;trim&#39; arg in ?cimDiablo</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="kw">cimDiablo</span>(diablo.tcga, <span class="dt">color.blocks =</span> <span class="kw">c</span>(<span class="st">&#39;darkorchid&#39;</span>, <span class="st">&#39;brown1&#39;</span>, <span class="st">&#39;lightgreen&#39;</span>),</a>
+<a class="sourceLine" id="cb159-2" data-line-number="2">          <span class="dt">comp =</span> <span class="dv">1</span>, <span class="dt">margin=</span><span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">20</span>), <span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-cim"></span>
 <img src="Figures/DIABLO/diablo-cim-1.png" alt="Clustered Image Map for the variables selected by multiblock sPLS-DA performed on the breast.TCGA study on component 1. By default, Euclidean distance and Complete linkage methods are used. The CIM represents samples in rows (indicated by their breast cancer subtype on the left hand side of the plot) and selected features in columns (indicated by their data type at the top of the plot)." width="70%" />
 <p class="caption">
@@ -512,16 +535,17 @@ Figure 4.9: <strong>Clustered Image Map for the variables selected by multiblock
 <div id="diablo:perf" class="section level2">
 <h2><span class="header-section-number">4.6</span> Model performance and prediction</h2>
 <p>We assess the performance of the model using 10-fold cross-validation repeated 10 times with the function <code>perf()</code>. The method runs a <code>block.splsda()</code> model on the pre-specified arguments input from our final object <code>diablo.tcga</code> but on cross-validated samples. We then assess the accuracy of the prediction on the left out samples. Since the <code>tune()</code> function was used with the <code>centroid.dist</code> argument, we examine the outputs of the <code>perf()</code> function for that same distance:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span>
-perf.diablo.tcga &lt;-<span class="st"> </span><span class="kw">perf</span>(diablo.tcga,  <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, 
-                         <span class="dt">nrepeat =</span> <span class="dv">10</span>, <span class="dt">dist =</span> <span class="st">&#39;centroids.dist&#39;</span>)
-
-<span class="co">#perf.diablo.tcga  # Lists the different outputs</span></code></pre></div>
-<p>We can extract the (balanced) classification error rates globally or overall with <code>perf.diablo.tcga$error.rate.per.class</code>, the predicted components associated to <span class="math inline">\(\boldsymbol Y\)</span>, or the stability of the selected features with <code>perf.diablo.tcga$features</code>.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></a>
+<a class="sourceLine" id="cb160-2" data-line-number="2">perf.diablo.tcga &lt;-<span class="st"> </span><span class="kw">perf</span>(diablo.tcga,  <span class="dt">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="dt">folds =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb160-3" data-line-number="3">                         <span class="dt">nrepeat =</span> <span class="dv">10</span>, <span class="dt">dist =</span> <span class="st">&#39;centroids.dist&#39;</span>)</a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb160-5" data-line-number="5"><span class="co">#perf.diablo.tcga  # Lists the different outputs</span></a></code></pre></div>
+<p>We can extract the (balanced) classification error rates globally or overall with
+<code>perf.diablo.tcga$error.rate.per.class</code>, the predicted components associated to <span class="math inline">\(\boldsymbol Y\)</span>, or the stability of the selected features with <code>perf.diablo.tcga$features</code>.</p>
 <p>Here we look at the different performance assessment schemes specific to multiple data set integration, as mentioned in Section 4.1.</p>
 <p>First, we output the performance with the majority vote, that is, since the prediction is based on the components associated to their own data set, we can then weight those predictions across data sets according to a majority vote scheme. Based on the predicted classes, we then extract the classification error rate per class and per component:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Performance with Majority vote</span>
-perf.diablo.tcga<span class="op">$</span>MajorityVote.error.rate</code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="co"># Performance with Majority vote</span></a>
+<a class="sourceLine" id="cb161-2" data-line-number="2">perf.diablo.tcga<span class="op">$</span>MajorityVote.error.rate</a></code></pre></div>
 <pre><code>## $centroids.dist
 ##                  comp1      comp2
 ## Basal       0.02666667 0.04444444
@@ -531,8 +555,8 @@ perf.diablo.tcga<span class="op">$</span>MajorityVote.error.rate</code></pre></d
 ## Overall.BER 0.09288889 0.05859259</code></pre>
 <p>The output shows that with the exception of the Basal samples, the classification improves with the addition of the second component.</p>
 <p>Another prediction scheme is to weight the classification error rate from each data set according to the correlation between the predicted components and the <span class="math inline">\(\boldsymbol Y\)</span> outcome.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Performance with Weighted vote</span>
-perf.diablo.tcga<span class="op">$</span>WeightedVote.error.rate</code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="co"># Performance with Weighted vote</span></a>
+<a class="sourceLine" id="cb163-2" data-line-number="2">perf.diablo.tcga<span class="op">$</span>WeightedVote.error.rate</a></code></pre></div>
 <pre><code>## $centroids.dist
 ##                   comp1      comp2
 ## Basal       0.006666667 0.04444444
@@ -542,35 +566,35 @@ perf.diablo.tcga<span class="op">$</span>WeightedVote.error.rate</code></pre></d
 ## Overall.BER 0.064000000 0.05303704</code></pre>
 <p>Compared to the previous majority vote output, we can see that the classification accuracy is slightly better on component 2 for the subtype Her2.</p>
 <p>An AUC plot <em>per block</em> is plotted using the function <code>auroc()</code>. We have already mentioned in Section 3.4 that the interpretation of this output may not be particularly insightful in relation to the performance evaluation of our methods, but can complement the statistical analysis. For example, here for the miRNA data set once we have reached component 2 (Figure <a href="blockplsda-tcga-case.html#fig:diablo-auroc">4.10</a>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auc.diablo.tcga &lt;-<span class="st"> </span><span class="kw">auroc</span>(diablo.tcga, <span class="dt">roc.block =</span> <span class="st">&quot;miRNA&quot;</span>, <span class="dt">roc.comp =</span> <span class="dv">2</span>,
-                   <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1">auc.diablo.tcga &lt;-<span class="st"> </span><span class="kw">auroc</span>(diablo.tcga, <span class="dt">roc.block =</span> <span class="st">&quot;miRNA&quot;</span>, <span class="dt">roc.comp =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb165-2" data-line-number="2">                   <span class="dt">print =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:diablo-auroc"></span>
-<img src="Figures/DIABLO/diablo-auroc-1.png" alt="ROC and AUC based on multiblock sPLS-DA performed on the breast.TCGA study for the miRNA data set after 2 components. The function calculates the ROC curve and AUC for one class vs. the others. If we set print = TRUE, the Wilcoxon test p-value that assesses the differences between the predicted components from one class vs. the others is output." width="50%" />
+<img src="Figures/DIABLO/diablo-auroc-1.png" alt="ROC and AUC based on multiblock sPLS-DA performed on the breast.TCGA study for the miRNA data set after 2 components. The function calculates the ROC curve and AUC for one class vs. the others. If we set print = TRUE, the Wilcoxon test p-value that assesses the differences between the predicted components from one class vs. the others is output." width="50%" />
 <p class="caption">
-Figure 4.10: <strong>ROC and AUC based on multiblock sPLS-DA performed on the <code>breast.TCGA</code> study for the miRNA data set after 2 components.</strong> The function calculates the ROC curve and AUC for one class vs. the others. If we set <code>print = TRUE</code>, the Wilcoxon test p-value that assesses the differences between the predicted components from one class vs. the others is output.
+Figure 4.10: <strong>ROC and AUC based on multiblock sPLS-DA performed on the <code>breast.TCGA</code> study for the miRNA data set after 2 components.</strong> The function calculates the ROC curve and AUC for one class vs. the others. If we set <code>print = TRUE</code>, the Wilcoxon test p-value that assesses the differences between the predicted components from one class vs. the others is output.
 </p>
 </div>
 
 <p>Figure <a href="blockplsda-tcga-case.html#fig:diablo-auroc">4.10</a> shows that the Her2 subtype is the most difficult to classify with multiblock sPLS-DA compared to the other subtypes.</p>
 <p>The <code>predict()</code> function associated with a <code>block.splsda()</code> object predicts the class of samples from an external test set. In our specific case, one data set is missing in the test set but the method can still be applied. We need to ensure the names of the blocks correspond exactly to those from the training set:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prepare test set data: here one block (proteins) is missing</span>
-data.test.tcga &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mRNA =</span> breast.TCGA<span class="op">$</span>data.test<span class="op">$</span>mrna, 
-                      <span class="dt">miRNA =</span> breast.TCGA<span class="op">$</span>data.test<span class="op">$</span>mirna)
-
-predict.diablo.tcga &lt;-<span class="st"> </span><span class="kw">predict</span>(diablo.tcga, <span class="dt">newdata =</span> data.test.tcga)
-<span class="co"># The warning message will inform us that one block is missing</span>
-
-<span class="co">#predict.diablo # List the different outputs</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="co"># Prepare test set data: here one block (proteins) is missing</span></a>
+<a class="sourceLine" id="cb166-2" data-line-number="2">data.test.tcga &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mRNA =</span> breast.TCGA<span class="op">$</span>data.test<span class="op">$</span>mrna, </a>
+<a class="sourceLine" id="cb166-3" data-line-number="3">                      <span class="dt">miRNA =</span> breast.TCGA<span class="op">$</span>data.test<span class="op">$</span>mirna)</a>
+<a class="sourceLine" id="cb166-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb166-5" data-line-number="5">predict.diablo.tcga &lt;-<span class="st"> </span><span class="kw">predict</span>(diablo.tcga, <span class="dt">newdata =</span> data.test.tcga)</a>
+<a class="sourceLine" id="cb166-6" data-line-number="6"><span class="co"># The warning message will inform us that one block is missing</span></a>
+<a class="sourceLine" id="cb166-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb166-8" data-line-number="8"><span class="co">#predict.diablo # List the different outputs</span></a></code></pre></div>
 <p>The following output is a confusion matrix that compares the real subtypes with the predicted subtypes for a 2 component model, for the distance of interest <code>centroids.dist</code> and the prediction scheme <code>WeightedVote</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">confusion.mat.tcga &lt;-<span class="st"> </span><span class="kw">get.confusion_matrix</span>(<span class="dt">truth =</span> breast.TCGA<span class="op">$</span>data.test<span class="op">$</span>subtype, 
-                     <span class="dt">predicted =</span> predict.diablo.tcga<span class="op">$</span>WeightedVote<span class="op">$</span>centroids.dist[,<span class="dv">2</span>])
-confusion.mat.tcga</code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">confusion.mat.tcga &lt;-<span class="st"> </span><span class="kw">get.confusion_matrix</span>(<span class="dt">truth =</span> breast.TCGA<span class="op">$</span>data.test<span class="op">$</span>subtype, </a>
+<a class="sourceLine" id="cb167-2" data-line-number="2">                     <span class="dt">predicted =</span> predict.diablo.tcga<span class="op">$</span>WeightedVote<span class="op">$</span>centroids.dist[,<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb167-3" data-line-number="3">confusion.mat.tcga</a></code></pre></div>
 <pre><code>##       predicted.as.Basal predicted.as.Her2 predicted.as.LumA
 ## Basal                 20                 1                 0
 ## Her2                   0                13                 1
 ## LumA                   0                 3                32</code></pre>
 <p>From this table, we see that one Basal and one Her2 sample are wrongly predicted as Her2 and Lum A respectively, and 3 LumA samples are wrongly predicted as Her2. The balanced prediction error rate can be obtained as:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">get.BER</span>(confusion.mat.tcga)</code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="kw">get.BER</span>(confusion.mat.tcga)</a></code></pre></div>
 <pre><code>## [1] 0.06825397</code></pre>
 <p>It would be worthwhile at this stage to revisit the chosen design of the multiblock sPLS-DA model to assess the influence of the design on the prediction performance on this test set - even though this back and forth analysis is a biased criterion to choose the design!</p>
 
@@ -637,7 +661,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

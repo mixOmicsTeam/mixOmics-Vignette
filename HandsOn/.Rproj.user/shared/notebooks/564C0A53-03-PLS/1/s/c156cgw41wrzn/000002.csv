@@ -1,6 +1,0 @@
-"0","plotIndiv(spls2.liver, ind.names = FALSE, "
-"0","          group = liver.toxicity$treatment$Time.Group, "
-"0","          pch = as.factor(liver.toxicity$treatment$Dose.Group), "
-"0","          col.per.group = color.mixo(1:4),"
-"0","          legend = TRUE, legend.title = 'Time', "
-"0","          legend.title.pch = 'Dose')"

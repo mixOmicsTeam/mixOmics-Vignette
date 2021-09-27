@@ -1,3 +1,0 @@
-"0","circosPlot(diablo.tcga, cutoff = 0.7, line = TRUE, "
-"0","           color.blocks = c('darkorchid', 'brown1', 'lightgreen'),"
-"0","           color.cor = c(""chocolate3"",""grey20""), size.labels = 1.5)"

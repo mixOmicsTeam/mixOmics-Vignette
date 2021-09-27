@@ -1,4 +1,0 @@
-"0","# X11()  # To open a new window if the graphic is too large"
-"0","cim(spls2.liver, comp = 1:2, xlab = ""clinic"", ylab = ""genes"","
-"0","    # To save the plot, otherwise comment out:"
-"0","    save = 'pdf', name.save = 'cim_liver')"

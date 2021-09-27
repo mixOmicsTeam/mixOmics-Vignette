@@ -1,5 +1,0 @@
-"0","library(knitr)"
-"0","# global options - probably better to put out.width='60%' for pdf output"
-"0","knitr::opts_chunk$set(dpi = 100, echo=TRUE, warning=FALSE, message=FALSE, eval = TRUE, cache=TRUE,"
-"0","                      fig.show=TRUE, fig.asp=1,fig.align='center', out.width = '75%',"
-"0","                      fig.pos= ""h"", out.extra = '', fig.path= 'Figures/')"

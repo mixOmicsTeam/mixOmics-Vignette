@@ -1,4 +1,0 @@
-"0","set.seed(123) # For reproducibility with this handbook, remove otherwise"
-"0","perf.diablo.tcga <- perf(diablo.tcga,  validation = 'Mfold', folds = 10, "
-"0","                         nrepeat = 10, dist = 'centroids.dist')"
-"0","#perf.diablo.tcga  # Lists the different outputs"

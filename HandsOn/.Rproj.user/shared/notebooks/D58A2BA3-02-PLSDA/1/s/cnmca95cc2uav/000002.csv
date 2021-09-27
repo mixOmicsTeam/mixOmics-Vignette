@@ -1,4 +1,0 @@
-"0","pca.srbct <- pca(X, ncomp = 3, scale = TRUE)"
-"0","plotIndiv(pca.srbct, group = srbct$class, ind.names = FALSE,"
-"0","          legend = TRUE, "
-"0","          title = 'SRBCT, PCA comp 1 - 2')"

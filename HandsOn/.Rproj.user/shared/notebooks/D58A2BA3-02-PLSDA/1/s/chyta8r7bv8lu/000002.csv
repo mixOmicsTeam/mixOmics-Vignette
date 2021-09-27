@@ -1,5 +1,0 @@
-"0","# This chunk takes ~ 2 min to run"
-"0","# Some convergence issues may arise but it is ok as this is run on CV folds"
-"0","tune.splsda.srbct <- tune.splsda(X, Y, ncomp = 4, validation = 'Mfold', "
-"0","                                 folds = 5, dist = 'max.dist', "
-"0","                                 test.keepX = list.keepX, nrepeat = 10)"

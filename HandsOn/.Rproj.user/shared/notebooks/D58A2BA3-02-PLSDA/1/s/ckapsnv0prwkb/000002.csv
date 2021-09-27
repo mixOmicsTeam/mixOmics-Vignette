@@ -1,5 +1,0 @@
-"0","set.seed(30) # For reproducibility with this handbook, remove otherwise"
-"0","perf.final.plsda.srbct <- perf(final.plsda.srbct, validation = 'Mfold', "
-"0","                               folds = 3, "
-"0","                               progressBar = FALSE, # TRUE to track progress"
-"0","                               nrepeat = 50) "

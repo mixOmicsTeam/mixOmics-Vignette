@@ -11,6 +11,39 @@ library(kableExtra)
 ```
 
 
+```{r, include=FALSE}
+colorize <- function(color, x) {
+  if (knitr::is_html_output()) {
+    htmlcolor = "black"
+    if(color == "blue"){
+      htmlcolor = "#388ECC"
+    }
+    if(color == "orange"){
+      htmlcolor = "#F68B33"
+    }
+    if(color == "grey"){
+      htmlcolor = "#585858"
+    }
+    if(color == "green"){
+      htmlcolor = "#009E73"
+    }
+    if(color == "pink"){
+      htmlcolor = "#CC79A7"
+    }
+    if(color == "yellow"){
+      htmlcolor = "#999900"
+    }
+    if(color == "darkred"){
+      htmlcolor = "#CC0000"
+    }
+    sprintf("<span style='color: %s;'>%s</span>", htmlcolor, x)
+  } else {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+    }
+}
+```
+
+
 # PLS on the liver toxicity study {#pls-liver-case}
 
 The data come from a liver toxicity study in which 64 male rats were exposed to non-toxic (50 or 150 mg/kg), moderately toxic (1500 mg/kg) or severely toxic (2000 mg/kg) doses of acetaminophen (paracetamol)  [@Bus07]. Necropsy was performed at 6, 18, 24 and 48 hours after exposure and the mRNA was extracted from the liver. Ten clinical measurements of markers for liver injury are available for each subject. The microarray data contain expression levels of 3,116 genes. The data were normalised and preprocessed by @Bus07.
@@ -87,7 +120,7 @@ tune.spls1.MAE <- tune.spls(X, y, ncomp= 2,
 plot(tune.spls1.MAE)
 ```
 
-(ref:spls1-MAE) **Mean Absolute Error criterion to choose the number of variables to select in PLS1**, using repeated CV times for a grid of variables to select. The MAE increases with the addition of a second dimension (\textcolor{orange}{comp 1 to 2}), suggesting that only one dimension is sufficient. The optimal `keepX` is indicated with a diamond.
+(ref:spls1-MAE) **Mean Absolute Error criterion to choose the number of variables to select in PLS1**, using repeated CV times for a grid of variables to select. The MAE increases with the addition of a second dimension `r colorize("orange", "comp 1 to 2")`, suggesting that only one dimension is sufficient. The optimal `keepX` is indicated with a diamond.
 
 Figure \@ref(fig:spls1-MAE) confirms that one dimension is sufficient to reach minimal MAE. Based on the `tune.spls()` function we extract the final parameters:
 
@@ -140,7 +173,7 @@ plotIndiv(spls1.liver.c2,
 
 ```
 
-(ref:spls1-ext) **Sample plot from the PLS1 performed on the `liver.toxicity` data with two dimensions**. Components associated to each data set (or block) are shown. Focusing only on the projection of the sample on the first component shows that the genes selected in $\boldsymbol X$ tend to explain the \textcolor{grey}{48h} length of treatment vs the earlier time points. This is somewhat in agreement with the levels of the $\boldsymbol y$ variable. However, more insight can be obtained by plotting the first components only, as shown in Figure \@ref(fig:spls1-comp1). 
+(ref:spls1-ext) **Sample plot from the PLS1 performed on the `liver.toxicity` data with two dimensions**. Components associated to each data set (or block) are shown. Focusing only on the projection of the sample on the first component shows that the genes selected in $\boldsymbol X$ tend to explain the `r colorize("grey", "48h")` length of treatment vs the earlier time points. This is somewhat in agreement with the levels of the $\boldsymbol y$ variable. However, more insight can be obtained by plotting the first components only, as shown in Figure \@ref(fig:spls1-comp1). 
 
 The alternative is to plot the component associated to the $\boldsymbol X$ data set (here corresponding to a linear combination of the selected genes) vs. the component associated to the $\boldsymbol y$ variable (corresponding to the scaled $\boldsymbol y$ variable in PLS1 with one dimension), or calculate the correlation between both components:
 
@@ -165,7 +198,7 @@ legend('bottomright', legend = levels(dose.liver), pch = 1:4,
 cor(spls1.liver$variates$X, spls1.liver$variates$Y)
 ```
 
-(ref:spls1-comp1) **Sample plot from the sPLS1 performed on the `liver.toxicity` data on one dimension**. A reduced representation of the `r choice.keepX` genes selected and combined in the $\boldsymbol X$ component on the $x-$axis with respect to the $\boldsymbol y$ component value (equivalent to the scaled values of $\boldsymbol y$) on the $y-$axis. We observe a separation between the high doses 1500 and 2000 mg/kg (symbols $+$ and $\times$) at \textcolor{grey}{48h} and  and \textcolor{grey}{18h} while low and medium doses cluster in the middle of the plot. High doses for \textcolor{green}{6h} and \textcolor{blue}{18h} have high scores for both components. 
+(ref:spls1-comp1) **Sample plot from the sPLS1 performed on the `liver.toxicity` data on one dimension**. A reduced representation of the `r choice.keepX` genes selected and combined in the $\boldsymbol X$ component on the $x-$axis with respect to the $\boldsymbol y$ component value (equivalent to the scaled values of $\boldsymbol y$) on the $y-$axis. We observe a separation between the high doses 1500 and 2000 mg/kg (symbols $+$ and $\times$) at `r colorize("grey", "48h")` and `r colorize("blue", "18h")` while low and medium doses cluster in the middle of the plot. High doses for `r colorize("green", "6h")` and `r colorize("blue", "18h")` have high scores for both components. 
 
 Figure \@ref(fig:spls1-comp1) is a reduced representation of a multivariate regression with PLS1. It shows that PLS1 effectively models a linear relationship between $\boldsymbol y$ and the combination of the `r choice.keepX` genes selected in $\boldsymbol X$.
 
@@ -252,7 +285,7 @@ The optimal parameters can be output, along with a plot showing the tuning resul
 plot(tune.spls.liver)
 ```
 
-(ref:spls2-tune) **Tuning plot for sPLS2**. For every grid value of `keepX` and `keepY`, the averaged correlation coefficients between the $\boldsymbol t$ and $\boldsymbol u$ components are shown across repeated CV, with optimal values (here corresponding to the highest mean correlation) indicated in a \textcolor{green}{green square} for each dimension and data set.  
+(ref:spls2-tune) **Tuning plot for sPLS2**. For every grid value of `keepX` and `keepY`, the averaged correlation coefficients between the $\boldsymbol t$ and $\boldsymbol u$ components are shown across repeated CV, with optimal values (here corresponding to the highest mean correlation) indicated in a `r colorize("green", "green square")` for each dimension and data set.  
 
 
 
@@ -331,7 +364,7 @@ plotIndiv(spls2.liver, ind.names = FALSE,
           legend.title.pch = 'Dose')
 ```
 
-(ref:spls2-plotIndiv) **Sample plot for sPLS2 performed on the `liver.toxicity` data**. Samples are projected into the space spanned by the components associated to each data set (or block). We observe some agreement between the data sets, and a separation of the 1500 and 2000 mg doses ($+$ and $\times$) in the \textcolor{blue}{18h}, \textcolor{orange}{24h} time points, and the \textcolor{grey}{48h} time point.  
+(ref:spls2-plotIndiv) **Sample plot for sPLS2 performed on the `liver.toxicity` data**. Samples are projected into the space spanned by the components associated to each data set (or block). We observe some agreement between the data sets, and a separation of the 1500 and 2000 mg doses ($+$ and $\times$) in the `r colorize("blue", "18h")`, `r colorize("orange", "24h")` time points, and the `r colorize("grey", "48h")` time point.  
 
 From Figure \@ref(fig:spls2-plotIndiv) we observe an effect of low vs. high doses of acetaminophen (component 1) as well as time of necropsy (component 2). There is some level of agreement between the two data sets, but it is not perfect!
 
@@ -351,7 +384,7 @@ plotArrow(spls2.liver, ind.names = FALSE,
           legend.title = 'Time.Group')
 ```
 
-(ref:spls2-plotArrow) **Arrow plot from the sPLS2 performed on the `liver.toxicity` data**. The start of the arrow indicates the location of a given sample in the space spanned by the components associated to the gene data set, and the tip of the arrow the location of that same sample in the space spanned by the components associated to the clinical data set. We observe large shifts for \textcolor{blue}{18h}, \textcolor{orange}{24h}  and \textcolor{grey}{48h} samples for the high doses, however the clusters of samples remain the same, as we observed in Figure \@ref(fig:spls2-plotIndiv).  
+(ref:spls2-plotArrow) **Arrow plot from the sPLS2 performed on the `liver.toxicity` data**. The start of the arrow indicates the location of a given sample in the space spanned by the components associated to the gene data set, and the tip of the arrow the location of that same sample in the space spanned by the components associated to the clinical data set. We observe large shifts for `r colorize("blue", "18h")`, `r colorize("orange", "24")`  and `r colorize("grey", "48h")` samples for the high doses, however the clusters of samples remain the same, as we observed in Figure \@ref(fig:spls2-plotIndiv).  
 
 In Figure \@ref(fig:spls2-plotArrow) we observe that specific groups of samples seem to be located far apart from one data set to the other, indicating a potential discrepancy between the information extracted. However the groups of samples according to either dose or treatment remains similar.
 
@@ -402,7 +435,7 @@ network(spls2.liver, comp = 1:2,
 knitr::include_graphics("network_liver.pdf")
 ```
 
-(ref:spls2-network) **Network representation from the sPLS2 performed on the `liver.toxicity` data**. The networks are bipartite, where each edge links a \textcolor{turquoise}{gene} (rectangle) to a \textcolor{pink}{clinical} variable (circle) node, according to a similarity matrix described in Module 2. Only variables selected by sPLS2 on the two dimensions are represented and are further filtered here according to a `cutoff` argument (optional).
+(ref:spls2-network) **Network representation from the sPLS2 performed on the `liver.toxicity` data**. The networks are bipartite, where each edge links a `r colorize("turquoise", "gene")` (rectangle) to a `r colorize("pink", "clinical")` variable (circle) node, according to a similarity matrix described in Module 2. Only variables selected by sPLS2 on the two dimensions are represented and are further filtered here according to a `cutoff` argument (optional).
 
 Figure \@ref(fig:spls2-network) shows two distinct groups of variables. The first cluster groups four clinical parameters that are mostly positively associated with selected genes. The second group includes one clinical parameter negatively associated with other selected genes. These observations are similar to what was observed in the correlation circle plot in Figure \@ref(fig:spls2-plotVar).
 

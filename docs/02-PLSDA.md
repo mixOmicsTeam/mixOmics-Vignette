@@ -61,18 +61,14 @@ plotIndiv(pca.srbct, group = srbct$class, ind.names = FALSE,
           title = 'SRBCT, PCA comp 1 - 2')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/plsda-pca-1} 
-
-}
-
-\caption{(ref:plsda-pca)}(\#fig:plsda-pca)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/plsda-pca-1.png" alt="(ref:plsda-pca)" width="50%" />
+<p class="caption">(\#fig:plsda-pca)(ref:plsda-pca)</p>
+</div>
 
 (ref:plsda-pca) **Preliminary (unsupervised) analysis with PCA on the `SRBCT` gene expression data**. Samples are projected into the space spanned by the principal components 1 and 2. The tumour types are not clustered, meaning that the major source of variation cannot be explained by tumour types. Instead, samples seem to cluster according to an unknown source of variation.
 
-We observe almost no separation between the different tumour types in the PCA sample plot, with perhaps the exception of the NB samples that tend to cluster with other samples. This preliminary exploration teaches us two important findings:
+We observe almost no separation between the different tumour types in the PCA sample plot, with perhaps the exception of the <span style='color: #585858;'>NB</span> samples that tend to cluster with other samples. This preliminary exploration teaches us two important findings:
 
 - The major source of variation is not attributable to tumour type, but an unknown source (we tend to observe clusters of samples but those are not explained by tumour type). 
 - We need a more 'directed' (supervised) analysis to separate the tumour types, and we should expect that the amount of variance explained by the dimensions in PLS-DA analysis will be small.
@@ -93,14 +89,10 @@ perf.plsda.srbct <- perf(plsda.srbct, validation = 'Mfold', folds = 3,
 plot(perf.plsda.srbct, sd = TRUE, legend.position = 'horizontal')
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/plsda-perf-1} 
-
-}
-
-\caption{(ref:plsda-perf)}(\#fig:plsda-perf)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/plsda-perf-1.png" alt="(ref:plsda-perf)" width="50%" />
+<p class="caption">(\#fig:plsda-perf)(ref:plsda-perf)</p>
+</div>
 
 (ref:plsda-perf) **Tuning the number of components in PLS-DA on the `SRBCT` gene expression data.** For each component, repeated cross-validation (10 $\times 3-$fold CV) is used to evaluate the PLS-DA classification performance (overall and balanced error rate BER), for each type of prediction distance; `max.dist`, `centroids.dist` and `mahalanobis.dist`. Bars show the standard deviation across the repeated folds. The plot shows that the error rate reaches a minimum from 3 components.
 
@@ -150,19 +142,15 @@ plotIndiv(final.plsda.srbct, ind.names = FALSE, legend=TRUE,
           X.label = 'PLS-DA comp 2', Y.label = 'PLS-DA comp 3')
 ```
 
-\begin{figure}
-
-{\centering \subfloat[(\#fig:plsda-plotindiv-1)]{\includegraphics[width=0.5\linewidth]{Figures/PLSDA/plsda-indiv12-1} }\subfloat[(\#fig:plsda-plotindiv-2)]{\includegraphics[width=0.5\linewidth]{Figures/PLSDA/plsda-indiv13-1} }
-
-}
-
-\caption{(ref:plsda-plotindiv)}(\#fig:plsda-plotindiv)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/plsda-indiv12-1.png" alt="(ref:plsda-plotindiv)" width="50%" /><img src="Figures/PLSDA/plsda-indiv13-1.png" alt="(ref:plsda-plotindiv)" width="50%" />
+<p class="caption">(\#fig:plsda-plotindiv)(ref:plsda-plotindiv)</p>
+</div>
 
 
-(ref:plsda-plotindiv)  **Sample plots from PLS-DA performed on the `SRBCT` gene expression data**. Samples are projected into the space spanned by the first three components. (a) Components 1 and 2 and (b) Components 1 and 3. Samples are coloured by their tumour subtypes. Component 1 discriminates RMS + EWS vs. NB + BL, component 2 discriminates RMS + NB vs. EWS + BL, while component 3 discriminates further the NB and BL groups. It is the combination of all three components that enables us to discriminate all classes.
+(ref:plsda-plotindiv)  **Sample plots from PLS-DA performed on the `SRBCT` gene expression data**. Samples are projected into the space spanned by the first three components. (a) Components 1 and 2 and (b) Components 1 and 3. Samples are coloured by their tumour subtypes. Component 1 discriminates <span style='color: #009E73;'>RMS</span> + <span style='color: #388ECC;'>EWS</span> vs. <span style='color: #585858;'>NB</span> + <span style='color: #F68B33;'>BL</span>, component 2 discriminates <span style='color: #009E73;'>RMS</span> + <span style='color: #585858;'>NB</span> vs. <span style='color: #388ECC;'>EWS</span> + <span style='color: #F68B33;'>BL</span>, while component 3 discriminates further the <span style='color: #585858;'>NB</span> and <span style='color: #F68B33;'>BL</span> groups. It is the combination of all three components that enables us to discriminate all classes.
 
-We can observe improved clustering according to tumour subtypes, compared with PCA. This is to be expected since the PLS-DA model includes the class information of each sample. We observe some discrimination between the NB and BL samples vs. the others on the first component (x-axis), and EWS and RMS vs. the others on the second component (y-axis). From the `plotIndiv()` function, the axis labels indicate the amount of variation explained per component. However, the interpretation of this amount is *not as important* as in PCA, as PLS-DA aims to maximise the covariance between components associated to $\boldsymbol X$ and $\boldsymbol Y$, rather than the variance $\boldsymbol X$.
+We can observe improved clustering according to tumour subtypes, compared with PCA. This is to be expected since the PLS-DA model includes the class information of each sample. We observe some discrimination between the <span style='color: #585858;'>NB</span> and <span style='color: #F68B33;'>BL</span> samples vs. the others on the first component (x-axis), and <span style='color: #388ECC;'>EWS</span> and <span style='color: #009E73;'>RMS</span> vs. the others on the second component (y-axis). From the `plotIndiv()` function, the axis labels indicate the amount of variation explained per component. However, the interpretation of this amount is *not as important* as in PCA, as PLS-DA aims to maximise the covariance between components associated to $\boldsymbol X$ and $\boldsymbol Y$, rather than the variance $\boldsymbol X$.
 
 ### Classification performance  {#plsda:perf}
 
@@ -226,14 +214,10 @@ plotIndiv(final.plsda.srbct, comp = 1:2, group = srbct$class,
 
 
 
-\begin{figure}
-
-{\centering \subfloat[(\#fig:plsda-background-1)]{\includegraphics[width=0.3\linewidth]{Figures/PLSDA/plsda-background-max-1} }\subfloat[(\#fig:plsda-background-2)]{\includegraphics[width=0.3\linewidth]{Figures/PLSDA/plsda-background-cent-1} }\subfloat[(\#fig:plsda-background-3)]{\includegraphics[width=0.3\linewidth]{Figures/PLSDA/plsda-background-mah-1} }
-
-}
-
-\caption{(ref:plsda-background)}(\#fig:plsda-background)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/plsda-background-max-1.png" alt="(ref:plsda-background)" width="30%" /><img src="Figures/PLSDA/plsda-background-cent-1.png" alt="(ref:plsda-background)" width="30%" /><img src="Figures/PLSDA/plsda-background-mah-1.png" alt="(ref:plsda-background)" width="30%" />
+<p class="caption">(\#fig:plsda-background)(ref:plsda-background)</p>
+</div>
 
 
 (ref:plsda-background) **Sample plots from PLS-DA on the `SRBCT` gene expression data and prediction areas based on prediction distances**. From our usual sample plot, we overlay a background prediction area based on permutations from the first two PLS-DA components using the three different types of prediction distances. The outputs show how the prediction distance can influence the quality of the prediction, with samples projected into a wrong class area, and hence resulting in predicted misclassification. (Currently, the prediction area background can only be calculated for the first two components).  
@@ -305,16 +289,12 @@ We display the mean classification error rate on each component, bearing in mind
 plot(tune.splsda.srbct, sd = TRUE)
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-tune-1.png" alt="(ref:splsda-tune)" width="50%" />
+<p class="caption">(\#fig:splsda-tune)(ref:splsda-tune)</p>
+</div>
 
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-tune-1} 
-
-}
-
-\caption{(ref:splsda-tune)}(\#fig:splsda-tune)
-\end{figure}
-
-(ref:splsda-tune) **Tuning `keepX` for the sPLS-DA performed on the `SRBCT` gene expression data.** Each coloured line represents the balanced error rate (y-axis) per component across all tested `keepX` values (x-axis) with the standard deviation based on the repeated cross-validation folds. The diamond indicates the optimal `keepX` value on a particular component which achieves the lowest classification error rate as determined with a one-sided $t-$test. As sPLS-DA is an iterative algorithm, values represented for a given component (e.g. comp 1 to 2) include the optimal `keepX` value chosen for the previous component (comp 1).
+(ref:splsda-tune) **Tuning `keepX` for the sPLS-DA performed on the `SRBCT` gene expression data.** Each coloured line represents the balanced error rate (y-axis) per component across all tested `keepX` values (x-axis) with the standard deviation based on the repeated cross-validation folds. The diamond indicates the optimal `keepX` value on a particular component which achieves the lowest classification error rate as determined with a one-sided $t-$test. As sPLS-DA is an iterative algorithm, values represented for a given component (e.g. <span style='color: #F68B33;'>comp 1 to 2</span>) include the optimal `keepX` value chosen for the previous component (<span style='color: #388ECC;'>comp 1</span>).
 
 The tuning results depend on the tuning grid `list.keepX`, as well as the values chosen for `folds` and `nrepeat`. Therefore, we recommend assessing the performance of the *final* model, as well as examining the stability of the selected variables across the different folds, as detailed in the next section. 
 
@@ -442,14 +422,10 @@ barplot(stable.comp2, xlab = 'variables selected across CV folds',
 par(mfrow=c(1,1))
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-stability-1} 
-
-}
-
-\caption{(ref:splsda-stability)}(\#fig:splsda-stability)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-stability-1.png" alt="(ref:splsda-stability)" width="50%" />
+<p class="caption">(\#fig:splsda-stability)(ref:splsda-stability)</p>
+</div>
 
 (ref:splsda-stability) **Stability of variable selection from the sPLS-DA on the SRBCT gene expression data.** We use a by-product from `perf()` to assess how often the same variables are selected for a given `keepX` value in the final sPLS-DA model. The barplot represents the frequency of selection across repeated CV folds for each selected gene for component 1 and 2. The genes are ranked according to decreasing frequency.
 
@@ -507,18 +483,14 @@ plotIndiv(splsda.srbct, comp = c(2,3),
           title = 'SRBCT, sPLS-DA comp 2 - 3')
 ```
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-indiv12-1.png" alt="(ref:splsda-indiv)" width="50%" /><img src="Figures/PLSDA/splsda-indiv23-1.png" alt="(ref:splsda-indiv)" width="50%" />
+<p class="caption">(\#fig:splsda-indiv)(ref:splsda-indiv)</p>
+</div>
 
-{\centering \subfloat[(a)(\#fig:splsda-indiv-1)]{\includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-indiv12-1} }\subfloat[(b)(\#fig:splsda-indiv-2)]{\includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-indiv23-1} }
+(ref:splsda-indiv)  **Sample plots from the sPLS-DA performed on the `SRBCT` gene expression data**. Samples are projected into the space spanned by the first three components. The plots represent 95\% ellipse confidence intervals around each sample class. The start of each arrow represents the centroid of each class in the space spanned by the components. (a) Components 1 and 2 and (b) Components 2 and 3. Samples are coloured by their tumour subtype. Component 1 discriminates <span style='color: #F68B33;'>BL</span> vs. the rest, component 2 discriminates <span style='color: #388ECC;'>EWS</span> vs. the rest, while component 3 further discriminates <span style='color: #585858;'>NB</span> vs. <span style='color: #009E73;'>RMS</span> vs. the rest. The combination of all three components enables us to discriminate all classes.
 
-}
-
-\caption{(ref:splsda-indiv)}(\#fig:splsda-indiv)
-\end{figure}
-
-(ref:splsda-indiv)  **Sample plots from the sPLS-DA performed on the `SRBCT` gene expression data**. Samples are projected into the space spanned by the first three components. The plots represent 95\% ellipse confidence intervals around each sample class. The start of each arrow represents the centroid of each class in the space spanned by the components. (a) Components 1 and 2 and (b) Components 2 and 3. Samples are coloured by their tumour subtype. Component 1 discriminates BL vs. the rest, component 2 discriminates EWS vs. the rest, while component 3 further discriminates NB vs. RMS vs. the rest. The combination of all three components enables us to discriminate all classes.
-
-The sample plots are different from PLS-DA (Figure \@ref(fig:plsda-plotindiv)) with an overlap of specific classes (i.e. NB + RMS on component 1 and 2), that are then further separated on component 3, thus showing how the genes selected on each component discriminate particular sets of sample groups.
+The sample plots are different from PLS-DA (Figure \@ref(fig:plsda-plotindiv)) with an overlap of specific classes (i.e. <span style='color: #585858;'>NB</span> + <span style='color: #009E73;'>RMS</span> on component 1 and 2), that are then further separated on component 3, thus showing how the genes selected on each component discriminate particular sets of sample groups.
 
 ### Variable visualisation {#plsda:varplot}
 
@@ -535,18 +507,14 @@ plotVar(splsda.srbct, comp = c(1,2),
         var.names = list(var.name.short), cex = 3)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-var-1} 
-
-}
-
-\caption{(ref:splsda-var)}(\#fig:splsda-var)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-var-1.png" alt="(ref:splsda-var)" width="50%" />
+<p class="caption">(\#fig:splsda-var)(ref:splsda-var)</p>
+</div>
 
 (ref:splsda-var) **Correlation circle plot representing the genes selected by sPLS-DA performed on the `SRBCT` gene expression data**. Gene names are truncated to the first 10 characters. Only the genes selected by sPLS-DA are shown in components 1 and 2. We observe three groups of genes (positively associated with component 1, and positively or negatively associated with component 2). This graphic should be interpreted in conjunction with the sample plot.
 
-By considering both the correlation circle plot (Figure \@ref(fig:splsda-var)) and the sample plot in Figure \@ref(fig:splsda-indiv), we observe that a group of genes with a positive correlation with component 1 ('EH domain', 'proteasome' etc.) are associated with the  BL samples. We also observe two groups of genes either positively or negatively correlated with component 2. These genes are likely to characterise either the  NB + RMS classes, or the EWS class. This interpretation can be further examined with the `plotLoadings()` function.
+By considering both the correlation circle plot (Figure \@ref(fig:splsda-var)) and the sample plot in Figure \@ref(fig:splsda-indiv), we observe that a group of genes with a positive correlation with component 1 ('EH domain', 'proteasome' etc.) are associated with the  <span style='color: #F68B33;'>BL</span> samples. We also observe two groups of genes either positively or negatively correlated with component 2. These genes are likely to characterise either the  <span style='color: #585858;'>NB</span> + <span style='color: #009E73;'>RMS</span> classes, or the <span style='color: #388ECC;'>EWS</span> class. This interpretation can be further examined with the `plotLoadings()` function.
 
 In this plot, the loading weights of each selected variable on each component are represented (see Module 2). The colours indicate the group in which the expression of the selected gene is maximal based on the mean (`method = 'median'` is also available for skewed data). For example on component 1:
 
@@ -556,24 +524,20 @@ plotLoadings(splsda.srbct, comp = 1, method = 'mean', contrib = 'max',
              name.var = var.name.short)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-plotloading-1} 
-
-}
-
-\caption{(ref:splsda-plotloading)}(\#fig:splsda-plotloading)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-plotloading-1.png" alt="(ref:splsda-plotloading)" width="50%" />
+<p class="caption">(\#fig:splsda-plotloading)(ref:splsda-plotloading)</p>
+</div>
 
 (ref:splsda-plotloading) **Loading plot of the genes selected by sPLS-DA on component 1 on the `SRBCT` gene expression data**. Genes are ranked according to their loading weight (most important at the bottom to least important at the top), represented as a barplot. Colours indicate the class for which a particular gene is maximally expressed, on average, in this particular class. The plot helps to further characterise the gene signature and should be interpreted jointly with the sample plot (Figure \@ref(fig:splsda-indiv)).
 
 
-Here all genes are associated with BL (on average, their expression levels are higher in this class than in the other classes). 
+Here all genes are associated with <span style='color: #F68B33;'>BL</span> (on average, their expression levels are higher in this class than in the other classes). 
 
 Notes: 
 
 - *Consider using the argument `ndisplay` to only display the top selected genes if the signature is too large.* 
-- *Consider using the argument `contrib = 'min'` to interpret the inverse trend of the signature (i.e. which genes have the smallest expression in which class, here a mix of NB and RMS samples).*
+- *Consider using the argument `contrib = 'min'` to interpret the inverse trend of the signature (i.e. which genes have the smallest expression in which class, here a mix of <span style='color: #585858;'>NB</span> and <span style='color: #009E73;'>RMS</span> samples).*
 
 To complete the visualisation, the CIM in this special case is a simple hierarchical heatmap (see `?cim`) representing the expression levels of the genes selected across all three components with respect to each sample. Here we use an Euclidean distance with Complete agglomeration method, and we specify the argument `row.sideColors` to colour the samples according to their tumour type (Figure \@ref(fig:splsda-cim)). 
 
@@ -582,14 +546,10 @@ To complete the visualisation, the CIM in this special case is a simple hierarch
 cim(splsda.srbct, row.sideColors = color.mixo(Y))
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-cim-1} 
-
-}
-
-\caption{(ref:splsda-cim)}(\#fig:splsda-cim)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-cim-1.png" alt="(ref:splsda-cim)" width="50%" />
+<p class="caption">(\#fig:splsda-cim)(ref:splsda-cim)</p>
+</div>
 
 (ref:splsda-cim) **Clustered Image Map of the genes selected by sPLS-DA on the `SRBCT` gene expression data across all 3 components**. A hierarchical clustering based on the gene expression levels of the selected genes, with samples in rows coloured according to their tumour subtype (using Euclidean distance with Complete agglomeration method). As expected, we observe a separation of all different tumour types, which are characterised by different levels of expression. 
 
@@ -732,14 +692,10 @@ As PLS-DA acts as a classifier, we can plot the AUC (Area Under The Curve) ROC (
 auc.srbct <- auroc(splsda.srbct)
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{Figures/PLSDA/splsda-roc-1} 
-
-}
-
-\caption{(ref:splsda-roc)}(\#fig:splsda-roc)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="Figures/PLSDA/splsda-roc-1.png" alt="(ref:splsda-roc)" width="50%" />
+<p class="caption">(\#fig:splsda-roc)(ref:splsda-roc)</p>
+</div>
 
 ```
 ## $Comp1
@@ -764,9 +720,9 @@ auc.srbct <- auroc(splsda.srbct)
 ## RMS vs Other(s)   1 2.164e-10
 ```
 
-(ref:splsda-roc) **ROC curve and AUC from sPLS-DA on the `SRBCT` gene expression data on component 1** averaged across one-vs.-all comparisons. Numerical outputs include the AUC and a Wilcoxon test p-value for each 'one vs. other' class comparisons that are performed per component. This output complements the sPLS-DA performance evaluation but *should not be used for tuning* (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the sPLS-DA model can distinguish BL subjects from the other groups with a high true positive and low false positive rate, while the model is less well able to distinguish samples from other classes on component 1. 
+(ref:splsda-roc) **ROC curve and AUC from sPLS-DA on the `SRBCT` gene expression data on component 1** averaged across one-vs.-all comparisons. Numerical outputs include the AUC and a Wilcoxon test p-value for each 'one vs. other' class comparisons that are performed per component. This output complements the sPLS-DA performance evaluation but *should not be used for tuning* (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the sPLS-DA model can distinguish <span style='color: #CC0000;'>BL</span> subjects from the other groups with a high true positive and low false positive rate, while the model is less well able to distinguish samples from other classes on component 1. 
 
-The ideal ROC curve should be along the top left corner, indicating a high true positive rate (sensitivity on the y-axis) and a high true negative rate (or low 100 - specificity on the x-axis), with an AUC close to 1. This is the case for BL vs. the others on component 1. The numerical output shows a perfect classification on component 3.
+The ideal ROC curve should be along the top left corner, indicating a high true positive rate (sensitivity on the y-axis) and a high true negative rate (or low 100 - specificity on the x-axis), with an AUC close to 1. This is the case for <span style='color: #CC0000;'>BL</span> vs. the others on component 1. The numerical output shows a perfect classification on component 3.
 
 
 *Note:* 

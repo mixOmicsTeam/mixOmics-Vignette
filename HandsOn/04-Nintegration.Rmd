@@ -11,11 +11,9 @@ library(kableExtra)
 
 ```
 
+
 ```{r, include=FALSE}
 colorize <- function(color, x) {
-  if (knitr::is_latex_output()) {
-    sprintf("\\textcolor{%s}{%s}", color, x)
-  } 
   if (knitr::is_html_output()) {
     htmlcolor = "black"
     if(color == "blue"){
@@ -40,7 +38,9 @@ colorize <- function(color, x) {
       htmlcolor = "#CC0000"
     }
     sprintf("<span style='color: %s;'>%s</span>", htmlcolor, x)
-  } else x
+  } else {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+    }
 }
 ```
 
@@ -239,7 +239,7 @@ selectVar(diablo.tcga, block = 'mRNA', comp = 1)
 plotDiablo(diablo.tcga, ncomp = 1)
 ```
 
-(ref:plot-diablo) **Diagnostic plot from multiblock sPLS-DA applied on the `breast.TCGA` study.** Samples are represented based on the specified component (here `ncomp = 1`) for each data set (mRNA, miRNA and protein). Samples are coloured by breast cancer subtype (\textcolor{blue}{Basal}, \textcolor{orange}{Her2} and \textcolor{grey}{LumA}) and 95\% confidence ellipse plots are represented. The bottom left numbers indicate the correlation coefficients between the first components from each data set. In this example, mRNA expression and protein concentration are highly correlated on the first dimension. 
+(ref:plot-diablo) **Diagnostic plot from multiblock sPLS-DA applied on the `breast.TCGA` study.** Samples are represented based on the specified component (here `ncomp = 1`) for each data set (mRNA, miRNA and protein). Samples are coloured by breast cancer subtype (`r colorize("blue", "Basal")`, `r colorize("orange", "Her2")` and `r colorize("grey", "LumA")`) and 95\% confidence ellipse plots are represented. The bottom left numbers indicate the correlation coefficients between the first components from each data set. In this example, mRNA expression and protein concentration are highly correlated on the first dimension. 
 
 The plot indicates that the first components from all data sets are highly correlated. The colours and ellipses represent the sample subtypes and indicate the discriminative power of each component to separate the different tumour subtypes. Thus, multiblock sPLS-DA is able to extract a strong correlation structure between data sets, as well as discriminate the breast cancer subtypes on the first component. 
 
@@ -320,19 +320,20 @@ Relevance networks, which are also built on the similarity matrix, can also visu
 
 Note that sometimes the output may not show with Rstudio due to margin issues. We can either use `X11()` to open a new window, or save the plot as an image using the arguments `save` and `name.save`, as we show below. An `interactive` argument is also available for the `cutoff` argument, see details in `?network`.
 
+
 ```{r, eval = FALSE, message=FALSE}
 # X11()   # Opens a new window
 network(diablo.tcga, blocks = c(1,2,3), 
         cutoff = 0.4,
         color.node = c('darkorchid', 'brown1', 'lightgreen'),
         # To save the plot, comment out otherwise
-        save = 'pdf', name.save = 'diablo-network'
+        save = 'png', name.save = 'diablo-network'
         )
 ```
 
 
-```{r diablo-network, echo = FALSE, fig.cap ='(ref:diablo-network)'}
-knitr::include_graphics("Figures/DIABLO/diablo-network.pdf")
+```{r diablo-network2, fig.cap ='(ref:diablo-network)', echo = FALSE, eval=TRUE}
+knitr::include_graphics("Figures/DIABLO/diablo-network.png")
 ```
 
 (ref:diablo-network) **Relevance network for the variables selected by multiblock sPLS-DA performed on the `breast.TCGA` study on component 1.** Each node represents a selected variable with colours indicating their type. The colour of the edges represent positive or negative correlations. Further tweaking of this plot can be obtained, see the help file `?network`.

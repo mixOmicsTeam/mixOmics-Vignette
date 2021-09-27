@@ -1,2 +1,0 @@
-"0","tune.pca.multi <- tune.pca(X, ncomp = 10, scale = TRUE)"
-"0","plot(tune.pca.multi)"

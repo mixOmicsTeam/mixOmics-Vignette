@@ -1,8 +1,0 @@
-"0","#Optimal parameters"
-"0","choice.keepX <- tune.spls.liver$choice.keepX"
-"0","choice.keepY <- tune.spls.liver$choice.keepY"
-"0","choice.ncomp <- length(choice.keepX)"
-"0","spls2.liver <- spls(X, Y, ncomp = choice.ncomp, "
-"0","                   keepX = choice.keepX,"
-"0","                   keepY = choice.keepY,"
-"0","                   mode = ""regression"")"

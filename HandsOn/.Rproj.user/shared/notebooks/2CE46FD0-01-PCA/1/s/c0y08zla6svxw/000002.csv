@@ -1,2 +1,0 @@
-"0","# On the first component, just a head"
-"0","head(selectVar(final.spca.multi, comp = 2)$value)"
