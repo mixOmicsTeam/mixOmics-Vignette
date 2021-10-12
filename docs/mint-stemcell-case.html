@@ -282,9 +282,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb181-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb181-6" data-line-number="6"><span class="kw">plot</span>(perf.mint.plsda.stem)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:MINT-perf"></span>
-<img src="Figures/MINT/MINT-perf-1.png" alt="Choosing the number of components in mint.plsda using perf() with LOGOCV in the stemcells study. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Section 3.4 and Extra Reading material 3 from Module 3 for a refresher). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance." width="50%" />
+<img src="Figures/MINT/MINT-perf-1.png" alt="Choosing the number of components in mint.plsda using perf() with LOGOCV in the stemcells study. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Module 3 and Extra Reading material ‘PLS-DA appendix’). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance." width="50%" />
 <p class="caption">
-Figure 5.1: <strong>Choosing the number of components in <code>mint.plsda</code> using <code>perf()</code> with LOGOCV in the <code>stemcells</code> study</strong>. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Section 3.4 and Extra Reading material 3 from Module 3 for a refresher). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance.
+Figure 5.1: <strong>Choosing the number of components in <code>mint.plsda</code> using <code>perf()</code> with LOGOCV in the <code>stemcells</code> study</strong>. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Module 3 and Extra Reading material ‘PLS-DA appendix’). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance.
 </p>
 </div>
 
@@ -392,7 +392,7 @@ Figure 5.5: <strong>Sample plots from the MINT sPLS-DA performed on the <code>st
 <h3><span class="header-section-number">5.3.4</span> Variable plots</h3>
 <div id="correlation-circle-plot" class="section level4">
 <h4><span class="header-section-number">5.3.4.1</span> Correlation circle plot</h4>
-<p>We can examine our molecular signature selected with MINT sPLS-DA. The correlation circle plot, presented in Section 2.2, highlights the contribution of each selected transcript to each component (close to the large circle), and their correlation (clusters of variables) in Figure <a href="mint-stemcell-case.html#fig:MINT-var-col">5.6</a>:</p>
+<p>We can examine our molecular signature selected with MINT sPLS-DA. The correlation circle plot, presented in Module 2, highlights the contribution of each selected transcript to each component (close to the large circle), and their correlation (clusters of variables) in Figure <a href="mint-stemcell-case.html#fig:MINT-var-col">5.6</a>:</p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="kw">plotVar</span>(final.mint.splsda.stem)</a></code></pre></div>
 <p><img src="Figures/MINT/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /></p>
 <!-- Code below to highlight specific genes -->
@@ -406,12 +406,12 @@ Figure 5.6: <strong>Correlation circle plot representing the genes selected by M
 <p>We observe a <span style="color: #CC79A7;">subset of genes that are strongly correlated and negatively</span> associated to component 1 (negative values on the x-axis), which are likely to characterise the groups of samples hiPSC and hESC, and a <span style="color: #009E73;">subset of genes positively</span> associated to component 1 that may characterise the fibroblast samples (and are negatively correlated to the previous group of genes).</p>
 <p>Note:</p>
 <ul>
-<li><em>We can use the <code>var.name</code> argument to show gene name ID, as shown in Section 3.4 for PLS-DA.</em></li>
+<li><em>We can use the <code>var.name</code> argument to show gene name ID, as shown in Module 3 for PLS-DA.</em></li>
 </ul>
 </div>
 <div id="clustered-image-maps" class="section level4">
 <h4><span class="header-section-number">5.3.4.2</span> Clustered Image Maps</h4>
-<p>The Clustered Image Map represents the expression levels of the gene signature per sample, similar to a PLS-DA object (see Section 3.4). Here we use the default Euclidean distance and Complete linkage in Figure <a href="mint-stemcell-case.html#fig:MINT-cim">5.7</a> for a specific component (here 1):</p>
+<p>The Clustered Image Map represents the expression levels of the gene signature per sample, similar to a PLS-DA object (see Module 3). Here we use the default Euclidean distance and Complete linkage in Figure <a href="mint-stemcell-case.html#fig:MINT-cim">5.7</a> for a specific component (here 1):</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="co"># If facing margin issues, use either X11() or save the plot using the</span></a>
 <a class="sourceLine" id="cb194-2" data-line-number="2"><span class="co"># arguments save and name.save</span></a>
 <a class="sourceLine" id="cb194-3" data-line-number="3"><span class="kw">cim</span>(final.mint.splsda.stem, <span class="dt">comp =</span> <span class="dv">1</span>, <span class="dt">margins=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">5</span>), </a>
@@ -444,7 +444,7 @@ Figure 5.8: <strong>Relevance network of the genes selected by MINT sPLS-DA perf
 </div>
 <div id="variable-selection-and-loading-plots" class="section level4">
 <h4><span class="header-section-number">5.3.4.4</span> Variable selection and loading plots</h4>
-<p>The <code>selectVar()</code> function outputs the selected transcripts on the first component along with their loading weight values. We consider variables as important in the model when their absolute loading weight value is high. In addition to this output, we can compare the stability of the selected features across studies using the <code>perf()</code> function, as shown in PLS-DA in Section 3.4.</p>
+<p>The <code>selectVar()</code> function outputs the selected transcripts on the first component along with their loading weight values. We consider variables as important in the model when their absolute loading weight value is high. In addition to this output, we can compare the stability of the selected features across studies using the <code>perf()</code> function, as shown in PLS-DA in Module 3.</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="co"># Just a head</span></a>
 <a class="sourceLine" id="cb196-2" data-line-number="2"><span class="kw">head</span>(<span class="kw">selectVar</span>(final.mint.plsda.stem, <span class="dt">comp =</span> <span class="dv">1</span>)<span class="op">$</span>value)</a></code></pre></div>
 <pre><code>##                   value.var

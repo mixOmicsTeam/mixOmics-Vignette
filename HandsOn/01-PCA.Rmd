@@ -246,7 +246,7 @@ plot(tune.spca.result)
 
 (ref:spca-tuning-ABStrans) **Tuning the number of variables to select with sPCA on the `ABC.trans` data**. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided $t-$tests and is indicated with a diamond. 
 
-The tuning function outputs the averaged correlation between predicted and actual components per `keepX` value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component (as described in Module 3.1). Figure \@ref(fig:spca-tuning-ABStrans) shows that this is achieved when selecting `r tune.spca.result$choice.keepX[1]` transporters on the first component, and `r tune.spca.result$choice.keepX[2]` on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components. 
+The tuning function outputs the averaged correlation between predicted and actual components per `keepX` value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component (as described in Module 3). Figure \@ref(fig:spca-tuning-ABStrans) shows that this is achieved when selecting `r tune.spca.result$choice.keepX[1]` transporters on the first component, and `r tune.spca.result$choice.keepX[2]` on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components. 
 
 Note: 
 

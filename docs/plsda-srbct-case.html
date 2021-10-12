@@ -265,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.2</span> Example: PLS-DA</h2>
 <div id="initial-exploration-with-pca" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Initial exploration with PCA</h3>
-<p>As covered in Submodule 3.2, PCA is a useful tool to explore the gene expression data and to assess for sample similarities between tumour types. Remember that PCA is an unsupervised approach, but we can colour the samples by their class to assist in interpreting the PCA (Figure <a href="plsda-srbct-case.html#fig:plsda-pca">3.1</a>). Here we center (default argument) and scale the data:</p>
+<p>As covered in Module 3, PCA is a useful tool to explore the gene expression data and to assess for sample similarities between tumour types. Remember that PCA is an unsupervised approach, but we can colour the samples by their class to assist in interpreting the PCA (Figure <a href="plsda-srbct-case.html#fig:plsda-pca">3.1</a>). Here we center (default argument) and scale the data:</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">pca.srbct &lt;-<span class="st"> </span><span class="kw">pca</span>(X, <span class="dt">ncomp =</span> <span class="dv">3</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb78-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb78-3" data-line-number="3"><span class="kw">plotIndiv</span>(pca.srbct, <span class="dt">group =</span> srbct<span class="op">$</span>class, <span class="dt">ind.names =</span> <span class="ot">FALSE</span>,</a>
@@ -699,7 +699,7 @@ Figure 3.11: <strong>ROC curve and AUC from sPLS-DA on the <code>SRBCT</code> ge
 <p>The ideal ROC curve should be along the top left corner, indicating a high true positive rate (sensitivity on the y-axis) and a high true negative rate (or low 100 - specificity on the x-axis), with an AUC close to 1. This is the case for <span style="color: #CC0000;">BL</span> vs. the others on component 1. The numerical output shows a perfect classification on component 3.</p>
 <p><em>Note:</em></p>
 <ul>
-<li><em>A word of caution when using the ROC and AUC in s/PLS-DA: these criteria may not be particularly insightful, or may not be in full agreement with the s/PLS-DA performance, as the prediction threshold in PLS-DA is based on a specified distance as we described earlier in this Section and in Extra Reading material. Thus, such a result complements the sPLS-DA performance we have calculated earlier.</em></li>
+<li><em>A word of caution when using the ROC and AUC in s/PLS-DA: these criteria may not be particularly insightful, or may not be in full agreement with the s/PLS-DA performance, as the prediction threshold in PLS-DA is based on a specified distance as we described earlier in this section and in Extra Reading material related to PLS-DA. Thus, such a result complements the sPLS-DA performance we have calculated earlier.</em></li>
 </ul>
 
 </div>

@@ -78,7 +78,7 @@ summary(Y)
 
 ### Initial exploration with PCA
 
-As covered in Submodule 3.2, PCA is a useful tool to explore the gene expression data and to assess for sample similarities between tumour types. Remember that PCA is an unsupervised approach, but we can colour the samples by their class to assist in interpreting the PCA (Figure \@ref(fig:plsda-pca)). Here we center (default argument) and scale the data:
+As covered in Module 3, PCA is a useful tool to explore the gene expression data and to assess for sample similarities between tumour types. Remember that PCA is an unsupervised approach, but we can colour the samples by their class to assist in interpreting the PCA (Figure \@ref(fig:plsda-pca)). Here we center (default argument) and scale the data:
 
 ```{r plsda-pca, fig.cap='(ref:plsda-pca)'}
 pca.srbct <- pca(X, ncomp = 3, scale = TRUE)
@@ -538,7 +538,7 @@ The ideal ROC curve should be along the top left corner, indicating a high true 
 
 *Note:* 
 
-- *A word of caution when using the ROC and AUC in s/PLS-DA: these criteria may not be particularly insightful, or may not be in full agreement with the s/PLS-DA performance, as the prediction threshold in PLS-DA is based on a specified distance as we described earlier in this Section and in Extra Reading material. Thus, such a result complements the sPLS-DA performance we have calculated earlier.*
+- *A word of caution when using the ROC and AUC in s/PLS-DA: these criteria may not be particularly insightful, or may not be in full agreement with the s/PLS-DA performance, as the prediction threshold in PLS-DA is based on a specified distance as we described earlier in this section and in Extra Reading material related to PLS-DA. Thus, such a result complements the sPLS-DA performance we have calculated earlier.*
 
 
 

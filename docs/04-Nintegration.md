@@ -18,7 +18,7 @@ The `breast.TCGA` (more details can be found in `?breast.TCGA`) is a list contai
 - `$protein`: A data frame with 150 rows and 142 columns in the training data set for the protein abundance (there are no proteomics in the test set),
 - `$subtype`: A factor indicating the breast cancer subtypes in the training (for 150 samples) and test sets (for 70 samples).
 
-This case study covers an interesting scenario where one omic data set is missing in the test set, but because the method generates a set of components per training data set, we can still assess the prediction or performance evaluation using majority or weighted prediction vote (see Section 4.2).
+This case study covers an interesting scenario where one omic data set is missing in the test set, but because the method generates a set of components per training data set, we can still assess the prediction or performance evaluation using majority or weighted prediction vote.
 
 ## Load the data {#diablo:load}
 
@@ -102,7 +102,7 @@ The data sets taken in a pairwise manner are highly correlated, indicating that 
 
 ### Number of components
 
-As in the PLS-DA framework presented in Section 3.4, we first fit a `block.plsda` model without variable selection to assess the global performance of the model and choose the number of components. We run `perf()` with 10-fold cross validation repeated 10 times for up to 5 components and with our specified design matrix. Similar to PLS-DA, we obtain the performance of the model with respect to the different prediction distances (Figure \@ref(fig:diablo-perf)): 
+As in the PLS-DA framework presented in Module 3, we first fit a `block.plsda` model without variable selection to assess the global performance of the model and choose the number of components. We run `perf()` with 10-fold cross validation repeated 10 times for up to 5 components and with our specified design matrix. Similar to PLS-DA, we obtain the performance of the model with respect to the different prediction distances (Figure \@ref(fig:diablo-perf)): 
 
 
 ```r
@@ -122,7 +122,7 @@ plot(perf.diablo.tcga)
 <p class="caption">(\#fig:diablo-perf)(ref:diablo-perf)</p>
 </div>
 
-(ref:diablo-perf) **Choosing the number of components in `block.plsda` using `perf()` with 10 x 10-fold CV function in the `breast.TCGA` study**. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the  number of components on the x-axis for each prediction distance presented in PLS-DA in Seciton 3.4 and detailed in Extra reading material 3 from Module 3. Bars show the standard deviation across the 10 repeated folds. The plot shows that the error rate reaches a minimum from 2 to 3 dimensions.
+(ref:diablo-perf) **Choosing the number of components in `block.plsda` using `perf()` with 10 x 10-fold CV function in the `breast.TCGA` study**. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the  number of components on the x-axis for each prediction distance presented in PLS-DA in Seciton 3.4 and detailed in Extra reading material 3 from Module 3. Bars show the standard deviation across the 10 repeated folds. The plot shows that the error rate reaches a minimum from 2 to 3 dimensions.
 
 The performance plot indicates that two components should be sufficient in the final model, and that the centroids distance might lead to better prediction. A balanced error rate (BER) should be considered for further analysis. 
 
@@ -245,7 +245,7 @@ selectVar(diablo.tcga, block = 'mRNA', comp = 1)
 
 *Note:* 
 
-- *The stability of the selected variables can be extracted from the `perf()` function, similar to the example given in the PLS-DA analysis (Section 3.4).*
+- *The stability of the selected variables can be extracted from the `perf()` function, similar to the example given in the PLS-DA analysis (Module 3).*
 
 ## Sample plots  {#diablo:result:sampleplot}
 
@@ -282,9 +282,9 @@ plotIndiv(diablo.tcga, ind.names = FALSE, legend = TRUE,
 <p class="caption">(\#fig:diablo-plotindiv)(ref:diablo-plotindiv)</p>
 </div>
 
-(ref:diablo-plotindiv) **Sample plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The samples are plotted according to their scores on the first 2 components for each data set. Samples are coloured by cancer subtype and are classified into three classes: \textcolor{blue}{Basal}, \textcolor{orange}{Her2} and \textcolor{grey}{LumA}. The plot shows the degree of agreement between the different data sets and the discriminative ability of each data set.
+(ref:diablo-plotindiv) **Sample plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The samples are plotted according to their scores on the first 2 components for each data set. Samples are coloured by cancer subtype and are classified into three classes: <span style='color: #388ECC;'>Basal</span>, <span style='color: #F68B33;'>Her2</span> and <span style='color: #585858;'>LumA</span>. The plot shows the degree of agreement between the different data sets and the discriminative ability of each data set.
 
-This type of graphic allows us to better understand the information extracted from each data set and its discriminative ability. Here we can see that the \textcolor{grey}{LumA} group can be difficult to classify in the miRNA data.
+This type of graphic allows us to better understand the information extracted from each data set and its discriminative ability. Here we can see that the <span style='color: #585858;'>LumA</span> group can be difficult to classify in the miRNA data.
 
 Note:
 
@@ -305,18 +305,18 @@ plotArrow(diablo.tcga, ind.names = FALSE, legend = TRUE,
 <p class="caption">(\#fig:diablo-plotarrow)(ref:diablo-plotarrow)</p>
 </div>
 
-(ref:diablo-plotarrow) **Arrow plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The samples are projected into the space spanned by the first two components for each data set then overlaid across data sets. The start of the arrow indicates the centroid between all data sets for a given sample and the tip of the arrow the location of the same sample in each block. Arrows further from their centroid indicate some disagreement between the data sets. Samples are coloured by cancer subtype (\textcolor{blue}{Basal}, \textcolor{orange}{Her2} and \textcolor{grey}{LumA}).
+(ref:diablo-plotarrow) **Arrow plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The samples are projected into the space spanned by the first two components for each data set then overlaid across data sets. The start of the arrow indicates the centroid between all data sets for a given sample and the tip of the arrow the location of the same sample in each block. Arrows further from their centroid indicate some disagreement between the data sets. Samples are coloured by cancer subtype (<span style='color: #388ECC;'>Basal</span>, <span style='color: #F68B33;'>Her2</span> and <span style='color: #585858;'>LumA</span>).
 
 This plot shows that globally, the discrimination of all breast cancer subtypes can be extracted from all data sets, however, there are some dissimilarities at the samples level across data sets (the common information cannot be extracted in the same way across data sets). 
 
 
 ## Variable plots {#diablo:result:varplot}
 
-The visualisation of the selected variables is crucial to mine their associations in multiblock sPLS-DA. Here we revisit existing outputs presented in Section 2.2 with further developments for multiple data set integration. All the plots presented provide complementary information for interpreting the results.
+The visualisation of the selected variables is crucial to mine their associations in multiblock sPLS-DA. Here we revisit existing outputs presented in Module 2 with further developments for multiple data set integration. All the plots presented provide complementary information for interpreting the results.
 
 ### `plotVar`
 
-The correlation circle plot highlights the contribution of each selected variable to each component. Important variables should be close to the large circle (see Section 2.2). Here, only the variables selected on components 1 and 2 are depicted (across all blocks), see Figure \@ref(fig:diablo-plotvar). Clusters of points indicate a strong correlation between variables. For better visibility we chose to hide the variable names.
+The correlation circle plot highlights the contribution of each selected variable to each component. Important variables should be close to the large circle (see Module 2). Here, only the variables selected on components 1 and 2 are depicted (across all blocks), see Figure \@ref(fig:diablo-plotvar). Clusters of points indicate a strong correlation between variables. For better visibility we chose to hide the variable names.
 
 
 ```r
@@ -333,7 +333,7 @@ plotVar(diablo.tcga, var.names = FALSE, style = 'graphics', legend = TRUE,
 
 (ref:diablo-plotvar) **Correlation circle plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The variable coordinates are defined according to their correlation with the first and second components for each data set. Variable types are indicated with different symbols and colours, and are overlaid on the same plot. The plot highlights the potential associations within and between different variable types when they are important in defining their own component.
 
-The correlation circle plot shows some positive correlations (between selected \textcolor{brown}{miRNA} and \textcolor{lightgreen}{proteins}, between selected \textcolor{lightgreen}{proteins} and \textcolor{darkorchid}{mRNA}) and negative correlations between \textcolor{darkorchid}{mRNA} and \textcolor{brown}{miRNA} on component 1. The correlation structure is less obvious on component 2, but we observe some key selected features (\textcolor{lightgreen}{proteins} and \textcolor{brown}{miRNA}) that seem to highly contribute to component 2. 
+The correlation circle plot shows some positive correlations (between selected <span style='color: black;'>miRNA</span> and <span style='color: black;'>proteins</span>, between selected <span style='color: black;'>proteins</span> and <span style='color: black;'>mRNA</span>) and negative correlations between <span style='color: black;'>mRNA</span>and <span style='color: black;'>miRNA</span> on component 1. The correlation structure is less obvious on component 2, but we observe some key selected features (<span style='color: black;'>proteins</span> and <span style='color: black;'>miRNA</span>) that seem to highly contribute to component 2. 
 
 Note: 
 
@@ -344,7 +344,7 @@ Note:
 ### `circosPlot`
 
 
-The circos plot represents the correlations between variables of different types, represented on the side quadrants. Several display options are possible, to show within and between connections between blocks, and expression levels of each variable according to each class (argument `line = TRUE`). The circos plot is built based on a similarity matrix, which was extended to the case of multiple data sets from @Gon12 (see also Section 2.2 and Extra Reading material from that section). A `cutoff` argument can be further included to visualise correlation coefficients above this threshold in the multi-omics signature (Figure \@ref(fig:diablo-circos)). The colours for the blocks and correlation lines can be chosen with `color.blocks` and `color.cor` respectively:
+The circos plot represents the correlations between variables of different types, represented on the side quadrants. Several display options are possible, to show within and between connections between blocks, and expression levels of each variable according to each class (argument `line = TRUE`). The circos plot is built based on a similarity matrix, which was extended to the case of multiple data sets from @Gon12 (see also Module 2 and Extra Reading material from that module). A `cutoff` argument can be further included to visualise correlation coefficients above this threshold in the multi-omics signature (Figure \@ref(fig:diablo-circos)). The colours for the blocks and correlation lines can be chosen with `color.blocks` and `color.cor` respectively:
 
 
 ```r
@@ -358,9 +358,9 @@ circosPlot(diablo.tcga, cutoff = 0.7, line = TRUE,
 <p class="caption">(\#fig:diablo-circos)(ref:diablo-circos)</p>
 </div>
 
-(ref:diablo-circos) **Circos plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The plot represents the correlations greater than 0.7 between variables of different types, represented on the side quadrants. The internal connecting lines show the \textcolor{chocolate3}{positive} (\textcolor{grey}{negative}) correlations. The outer lines show the expression levels of each variable in each sample group (\textcolor{blue}{Basal}, \textcolor{orange}{Her2} and \textcolor{grey}{LumA}). 
+(ref:diablo-circos) **Circos plot from multiblock sPLS-DA performed on the `breast.TCGA` study.** The plot represents the correlations greater than 0.7 between variables of different types, represented on the side quadrants. The internal connecting lines show the <span style='color: black;'>positive</span> (<span style='color: #585858;'>negative</span>) correlations. The outer lines show the expression levels of each variable in each sample group (<span style='color: #388ECC;'>Basal</span>, <span style='color: #F68B33;'>Her2</span> and <span style='color: #585858;'>LumA</span>). 
 
-The circos plot enables us to visualise cross-correlations between data types, and the nature of these correlations (\textcolor{brown}{positive} or negative). Here we observe that correlations > 0.7 are between a few \textcolor{darkorchid}{mRNA} and some \textcolor{green}{proteins}, whereas the majority of strong (negative) correlations are observed between \textcolor{darkred}{miRNA} and \textcolor{darkorchid}{mRNA} or \textcolor{green}{proteins}.  The lines indicating the average expression levels per breast cancer subtype indicate that the selected features are able to discriminate the sample groups.
+The circos plot enables us to visualise cross-correlations between data types, and the nature of these correlations (<span style='color: black;'>positive</span> or negative). Here we observe that correlations > 0.7 are between a few <span style='color: black;'>mRNA</span>and some <span style='color: #009E73;'>Proteins</span>, whereas the majority of strong (negative) correlations are observed between <span style='color: #CC0000;'>miRNA</span> and <span style='color: black;'>mRNA</span>or <span style='color: #009E73;'>Proteins</span>.  The lines indicating the average expression levels per breast cancer subtype indicate that the selected features are able to discriminate the sample groups.
 
 ### `network`
 
@@ -383,7 +383,7 @@ network(diablo.tcga, blocks = c(1,2,3),
 
 <div class="figure" style="text-align: center">
 <img src="Figures/DIABLO/diablo-network.png" alt="(ref:diablo-network)" width="50%" />
-<p class="caption">(\#fig:diablo-network2)(ref:diablo-network)</p>
+<p class="caption">(\#fig:diablo-network)(ref:diablo-network)</p>
 </div>
 
 (ref:diablo-network) **Relevance network for the variables selected by multiblock sPLS-DA performed on the `breast.TCGA` study on component 1.** Each node represents a selected variable with colours indicating their type. The colour of the edges represent positive or negative correlations. Further tweaking of this plot can be obtained, see the help file `?network`.
@@ -414,9 +414,9 @@ plotLoadings(diablo.tcga, comp = 1, contrib = 'max', method = 'median')
 <p class="caption">(\#fig:diablo-loading)(ref:diablo-loading)</p>
 </div>
 
-(ref:diablo-loading) **Loading plot for the variables selected by multiblock sPLS-DA performed on the `breast.TCGA` study on component 1.** The most important variables (according to the absolute value of their coefficients) are ordered from bottom to top. As this is a supervised analysis, colours indicate the class for which the median expression value is the highest for each feature (variables selected characterise \textcolor{blue}{Basal} and \textcolor{grey}{LumA}). 
+(ref:diablo-loading) **Loading plot for the variables selected by multiblock sPLS-DA performed on the `breast.TCGA` study on component 1.** The most important variables (according to the absolute value of their coefficients) are ordered from bottom to top. As this is a supervised analysis, colours indicate the class for which the median expression value is the highest for each feature (variables selected characterise <span style='color: #388ECC;'>Basal</span> and <span style='color: #585858;'>LumA</span>). 
 
-The loading plot shows the multi-omics signature selected on component 1, where each panel represents one data type. The importance of each variable is visualised by the length of the bar (i.e. its loading coefficient value). The combination of the sign of the coefficient (positive / negative) and the colours indicate that component 1 discriminates primarily the \textcolor{blue}{Basal} samples vs. the \textcolor{grey}{LumA} samples (see the sample plots also). The features selected are highly expressed in one of these two subtypes. One could also plot the second component that discriminates the \textcolor{orange}{Her2} samples.
+The loading plot shows the multi-omics signature selected on component 1, where each panel represents one data type. The importance of each variable is visualised by the length of the bar (i.e. its loading coefficient value). The combination of the sign of the coefficient (positive / negative) and the colours indicate that component 1 discriminates primarily the <span style='color: #388ECC;'>Basal</span> samples vs. the <span style='color: #585858;'>LumA</span> samples (see the sample plots also). The features selected are highly expressed in one of these two subtypes. One could also plot the second component that discriminates the <span style='color: #F68B33;'>Her2</span> samples.
 
 
 ### `cimDiablo`
@@ -436,7 +436,7 @@ cimDiablo(diablo.tcga, color.blocks = c('darkorchid', 'brown1', 'lightgreen'),
 
 (ref:diablo-cim) **Clustered Image Map for the variables selected by multiblock sPLS-DA performed on the `breast.TCGA` study on component 1.** By default, Euclidean distance and Complete linkage methods are used. The CIM represents samples in rows (indicated by their breast cancer subtype on the left hand side of the plot) and selected features in columns (indicated by their data type at the top of the plot).
 
-According to the CIM, component 1 seems to primarily classify the \textcolor{blue}{Basal} samples, with a group of overexpressed \textcolor{brown}{miRNA} and underexpressed \textcolor{darkorchid}{mRNA} and \textcolor{lightgreen}{proteins}. A group of \textcolor{grey}{LumA} samples can also be identified due to the overexpression of the same \textcolor{darkorchid}{mRNA} and \textcolor{lightgreen}{proteins}. \textcolor{orange}{Her2} samples remain quite mixed with the other \textcolor{grey}{LumA} samples.
+According to the CIM, component 1 seems to primarily classify the <span style='color: #388ECC;'>Basal</span> samples, with a group of overexpressed <span style='color: black;'>miRNA</span> and underexpressed <span style='color: black;'>mRNA</span>and <span style='color: black;'>proteins</span>. A group of <span style='color: #585858;'>LumA</span> samples can also be identified due to the overexpression of the same <span style='color: black;'>mRNA</span>and <span style='color: black;'>proteins</span>. <span style='color: #F68B33;'>Her2</span> samples remain quite mixed with the other <span style='color: #585858;'>LumA</span> samples.
 
 ## Model performance and prediction {#diablo:perf}
 
@@ -455,7 +455,7 @@ We can extract the (balanced) classification error rates globally or overall wit
 `perf.diablo.tcga$error.rate.per.class`, the predicted components associated to $\boldsymbol  Y$, or the stability of the selected features with `perf.diablo.tcga$features`.
 
 
-Here we look at the different performance assessment schemes specific to multiple data set integration, as mentioned in Section 4.1.
+Here we look at the different performance assessment schemes specific to multiple data set integration.
 
 First, we output the performance with the majority vote, that is, since the prediction is based on the components associated to their own data set, we can then weight those predictions across data sets according to a majority vote scheme. Based on the predicted classes, we then extract the classification error rate per class and per component:
 
@@ -497,7 +497,7 @@ perf.diablo.tcga$WeightedVote.error.rate
 
 Compared to the previous majority vote output, we can see that the classification accuracy is slightly better on component 2 for the subtype Her2.  
 
-An AUC plot *per block* is plotted using the function `auroc()`. We have already mentioned in Section 3.4 that the interpretation of this output may not be particularly insightful in relation to the performance evaluation of our methods, but can complement the statistical analysis. For example, here for the miRNA data set once we have reached component 2 (Figure \@ref(fig:diablo-auroc)): 
+An AUC plot *per block* is plotted using the function `auroc()`. We have already mentioned in Module 3 for PLS-DA, the interpretation of this output may not be particularly insightful in relation to the performance evaluation of our methods, but can complement the statistical analysis. For example, here for the miRNA data set once we have reached component 2 (Figure \@ref(fig:diablo-auroc)): 
 
 
 ```r

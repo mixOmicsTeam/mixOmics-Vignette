@@ -96,7 +96,7 @@ plot(perf.mint.plsda.stem)
 <p class="caption">(\#fig:MINT-perf)(ref:MINT-perf)</p>
 </div>
 
-(ref:MINT-perf) **Choosing the number of components in `mint.plsda` using `perf()` with LOGOCV in the `stemcells` study**. Classification error rates (overall and balanced, see Section 2.3) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Section 3.4 and Extra Reading material 3 from Module 3 for a refresher). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance.
+(ref:MINT-perf) **Choosing the number of components in `mint.plsda` using `perf()` with LOGOCV in the `stemcells` study**. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Module 3 and Extra Reading material 'PLS-DA appendix'). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance.
 
 
 Based on the performance plot (Figure \@ref(fig:MINT-perf)), `ncomp = 2` seems to achieve the best performance for the centroid distance, and `ncomp = 1` for the Mahalanobis distance in terms of BER. Additional numerical outputs such as the BER and overall error rates per component, and the error rates per class and per prediction distance, can be output:
@@ -260,7 +260,7 @@ The visualisation of the partial components enables us to examine each study ind
 
 #### Correlation circle plot
 
-We can examine our molecular signature selected with MINT sPLS-DA. The correlation circle plot, presented in Section 2.2, highlights the contribution of each selected transcript to each component (close to the large circle), and their correlation (clusters of variables) in Figure \@ref(fig:MINT-var-col):
+We can examine our molecular signature selected with MINT sPLS-DA. The correlation circle plot, presented in Module 2, highlights the contribution of each selected transcript to each component (close to the large circle), and their correlation (clusters of variables) in Figure \@ref(fig:MINT-var-col):
 
 
 ```r
@@ -283,11 +283,11 @@ We observe a <span style='color: #CC79A7;'>subset of genes that are strongly cor
 
 Note:
 
-- *We can use the `var.name` argument to show gene name ID, as shown in Section 3.4 for PLS-DA.*
+- *We can use the `var.name` argument to show gene name ID, as shown in Module 3 for PLS-DA.*
 
 #### Clustered Image Maps
 
-The Clustered Image Map represents the expression levels of the gene signature per sample, similar to a PLS-DA object (see Section 3.4). Here we use the default Euclidean distance and Complete linkage in Figure \@ref(fig:MINT-cim) for a specific component (here 1): 
+The Clustered Image Map represents the expression levels of the gene signature per sample, similar to a PLS-DA object (see Module 3). Here we use the default Euclidean distance and Complete linkage in Figure \@ref(fig:MINT-cim) for a specific component (here 1): 
 
 
 ```r
@@ -330,7 +330,7 @@ network(final.mint.splsda.stem, comp = 1,
 
 #### Variable selection and loading plots
 
-The `selectVar()` function outputs the selected transcripts on the first component along with their loading weight values. We consider variables as important in the model when their absolute loading weight value is high. In addition to this output, we can compare the stability of the selected features across studies using the `perf()` function, as shown in PLS-DA in Section 3.4.
+The `selectVar()` function outputs the selected transcripts on the first component along with their loading weight values. We consider variables as important in the model when their absolute loading weight value is high. In addition to this output, we can compare the stability of the selected features across studies using the `perf()` function, as shown in PLS-DA in Module 3.
 
 
 ```r

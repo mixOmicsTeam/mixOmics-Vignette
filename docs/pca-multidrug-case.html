@@ -410,7 +410,7 @@ Figure 1.6: <strong>Tuning the number of variables to select with sPCA on the <c
 </p>
 </div>
 
-<p>The tuning function outputs the averaged correlation between predicted and actual components per <code>keepX</code> value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component (as described in Module 3.1). Figure <a href="pca-multidrug-case.html#fig:spca-tuning-ABStrans">1.6</a> shows that this is achieved when selecting 15 transporters on the first component, and 15 on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components.</p>
+<p>The tuning function outputs the averaged correlation between predicted and actual components per <code>keepX</code> value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component (as described in Module 3). Figure <a href="pca-multidrug-case.html#fig:spca-tuning-ABStrans">1.6</a> shows that this is achieved when selecting 15 transporters on the first component, and 15 on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components.</p>
 <p>Note:</p>
 <ul>
 <li><em>If the tuning results suggest a large number of variables to select that is close to the total number of variables, we can arbitrarily choose a much smaller selection size.</em></li>
