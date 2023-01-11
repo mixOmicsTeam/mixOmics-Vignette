@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 5 PLS-DA on the SRBCT case study | mixOmics Bookdown Vignette</title>
+  <meta name="description" content="Vignette for the R package mixOmics" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 5 PLS-DA on the SRBCT case study | mixOmics Bookdown Vignette" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Vignette for the R package mixOmics" />
+  <meta name="github-repo" content="mixOmicsTeam/mixOmics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 5 PLS-DA on the SRBCT case study | mixOmics Bookdown Vignette" />
+  
+  <meta name="twitter:description" content="Vignette for the R package mixOmics" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="id_04.html"/>
+<link rel="next" href="id_06.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+<script>
+document.write('<div class="logos"><img src="data:image/jpeg;base64,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" alt="logo" style="position:absolute; top:25px; right:1%; padding:10px;z-index:200;"/></div>')
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a></li>
+<li class="chapter" data-level="1" data-path="id_01.html"><a href="id_01.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="id_01.html"><a href="id_01.html#id_01:datatypes"><i class="fa fa-check"></i><b>1.1</b> Input data</a></li>
+<li class="chapter" data-level="1.2" data-path="id_01.html"><a href="id_01.html#methods"><i class="fa fa-check"></i><b>1.2</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="id_01.html"><a href="id_01.html#id_01:methods"><i class="fa fa-check"></i><b>1.2.1</b> Some background knowledge</a></li>
+<li class="chapter" data-level="1.2.2" data-path="id_01.html"><a href="id_01.html#id_01:overview"><i class="fa fa-check"></i><b>1.2.2</b> Overview</a></li>
+<li class="chapter" data-level="1.2.3" data-path="id_01.html"><a href="id_01.html#id_01:pubs"><i class="fa fa-check"></i><b>1.2.3</b> Key publications</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="id_01.html"><a href="id_01.html#id_01:outline"><i class="fa fa-check"></i><b>1.3</b> Outline of this Vignette</a></li>
+<li class="chapter" data-level="1.4" data-path="id_01.html"><a href="id_01.html#other-methods-not-covered-in-this-vignette"><i class="fa fa-check"></i><b>1.4</b> Other methods not covered in this vignette</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="id_02.html"><a href="id_02.html"><i class="fa fa-check"></i><b>2</b> Let’s get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="id_02.html"><a href="id_02.html#id_02:install"><i class="fa fa-check"></i><b>2.1</b> Installation</a></li>
+<li class="chapter" data-level="2.2" data-path="id_02.html"><a href="id_02.html#id_02:load-data"><i class="fa fa-check"></i><b>2.2</b> Load the package</a></li>
+<li class="chapter" data-level="2.3" data-path="id_02.html"><a href="id_02.html#upload-data"><i class="fa fa-check"></i><b>2.3</b> Upload data</a></li>
+<li class="chapter" data-level="2.4" data-path="id_02.html"><a href="id_02.html#id_02:quick-start"><i class="fa fa-check"></i><b>2.4</b> Quick start in <code>mixOmics</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="id_03.html"><a href="id_03.html"><i class="fa fa-check"></i><b>3</b> PCA on the <code>multidrug</code> study</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="id_03.html"><a href="id_03.html#id_03:load-data"><i class="fa fa-check"></i><b>3.1</b> Load the data</a></li>
+<li class="chapter" data-level="3.2" data-path="id_03.html"><a href="id_03.html#id_03:pca"><i class="fa fa-check"></i><b>3.2</b> Example: PCA</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="id_03.html"><a href="id_03.html#id_03:pca-ncomp"><i class="fa fa-check"></i><b>3.2.1</b> Choose the number of components</a></li>
+<li class="chapter" data-level="3.2.2" data-path="id_03.html"><a href="id_03.html#id_03:pca-final"><i class="fa fa-check"></i><b>3.2.2</b> PCA with fewer components</a></li>
+<li class="chapter" data-level="3.2.3" data-path="id_03.html"><a href="id_03.html#id_03:pca-vars"><i class="fa fa-check"></i><b>3.2.3</b> Identify the informative variables</a></li>
+<li class="chapter" data-level="3.2.4" data-path="id_03.html"><a href="id_03.html#id_03:pca-sample-plot"><i class="fa fa-check"></i><b>3.2.4</b> Sample plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="id_03.html"><a href="id_03.html#id_03:pca-variable-plot"><i class="fa fa-check"></i><b>3.2.5</b> Variable plot: correlation circle plot</a></li>
+<li class="chapter" data-level="3.2.6" data-path="id_03.html"><a href="id_03.html#id_03:pca-biplot"><i class="fa fa-check"></i><b>3.2.6</b> Biplot: samples and variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="id_03.html"><a href="id_03.html#id_03:spca"><i class="fa fa-check"></i><b>3.3</b> Example: sparse PCA</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="id_03.html"><a href="id_03.html#id_03:spca-vars"><i class="fa fa-check"></i><b>3.3.1</b> Choose the number of variables to select</a></li>
+<li class="chapter" data-level="3.3.2" data-path="id_03.html"><a href="id_03.html#id_03:spca-final"><i class="fa fa-check"></i><b>3.3.2</b> Final sparse PCA</a></li>
+<li class="chapter" data-level="3.3.3" data-path="id_03.html"><a href="id_03.html#id_03:spca-plots"><i class="fa fa-check"></i><b>3.3.3</b> Sample and variable plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="id_04.html"><a href="id_04.html"><i class="fa fa-check"></i><b>4</b> PLS on the liver toxicity study</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="id_04.html"><a href="id_04.html#id_04:load-data"><i class="fa fa-check"></i><b>4.1</b> Load the data</a></li>
+<li class="chapter" data-level="4.2" data-path="id_04.html"><a href="id_04.html#id_04:spls1"><i class="fa fa-check"></i><b>4.2</b> Example: sPLS1 regression</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="id_04.html"><a href="id_04.html#id_04:spls1-ncomp"><i class="fa fa-check"></i><b>4.2.1</b> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</a></li>
+<li class="chapter" data-level="4.2.2" data-path="id_04.html"><a href="id_04.html#id_04:spls1-tuning"><i class="fa fa-check"></i><b>4.2.2</b> Number of variables to select in <span class="math inline">\(\boldsymbol X\)</span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="id_04.html"><a href="id_04.html#id_04:spls1-final"><i class="fa fa-check"></i><b>4.2.3</b> Final sPLS1 model</a></li>
+<li class="chapter" data-level="4.2.4" data-path="id_04.html"><a href="id_04.html#id_04:spls1-sample-plots"><i class="fa fa-check"></i><b>4.2.4</b> Sample plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="id_04.html"><a href="id_04.html#id_04:spls1-perf"><i class="fa fa-check"></i><b>4.2.5</b> Performance assessment of sPLS1</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="id_04.html"><a href="id_04.html#id_04:spls2"><i class="fa fa-check"></i><b>4.3</b> Example: PLS2 regression</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="id_04.html"><a href="id_04.html#id_04:spls2-ncomp"><i class="fa fa-check"></i><b>4.3.1</b> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</a></li>
+<li class="chapter" data-level="4.3.2" data-path="id_04.html"><a href="id_04.html#id_04:spls2-tuning"><i class="fa fa-check"></i><b>4.3.2</b> Number of variables to select in both <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol Y\)</span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="id_04.html"><a href="id_04.html#id_04:spls2-final"><i class="fa fa-check"></i><b>4.3.3</b> Final sPLS2 model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="id_05.html"><a href="id_05.html"><i class="fa fa-check"></i><b>5</b> PLS-DA on the SRBCT case study</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="id_05.html"><a href="id_05.html#id_05:load-data"><i class="fa fa-check"></i><b>5.1</b> Load the data</a></li>
+<li class="chapter" data-level="5.2" data-path="id_05.html"><a href="id_05.html#id_05:plsda"><i class="fa fa-check"></i><b>5.2</b> Example: PLS-DA</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="id_05.html"><a href="id_05.html#id_05:plsda-pca"><i class="fa fa-check"></i><b>5.2.1</b> Initial exploration with PCA</a></li>
+<li class="chapter" data-level="5.2.2" data-path="id_05.html"><a href="id_05.html#id_05:plsda-ncomp"><i class="fa fa-check"></i><b>5.2.2</b> Number of components in PLS-DA</a></li>
+<li class="chapter" data-level="5.2.3" data-path="id_05.html"><a href="id_05.html#id_05:plsda-final"><i class="fa fa-check"></i><b>5.2.3</b> Final PLS-DA model</a></li>
+<li class="chapter" data-level="5.2.4" data-path="id_05.html"><a href="id_05.html#id_05:plsda-perf"><i class="fa fa-check"></i><b>5.2.4</b> Classification performance</a></li>
+<li class="chapter" data-level="5.2.5" data-path="id_05.html"><a href="id_05.html#id_05:plsda-bgp"><i class="fa fa-check"></i><b>5.2.5</b> Background prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="id_05.html"><a href="id_05.html#id_05:splsda"><i class="fa fa-check"></i><b>5.3</b> Example: sPLS-DA</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="id_05.html"><a href="id_05.html#id_05:splsda-keepX"><i class="fa fa-check"></i><b>5.3.1</b> Number of variables to select</a></li>
+<li class="chapter" data-level="5.3.2" data-path="id_05.html"><a href="id_05.html#final-splsda-perf"><i class="fa fa-check"></i><b>5.3.2</b> Final model and performance</a></li>
+<li class="chapter" data-level="5.3.3" data-path="id_05.html"><a href="id_05.html#id_05:stab"><i class="fa fa-check"></i><b>5.3.3</b> Variable selection and stability</a></li>
+<li class="chapter" data-level="5.3.4" data-path="id_05.html"><a href="id_05.html#sample-visualisation"><i class="fa fa-check"></i><b>5.3.4</b> Sample visualisation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="id_05.html"><a href="id_05.html#id_05:varplot"><i class="fa fa-check"></i><b>5.3.5</b> Variable visualisation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="id_05.html"><a href="id_05.html#id_05:splsda-predict"><i class="fa fa-check"></i><b>5.4</b> Take a detour: prediction</a></li>
+<li class="chapter" data-level="5.5" data-path="id_05.html"><a href="id_05.html#id_05:splsda-auroc"><i class="fa fa-check"></i><b>5.5</b> AUROC outputs complement performance evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="id_06.html"><a href="id_06.html"><i class="fa fa-check"></i><b>6</b> N-Integration</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="id_06.html"><a href="id_06.html#id_06:diablo"><i class="fa fa-check"></i><b>6.1</b> Block sPLS-DA on the TCGA case study</a></li>
+<li class="chapter" data-level="6.2" data-path="id_06.html"><a href="id_06.html#id_06:diablo-load-data"><i class="fa fa-check"></i><b>6.2</b> Load the data</a></li>
+<li class="chapter" data-level="6.3" data-path="id_06.html"><a href="id_06.html#id_06:diablo-params"><i class="fa fa-check"></i><b>6.3</b> Parameter choice</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="id_06.html"><a href="id_06.html#id_06:diablo-design"><i class="fa fa-check"></i><b>6.3.1</b> Design matrix</a></li>
+<li class="chapter" data-level="6.3.2" data-path="id_06.html"><a href="id_06.html#id_06:diablo-ncomp"><i class="fa fa-check"></i><b>6.3.2</b> Number of components</a></li>
+<li class="chapter" data-level="6.3.3" data-path="id_06.html"><a href="id_06.html#id_06:diablo-tuning"><i class="fa fa-check"></i><b>6.3.3</b> Number of variables to select</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="id_06.html"><a href="id_06.html#id_06:diablo-final"><i class="fa fa-check"></i><b>6.4</b> Final model</a></li>
+<li class="chapter" data-level="6.5" data-path="id_06.html"><a href="id_06.html#id_06:diablo-sample-plots"><i class="fa fa-check"></i><b>6.5</b> Sample plots</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="id_06.html"><a href="id_06.html#plotdiablo"><i class="fa fa-check"></i><b>6.5.1</b> <code>plotDiablo</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="id_06.html"><a href="id_06.html#plotindiv"><i class="fa fa-check"></i><b>6.5.2</b> <code>plotIndiv</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="id_06.html"><a href="id_06.html#plotarrow"><i class="fa fa-check"></i><b>6.5.3</b> <code>plotArrow</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="id_06.html"><a href="id_06.html#id_06:diablo-variable-plots"><i class="fa fa-check"></i><b>6.6</b> Variable plots</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="id_06.html"><a href="id_06.html#plotvar"><i class="fa fa-check"></i><b>6.6.1</b> <code>plotVar</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="id_06.html"><a href="id_06.html#circosplot"><i class="fa fa-check"></i><b>6.6.2</b> <code>circosPlot</code></a></li>
+<li class="chapter" data-level="6.6.3" data-path="id_06.html"><a href="id_06.html#network"><i class="fa fa-check"></i><b>6.6.3</b> <code>network</code></a></li>
+<li class="chapter" data-level="6.6.4" data-path="id_06.html"><a href="id_06.html#plotloadings"><i class="fa fa-check"></i><b>6.6.4</b> <code>plotLoadings</code></a></li>
+<li class="chapter" data-level="6.6.5" data-path="id_06.html"><a href="id_06.html#cimdiablo"><i class="fa fa-check"></i><b>6.6.5</b> <code>cimDiablo</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="id_06.html"><a href="id_06.html#id_06:diablo-perf"><i class="fa fa-check"></i><b>6.7</b> Model performance and prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="id_07.html"><a href="id_07.html"><i class="fa fa-check"></i><b>7</b> P-Integration</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="id_07.html"><a href="id_07.html#id_07:mint"><i class="fa fa-check"></i><b>7.1</b> MINT on the stem cell case study</a></li>
+<li class="chapter" data-level="7.2" data-path="id_07.html"><a href="id_07.html#id_07:load-data"><i class="fa fa-check"></i><b>7.2</b> Load the data</a></li>
+<li class="chapter" data-level="7.3" data-path="id_07.html"><a href="id_07.html#id_07:plsda"><i class="fa fa-check"></i><b>7.3</b> Example: MINT PLS-DA</a></li>
+<li class="chapter" data-level="7.4" data-path="id_07.html"><a href="id_07.html#id_07:splsda"><i class="fa fa-check"></i><b>7.4</b> Example: MINT sPLS-DA</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="id_07.html"><a href="id_07.html#id_07:splsda-tuning"><i class="fa fa-check"></i><b>7.4.1</b> Number of variables to select</a></li>
+<li class="chapter" data-level="7.4.2" data-path="id_07.html"><a href="id_07.html#id_07:splsda-final"><i class="fa fa-check"></i><b>7.4.2</b> Final MINT sPLS-DA model</a></li>
+<li class="chapter" data-level="7.4.3" data-path="id_07.html"><a href="id_07.html#id_07:splsda-sample-plots"><i class="fa fa-check"></i><b>7.4.3</b> Sample plots</a></li>
+<li class="chapter" data-level="7.4.4" data-path="id_07.html"><a href="id_07.html#id_07:splsda-variable-plots"><i class="fa fa-check"></i><b>7.4.4</b> Variable plots</a></li>
+<li class="chapter" data-level="7.4.5" data-path="id_07.html"><a href="id_07.html#id_07:splsda-perf"><i class="fa fa-check"></i><b>7.4.5</b> Classification performance</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="id_07.html"><a href="id_07.html#id_07:splsda-auroc"><i class="fa fa-check"></i><b>7.5</b> Take a detour</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="id_07.html"><a href="id_07.html#auc"><i class="fa fa-check"></i><b>7.5.1</b> AUC</a></li>
+<li class="chapter" data-level="7.5.2" data-path="id_07.html"><a href="id_07.html#id_07:splsda-predict"><i class="fa fa-check"></i><b>7.5.2</b> Prediction on an external study</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="id_08.html"><a href="id_08.html"><i class="fa fa-check"></i><b>8</b> Session Information</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="id_08.html"><a href="id_08.html#id_08:mixomics-ver"><i class="fa fa-check"></i><b>8.1</b> mixOmics version</a></li>
+<li class="chapter" data-level="8.2" data-path="id_08.html"><a href="id_08.html#id_08:session-info"><i class="fa fa-check"></i><b>8.2</b> Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">mixOmics Bookdown Vignette</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="id_05" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number"> 5</span> PLS-DA on the SRBCT case study<a href="id_05.html#id_05" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The Small Round Blue Cell Tumours (SRBCT) data set from <span class="citation">(<a href="references.html#ref-Kha01" role="doc-biblioref">Khan et al. 2001</a>)</span> includes the expression levels of 2,308 genes measured on 63 samples. The samples are divided into four classes: 8 Burkitt Lymphoma (BL), 23 Ewing Sarcoma (EWS), 12 neuroblastoma (NB), and 20 rhabdomyosarcoma (RMS). The data are directly available in a processed and normalised format from the <code>mixOmics</code> package and contains the following:</p>
+<ul>
+<li><p><code>$gene</code>: A data frame with 63 rows and 2,308 columns. These are the expression levels of 2,308 genes in 63 subjects,</p></li>
+<li><p><code>$class</code>: A vector containing the class of tumour for each individual (4 classes in total),</p></li>
+<li><p><code>$gene.name</code>: A data frame with 2,308 rows and 2 columns containing further information on the genes.</p></li>
+</ul>
+<p>More details can be found in <code>?srbct</code>. We will illustrate PLS-DA and sPLS-DA which are suited for large biological data sets where the aim is to identify molecular signatures, as well as classify samples. We will analyse the gene expression levels of <code>srbct$gene</code> to discover which genes may best discriminate the 4 groups of tumours.</p>
+<div id="id_05:load-data" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Load the data<a href="id_05.html#id_05:load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We first load the data from the package. We then set up the data so that <span class="math inline">\(\boldsymbol X\)</span> is the gene expression matrix and <span class="math inline">\(\boldsymbol y\)</span> is the factor indicating sample class membership. <span class="math inline">\(\boldsymbol y\)</span> will be transformed into a dummy matrix <span class="math inline">\(\boldsymbol Y\)</span> inside the function. We also check that the dimensions are correct and match both <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol y\)</span>:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="id_05.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
+<span id="cb82-2"><a href="id_05.html#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(srbct)</span>
+<span id="cb82-3"><a href="id_05.html#cb82-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> srbct<span class="sc">$</span>gene</span>
+<span id="cb82-4"><a href="id_05.html#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="id_05.html#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Outcome y that will be internally coded as dummy:</span></span>
+<span id="cb82-6"><a href="id_05.html#cb82-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> srbct<span class="sc">$</span>class </span>
+<span id="cb82-7"><a href="id_05.html#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X); <span class="fu">length</span>(Y)</span></code></pre></div>
+<pre><code>## [1]   63 2308
+## [1] 63</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="id_05.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Y)</span></code></pre></div>
+<pre><code>## EWS  BL  NB RMS 
+##  23   8  12  20</code></pre>
+</div>
+<div id="id_05:plsda" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Example: PLS-DA<a href="id_05.html#id_05:plsda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="id_05:plsda-pca" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Initial exploration with PCA<a href="id_05.html#id_05:plsda-pca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As covered in Module 3, PCA is a useful tool to explore the gene expression data and to assess for sample similarities between tumour types. Remember that PCA is an unsupervised approach, but we can colour the samples by their class to assist in interpreting the PCA (Figure <a href="id_05.html#fig:05-plsda-pca">5.1</a>). Here we center (default argument) and scale the data:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="id_05.html#cb86-1" aria-hidden="true" tabindex="-1"></a>pca.srbct <span class="ot">&lt;-</span> <span class="fu">pca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb86-2"><a href="id_05.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="id_05.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(pca.srbct, <span class="at">group =</span> srbct<span class="sc">$</span>class, <span class="at">ind.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb86-4"><a href="id_05.html#cb86-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb86-5"><a href="id_05.html#cb86-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;SRBCT, PCA comp 1 - 2&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-plsda-pca"></span>
+<img src="Figures/PLSDA/05-plsda-pca-1.png" alt="Preliminary (unsupervised) analysis with PCA on the SRBCT gene expression data. Samples are projected into the space spanned by the principal components 1 and 2. The tumour types are not clustered, meaning that the major source of variation cannot be explained by tumour types. Instead, samples seem to cluster according to an unknown source of variation." width="70%" />
+<p class="caption">
+Figure 5.1: <strong>Preliminary (unsupervised) analysis with PCA on the <code>SRBCT</code> gene expression data</strong>. Samples are projected into the space spanned by the principal components 1 and 2. The tumour types are not clustered, meaning that the major source of variation cannot be explained by tumour types. Instead, samples seem to cluster according to an unknown source of variation.
+</p>
+</div>
+
+<p>We observe almost no separation between the different tumour types in the PCA sample plot, with perhaps the exception of the <span style="color: #585858;">NB</span> samples that tend to cluster with other samples. This preliminary exploration teaches us two important findings:</p>
+<ul>
+<li>The major source of variation is not attributable to tumour type, but an unknown source (we tend to observe clusters of samples but those are not explained by tumour type).</li>
+<li>We need a more ‘directed’ (supervised) analysis to separate the tumour types, and we should expect that the amount of variance explained by the dimensions in PLS-DA analysis will be small.</li>
+</ul>
+</div>
+<div id="id_05:plsda-ncomp" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Number of components in PLS-DA<a href="id_05.html#id_05:plsda-ncomp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>perf()</code> function evaluates the performance of PLS-DA - i.e., its ability to rightly classify ‘new’ samples into their tumour category using repeated cross-validation. We initially choose a large number of components (here <code>ncomp = 10</code>) and assess the model as we gradually increase the number of components. Here we use 3-fold CV repeated 10 times. In Module 2, we provided further guidelines on how to choose the <code>folds</code> and <code>nrepeat</code> parameters:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="id_05.html#cb87-1" aria-hidden="true" tabindex="-1"></a>plsda.srbct <span class="ot">&lt;-</span> <span class="fu">plsda</span>(X,Y, <span class="at">ncomp =</span> <span class="dv">10</span>)</span>
+<span id="cb87-2"><a href="id_05.html#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="id_05.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
+<span id="cb87-4"><a href="id_05.html#cb87-4" aria-hidden="true" tabindex="-1"></a>perf.plsda.srbct <span class="ot">&lt;-</span> <span class="fu">perf</span>(plsda.srbct, <span class="at">validation =</span> <span class="st">&#39;Mfold&#39;</span>, <span class="at">folds =</span> <span class="dv">3</span>, </span>
+<span id="cb87-5"><a href="id_05.html#cb87-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">progressBar =</span> <span class="cn">FALSE</span>,  <span class="co"># Set to TRUE to track progress</span></span>
+<span id="cb87-6"><a href="id_05.html#cb87-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrepeat =</span> <span class="dv">10</span>)         <span class="co"># We suggest nrepeat = 50</span></span>
+<span id="cb87-7"><a href="id_05.html#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-8"><a href="id_05.html#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perf.plsda.srbct, <span class="at">sd =</span> <span class="cn">TRUE</span>, <span class="at">legend.position =</span> <span class="st">&#39;horizontal&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plsda-ncomp"></span>
+<img src="Figures/PLSDA/plsda-ncomp-1.png" alt="Tuning the number of components in PLS-DA on the SRBCT gene expression data. For each component, repeated cross-validation (10 \(\times 3-\)fold CV) is used to evaluate the PLS-DA classification performance (overall and balanced error rate BER), for each type of prediction distance; max.dist, centroids.dist and mahalanobis.dist. Bars show the standard deviation across the repeated folds. The plot shows that the error rate reaches a minimum from 3 components." width="70%" />
+<p class="caption">
+Figure 5.2: <strong>Tuning the number of components in PLS-DA on the <code>SRBCT</code> gene expression data.</strong> For each component, repeated cross-validation (10 <span class="math inline">\(\times 3-\)</span>fold CV) is used to evaluate the PLS-DA classification performance (overall and balanced error rate BER), for each type of prediction distance; <code>max.dist</code>, <code>centroids.dist</code> and <code>mahalanobis.dist</code>. Bars show the standard deviation across the repeated folds. The plot shows that the error rate reaches a minimum from 3 components.
+</p>
+</div>
+
+<p>From the classification performance output presented in Figure <a href="id_05.html#fig:plsda-ncomp">5.2</a>, we observe that:</p>
+<ul>
+<li><p>There are some slight differences between the overall and balanced error rates (BER) with BER &gt; overall, suggesting that minority classes might be ignored from the classification task when considering the overall performance (<code>summary(Y)</code> shows that BL only includes 8 samples). In general the trend is the same, however, and for further tuning with sPLS-DA we will consider the BER.</p></li>
+<li><p>The error rate decreases and reaches a minimum for <code>ncomp = 3</code> for the <code>max.dist</code> distance. These parameters will be included in further analyses.</p></li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li><em>PLS-DA is an iterative model, where each component is orthogonal to the previous and gradually aims to build more discrimination between sample classes. We should always regard a final PLS-DA (with specified <code>ncomp</code>) as a ‘compounding’ model (i.e. PLS-DA with component 3 includes the trained model on the previous two components).</em></li>
+<li><em>We advise to use at least 50 repeats, and choose the number of folds that are appropriate for the sample size of the data set, as shown in Figure <a href="id_05.html#fig:plsda-ncomp">5.2</a>).</em></li>
+</ul>
+<p>Additional numerical outputs from the performance results are listed and can be reported as performance measures (not output here):</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="id_05.html#cb88-1" aria-hidden="true" tabindex="-1"></a>perf.plsda.srbct</span></code></pre></div>
+</div>
+<div id="id_05:plsda-final" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Final PLS-DA model<a href="id_05.html#id_05:plsda-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We now run our final PLS-DA model that includes three components:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="id_05.html#cb89-1" aria-hidden="true" tabindex="-1"></a>final.plsda.srbct <span class="ot">&lt;-</span> <span class="fu">plsda</span>(X,Y, <span class="at">ncomp =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p>We output the sample plots for the dimensions of interest (up to three). By default, the samples are coloured according to their class membership. We also add confidence ellipses (<code>ellipse = TRUE</code>, confidence level set to 95% by default, see the argument <code>ellipse.level</code>) in Figure <a href="id_05.html#fig:05-plsda-sample-plots">5.3</a>. A 3D plot could also be insightful (use the argument <code>type = '3D'</code>).</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="id_05.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.plsda.srbct, <span class="at">ind.names =</span> <span class="cn">FALSE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>,</span>
+<span id="cb90-2"><a href="id_05.html#cb90-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">comp=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">ellipse =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb90-3"><a href="id_05.html#cb90-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;PLS-DA on SRBCT comp 1-2&#39;</span>,</span>
+<span id="cb90-4"><a href="id_05.html#cb90-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">X.label =</span> <span class="st">&#39;PLS-DA comp 1&#39;</span>, <span class="at">Y.label =</span> <span class="st">&#39;PLS-DA comp 2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="id_05.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.plsda.srbct, <span class="at">ind.names =</span> <span class="cn">FALSE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>,</span>
+<span id="cb91-2"><a href="id_05.html#cb91-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">comp=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">ellipse =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb91-3"><a href="id_05.html#cb91-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;PLS-DA on SRBCT comp 2-3&#39;</span>,</span>
+<span id="cb91-4"><a href="id_05.html#cb91-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">X.label =</span> <span class="st">&#39;PLS-DA comp 2&#39;</span>, <span class="at">Y.label =</span> <span class="st">&#39;PLS-DA comp 3&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-plsda-sample-plots"></span>
+<img src="Figures/PLSDA/05-plsda-sample-plot-nc12-1.png" alt="Sample plots from PLS-DA performed on the SRBCT gene expression data. Samples are projected into the space spanned by the first three components. (a) Components 1 and 2 and (b) Components 1 and 3. Samples are coloured by their tumour subtypes. Component 1 discriminates RMS + EWS vs. NB + BL, component 2 discriminates RMS + NB vs. EWS + BL, while component 3 discriminates further the NB and BL groups. It is the combination of all three components that enables us to discriminate all classes." width="50%" /><img src="Figures/PLSDA/05-plsda-sample-plot-nc13-1.png" alt="Sample plots from PLS-DA performed on the SRBCT gene expression data. Samples are projected into the space spanned by the first three components. (a) Components 1 and 2 and (b) Components 1 and 3. Samples are coloured by their tumour subtypes. Component 1 discriminates RMS + EWS vs. NB + BL, component 2 discriminates RMS + NB vs. EWS + BL, while component 3 discriminates further the NB and BL groups. It is the combination of all three components that enables us to discriminate all classes." width="50%" />
+<p class="caption">
+Figure 5.3: <strong>Sample plots from PLS-DA performed on the <code>SRBCT</code> gene expression data</strong>. Samples are projected into the space spanned by the first three components. (a) Components 1 and 2 and (b) Components 1 and 3. Samples are coloured by their tumour subtypes. Component 1 discriminates <span style="color: #009E73;">RMS</span> + <span style="color: #388ECC;">EWS</span> vs. <span style="color: #585858;">NB</span> + <span style="color: #F68B33;">BL</span>, component 2 discriminates <span style="color: #009E73;">RMS</span> + <span style="color: #585858;">NB</span> vs. <span style="color: #388ECC;">EWS</span> + <span style="color: #F68B33;">BL</span>, while component 3 discriminates further the <span style="color: #585858;">NB</span> and <span style="color: #F68B33;">BL</span> groups. It is the combination of all three components that enables us to discriminate all classes.
+</p>
+</div>
+
+<p>We can observe improved clustering according to tumour subtypes, compared with PCA. This is to be expected since the PLS-DA model includes the class information of each sample. We observe some discrimination between the <span style="color: #585858;">NB</span> and <span style="color: #F68B33;">BL</span> samples vs. the others on the first component (x-axis), and <span style="color: #388ECC;">EWS</span> and <span style="color: #009E73;">RMS</span> vs. the others on the second component (y-axis). From the <code>plotIndiv()</code> function, the axis labels indicate the amount of variation explained per component. However, the interpretation of this amount is <em>not as important</em> as in PCA, as PLS-DA aims to maximise the covariance between components associated to <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol Y\)</span>, rather than the variance <span class="math inline">\(\boldsymbol X\)</span>.</p>
+</div>
+<div id="id_05:plsda-perf" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Classification performance<a href="id_05.html#id_05:plsda-perf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can rerun a more extensive performance evaluation with more repeats for our final model:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="id_05.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
+<span id="cb92-2"><a href="id_05.html#cb92-2" aria-hidden="true" tabindex="-1"></a>perf.final.plsda.srbct <span class="ot">&lt;-</span> <span class="fu">perf</span>(final.plsda.srbct, <span class="at">validation =</span> <span class="st">&#39;Mfold&#39;</span>, </span>
+<span id="cb92-3"><a href="id_05.html#cb92-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">folds =</span> <span class="dv">3</span>, </span>
+<span id="cb92-4"><a href="id_05.html#cb92-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">progressBar =</span> <span class="cn">FALSE</span>, <span class="co"># TRUE to track progress</span></span>
+<span id="cb92-5"><a href="id_05.html#cb92-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">nrepeat =</span> <span class="dv">10</span>) <span class="co"># we recommend 50 </span></span></code></pre></div>
+<p>Retaining only the BER and the <code>max.dist</code>, numerical outputs of interest include the final overall performance for 3 components:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="id_05.html#cb93-1" aria-hidden="true" tabindex="-1"></a>perf.final.plsda.srbct<span class="sc">$</span>error.rate<span class="sc">$</span>BER[, <span class="st">&#39;max.dist&#39;</span>]</span></code></pre></div>
+<pre><code>##      comp1      comp2      comp3 
+## 0.53850543 0.25986413 0.04481884</code></pre>
+<p>As well as the error rate per class across each component:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="id_05.html#cb95-1" aria-hidden="true" tabindex="-1"></a>perf.final.plsda.srbct<span class="sc">$</span>error.rate.class<span class="sc">$</span>max.dist</span></code></pre></div>
+<pre><code>##         comp1      comp2      comp3
+## EWS 0.2565217 0.08695652 0.08260870
+## BL  0.8125000 0.51250000 0.00000000
+## NB  0.3000000 0.37500000 0.04166667
+## RMS 0.7850000 0.06500000 0.05500000</code></pre>
+<p>From this output, we can see that the first component tends to classify EWS and NB better than the other classes. As components 2 and then 3 are added, the classification improves for all classes. However we see a slight increase in classification error in component 3 for EWS and RMS while BL is perfectly classified. A permutation test could also be conducted to conclude about the significance of the differences between sample groups, but is not currently implemented in the package.</p>
+</div>
+<div id="id_05:plsda-bgp" class="section level3 hasAnchor" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> Background prediction<a href="id_05.html#id_05:plsda-bgp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A prediction background can be added to the sample plot by calculating a background surface first, before overlaying the sample plot (Figure <a href="id_05.html#fig:05-plsda-bgp">5.4</a>, see Extra Reading material, or <code>?background.predict</code>). We give an example of the code below based on the maximum prediction distance:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="id_05.html#cb97-1" aria-hidden="true" tabindex="-1"></a>background.max <span class="ot">&lt;-</span> <span class="fu">background.predict</span>(final.plsda.srbct, </span>
+<span id="cb97-2"><a href="id_05.html#cb97-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">comp.predicted =</span> <span class="dv">2</span>,</span>
+<span id="cb97-3"><a href="id_05.html#cb97-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">dist =</span> <span class="st">&#39;max.dist&#39;</span>) </span>
+<span id="cb97-4"><a href="id_05.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="id_05.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.plsda.srbct, <span class="at">comp =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">group =</span> srbct<span class="sc">$</span>class,</span>
+<span id="cb97-6"><a href="id_05.html#cb97-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">FALSE</span>, <span class="at">title =</span> <span class="st">&#39;Maximum distance&#39;</span>,</span>
+<span id="cb97-7"><a href="id_05.html#cb97-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>,  <span class="at">background =</span> background.max)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-plsda-bgp"></span>
+<img src="Figures/PLSDA/05-plsda-bgp-max-1.png" alt="Sample plots from PLS-DA on the SRBCT gene expression data and prediction areas based on prediction distances. From our usual sample plot, we overlay a background prediction area based on permutations from the first two PLS-DA components using the three different types of prediction distances. The outputs show how the prediction distance can influence the quality of the prediction, with samples projected into a wrong class area, and hence resulting in predicted misclassification. (Currently, the prediction area background can only be calculated for the first two components)." width="30%" /><img src="Figures/PLSDA/05-plsda-bgp-cent-1.png" alt="Sample plots from PLS-DA on the SRBCT gene expression data and prediction areas based on prediction distances. From our usual sample plot, we overlay a background prediction area based on permutations from the first two PLS-DA components using the three different types of prediction distances. The outputs show how the prediction distance can influence the quality of the prediction, with samples projected into a wrong class area, and hence resulting in predicted misclassification. (Currently, the prediction area background can only be calculated for the first two components)." width="30%" /><img src="Figures/PLSDA/05-plsda-bgp-mah-1.png" alt="Sample plots from PLS-DA on the SRBCT gene expression data and prediction areas based on prediction distances. From our usual sample plot, we overlay a background prediction area based on permutations from the first two PLS-DA components using the three different types of prediction distances. The outputs show how the prediction distance can influence the quality of the prediction, with samples projected into a wrong class area, and hence resulting in predicted misclassification. (Currently, the prediction area background can only be calculated for the first two components)." width="30%" />
+<p class="caption">
+Figure 5.4: <strong>Sample plots from PLS-DA on the <code>SRBCT</code> gene expression data and prediction areas based on prediction distances</strong>. From our usual sample plot, we overlay a background prediction area based on permutations from the first two PLS-DA components using the three different types of prediction distances. The outputs show how the prediction distance can influence the quality of the prediction, with samples projected into a wrong class area, and hence resulting in predicted misclassification. (Currently, the prediction area background can only be calculated for the first two components).
+</p>
+</div>
+
+<p>Figure <a href="id_05.html#fig:05-plsda-bgp">5.4</a> shows the differences in prediction according to the prediction distance, and can be used as a further diagnostic tool for distance choice. It also highlights the characteristics of the distances. For example the <code>max.dist</code> is a linear distance, whereas both <code>centroids.dist</code> and <code>mahalanobis.dist</code> are non linear. Our experience has shown that as discrimination of the classes becomes more challenging, the complexity of the distances (from maximum to Mahalanobis distance) should increase, see details in the Extra reading material.</p>
+</div>
+</div>
+<div id="id_05:splsda" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Example: sPLS-DA<a href="id_05.html#id_05:splsda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In high-throughput experiments, we expect that many of the 2308 genes in <span class="math inline">\(\boldsymbol X\)</span> are noisy or uninformative to characterise the different classes. An sPLS-DA analysis will help refine the sample clusters and select a small subset of variables relevant to discriminate each class.</p>
+<div id="id_05:splsda-keepX" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Number of variables to select<a href="id_05.html#id_05:splsda-keepX" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We estimate the classification error rate with respect to the number of selected variables in the model with the function <code>tune.splsda()</code>. The tuning is being performed one component at a time inside the function and the optimal number of variables to select is automatically retrieved after each component run, as described in Module 2.</p>
+<p>Previously, we determined the number of components to be <code>ncomp = 3</code> with PLS-DA. Here we set <code>ncomp = 4</code> to further assess if this would be the case for a sparse model, and use 5-fold cross validation repeated 10 times. We also choose the maximum prediction distance.</p>
+<p>Note:</p>
+<ul>
+<li><em>For a thorough tuning step, the following code should be repeated 10 - 50 times and the error rate is averaged across the runs. You may obtain slightly different results below for this reason.</em></li>
+</ul>
+<p>We first define a grid of <code>keepX</code> values. For example here, we define a fine grid at the start, and then specify a coarser, larger sequence of values:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="id_05.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grid of possible keepX values that will be tested for each comp</span></span>
+<span id="cb98-2"><a href="id_05.html#cb98-2" aria-hidden="true" tabindex="-1"></a>list.keepX <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,  <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">100</span>, <span class="dv">10</span>))</span>
+<span id="cb98-3"><a href="id_05.html#cb98-3" aria-hidden="true" tabindex="-1"></a>list.keepX</span></code></pre></div>
+<pre><code>##  [1]   1   2   3   4   5   6   7   8   9  10  20  30  40  50  60  70  80  90 100</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="id_05.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This chunk takes ~ 2 min to run</span></span>
+<span id="cb100-2"><a href="id_05.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Some convergence issues may arise but it is ok as this is run on CV folds</span></span>
+<span id="cb100-3"><a href="id_05.html#cb100-3" aria-hidden="true" tabindex="-1"></a>tune.splsda.srbct <span class="ot">&lt;-</span> <span class="fu">tune.splsda</span>(X, Y, <span class="at">ncomp =</span> <span class="dv">4</span>, <span class="at">validation =</span> <span class="st">&#39;Mfold&#39;</span>, </span>
+<span id="cb100-4"><a href="id_05.html#cb100-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">folds =</span> <span class="dv">5</span>, <span class="at">dist =</span> <span class="st">&#39;max.dist&#39;</span>, </span>
+<span id="cb100-5"><a href="id_05.html#cb100-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">test.keepX =</span> list.keepX, <span class="at">nrepeat =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>The following command line will output the mean error rate for each component and each tested <code>keepX</code> value given the past (tuned) components.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="id_05.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Just a head of the classification error rate per keepX (in rows) and comp</span></span>
+<span id="cb101-2"><a href="id_05.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tune.splsda.srbct<span class="sc">$</span>error.rate)</span></code></pre></div>
+<pre><code>##       comp1     comp2      comp3       comp4
+## 1 0.5942844 0.3252355 0.07589674 0.010923913
+## 2 0.5638859 0.3071830 0.05585145 0.007798913
+## 3 0.5491938 0.2985507 0.04576087 0.006711957
+## 4 0.5360054 0.2920743 0.03071558 0.006711957
+## 5 0.5211685 0.2855707 0.02821558 0.006711957
+## 6 0.5150362 0.2819837 0.02254529 0.005461957</code></pre>
+<p>When we examine each individual row, this output globally shows that the classification error rate continues to decrease after the third component in sparse PLS-DA.</p>
+<p>We display the mean classification error rate on each component, bearing in mind that each component is conditional on the previous components calculated with the optimal number of selected variables. The diamond in Figure <a href="id_05.html#fig:05-splsda-tuning-plot">5.5</a> indicates the best <code>keepX</code> value to achieve the lowest error rate per component.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="id_05.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To show the error bars across the repeats:</span></span>
+<span id="cb103-2"><a href="id_05.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tune.splsda.srbct, <span class="at">sd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-tuning-plot"></span>
+<img src="Figures/PLSDA/05-splsda-tuning-plot-1.png" alt="Tuning keepX for the sPLS-DA performed on the SRBCT gene expression data. Each coloured line represents the balanced error rate (y-axis) per component across all tested keepX values (x-axis) with the standard deviation based on the repeated cross-validation folds. The diamond indicates the optimal keepX value on a particular component which achieves the lowest classification error rate as determined with a one-sided \(t-\)test. As sPLS-DA is an iterative algorithm, values represented for a given component (e.g. comp 1 to 2) include the optimal keepX value chosen for the previous component (comp 1)." width="70%" />
+<p class="caption">
+Figure 5.5: <strong>Tuning <code>keepX</code> for the sPLS-DA performed on the <code>SRBCT</code> gene expression data.</strong> Each coloured line represents the balanced error rate (y-axis) per component across all tested <code>keepX</code> values (x-axis) with the standard deviation based on the repeated cross-validation folds. The diamond indicates the optimal <code>keepX</code> value on a particular component which achieves the lowest classification error rate as determined with a one-sided <span class="math inline">\(t-\)</span>test. As sPLS-DA is an iterative algorithm, values represented for a given component (e.g. <span style="color: #F68B33;">comp 1 to 2</span>) include the optimal <code>keepX</code> value chosen for the previous component (<span style="color: #388ECC;">comp 1</span>).
+</p>
+</div>
+
+<p>The tuning results depend on the tuning grid <code>list.keepX</code>, as well as the values chosen for <code>folds</code> and <code>nrepeat</code>. Therefore, we recommend assessing the performance of the <em>final</em> model, as well as examining the stability of the selected variables across the different folds, as detailed in the next section.</p>
+<p>Figure <a href="id_05.html#fig:05-splsda-tuning-plot">5.5</a> shows that the error rate decreases when more components are included in sPLS-DA. To obtain a more reliable estimation of the error rate, the number of repeats should be increased (between 50 to 100). This type of graph helps not only to choose the ‘optimal’ number of variables to select, but also to confirm the number of components <code>ncomp</code>. From the code below, we can assess that in fact, the addition of a fourth component does not improve the classification (no statistically significant improvement according to a one-sided <span class="math inline">\(t-\)</span>test), hence we can choose <code>ncomp = 3</code>.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="id_05.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The optimal number of components according to our one-sided t-tests</span></span>
+<span id="cb104-2"><a href="id_05.html#cb104-2" aria-hidden="true" tabindex="-1"></a>tune.splsda.srbct<span class="sc">$</span>choice.ncomp<span class="sc">$</span>ncomp</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="id_05.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The optimal keepX parameter according to minimal error rate</span></span>
+<span id="cb106-2"><a href="id_05.html#cb106-2" aria-hidden="true" tabindex="-1"></a>tune.splsda.srbct<span class="sc">$</span>choice.keepX</span></code></pre></div>
+<pre><code>## comp1 comp2 comp3 comp4 
+##     6    30    40     6</code></pre>
+</div>
+<div id="final-splsda-perf" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Final model and performance<a href="id_05.html#final-splsda-perf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here is our final sPLS-DA model with three components and the optimal <code>keepX</code> obtained from our tuning step.</p>
+<p>You can choose to skip the tuning step, and input your arbitrarily chosen parameters in the following code (simply specify your own <code>ncomp</code> and <code>keepX</code> values):</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="id_05.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of components based on t-tests on the error rate</span></span>
+<span id="cb108-2"><a href="id_05.html#cb108-2" aria-hidden="true" tabindex="-1"></a>ncomp <span class="ot">&lt;-</span> tune.splsda.srbct<span class="sc">$</span>choice.ncomp<span class="sc">$</span>ncomp </span>
+<span id="cb108-3"><a href="id_05.html#cb108-3" aria-hidden="true" tabindex="-1"></a>ncomp</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="id_05.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of variables to select</span></span>
+<span id="cb110-2"><a href="id_05.html#cb110-2" aria-hidden="true" tabindex="-1"></a>select.keepX <span class="ot">&lt;-</span> tune.splsda.srbct<span class="sc">$</span>choice.keepX[<span class="dv">1</span><span class="sc">:</span>ncomp]  </span>
+<span id="cb110-3"><a href="id_05.html#cb110-3" aria-hidden="true" tabindex="-1"></a>select.keepX</span></code></pre></div>
+<pre><code>## comp1 comp2 comp3 
+##     6    30    40</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="id_05.html#cb112-1" aria-hidden="true" tabindex="-1"></a>splsda.srbct <span class="ot">&lt;-</span> <span class="fu">splsda</span>(X, Y, <span class="at">ncomp =</span> ncomp, <span class="at">keepX =</span> select.keepX) </span></code></pre></div>
+<p>The performance of the model with the <code>ncomp</code> and <code>keepX</code> parameters is assessed with the <code>perf()</code> function. We use 5-fold validation (<code>folds = 5</code>), repeated 10 times (<code>nrepeat = 10</code>) for illustrative purposes, but we recommend increasing to <code>nrepeat = 50</code>. Here we choose the <code>max.dist</code> prediction distance, based on our results obtained with PLS-DA.</p>
+<p>The classification error rates that are output include both the overall error rate, as well as the balanced error rate (BER) when the number of samples per group is not balanced - as is the case in this study.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="id_05.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">34</span>)  <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
+<span id="cb113-2"><a href="id_05.html#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="id_05.html#cb113-3" aria-hidden="true" tabindex="-1"></a>perf.splsda.srbct <span class="ot">&lt;-</span> <span class="fu">perf</span>(splsda.srbct, <span class="at">folds =</span> <span class="dv">5</span>, <span class="at">validation =</span> <span class="st">&quot;Mfold&quot;</span>, </span>
+<span id="cb113-4"><a href="id_05.html#cb113-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dist =</span> <span class="st">&quot;max.dist&quot;</span>, <span class="at">progressBar =</span> <span class="cn">FALSE</span>, <span class="at">nrepeat =</span> <span class="dv">10</span>)</span>
+<span id="cb113-5"><a href="id_05.html#cb113-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-6"><a href="id_05.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="co"># perf.splsda.srbct  # Lists the different outputs</span></span>
+<span id="cb113-7"><a href="id_05.html#cb113-7" aria-hidden="true" tabindex="-1"></a>perf.splsda.srbct<span class="sc">$</span>error.rate</span></code></pre></div>
+<pre><code>## $overall
+##         max.dist
+## comp1 0.44444444
+## comp2 0.20317460
+## comp3 0.01269841
+## 
+## $BER
+##         max.dist
+## comp1 0.53068841
+## comp2 0.27567029
+## comp3 0.01138587</code></pre>
+<p>We can also examine the error rate per class:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="id_05.html#cb115-1" aria-hidden="true" tabindex="-1"></a>perf.splsda.srbct<span class="sc">$</span>error.rate.class</span></code></pre></div>
+<pre><code>## $max.dist
+##          comp1       comp2      comp3
+## EWS 0.02608696 0.004347826 0.01304348
+## BL  0.60000000 0.450000000 0.01250000
+## NB  0.91666667 0.483333333 0.00000000
+## RMS 0.58000000 0.165000000 0.02000000</code></pre>
+<p>These results can be compared with the performance of PLS-DA and show the benefits of variable selection to not only obtain a parsimonious model, but also to improve the classification error rate (overall and per class).</p>
+</div>
+<div id="id_05:stab" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Variable selection and stability<a href="id_05.html#id_05:stab" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>During the repeated cross-validation process in <code>perf()</code> we can record how often the same variables are selected across the folds. This information is important to answer the question: <em>How reproducible is my gene signature when the training set is perturbed via cross-validation?</em>.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="id_05.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb117-2"><a href="id_05.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For component 1</span></span>
+<span id="cb117-3"><a href="id_05.html#cb117-3" aria-hidden="true" tabindex="-1"></a>stable.comp1 <span class="ot">&lt;-</span> perf.splsda.srbct<span class="sc">$</span>features<span class="sc">$</span>stable<span class="sc">$</span>comp1</span>
+<span id="cb117-4"><a href="id_05.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(stable.comp1, <span class="at">xlab =</span> <span class="st">&#39;variables selected across CV folds&#39;</span>, </span>
+<span id="cb117-5"><a href="id_05.html#cb117-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&#39;Stability frequency&#39;</span>,</span>
+<span id="cb117-6"><a href="id_05.html#cb117-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;Feature stability for comp = 1&#39;</span>)</span>
+<span id="cb117-7"><a href="id_05.html#cb117-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-8"><a href="id_05.html#cb117-8" aria-hidden="true" tabindex="-1"></a><span class="co"># For component 2</span></span>
+<span id="cb117-9"><a href="id_05.html#cb117-9" aria-hidden="true" tabindex="-1"></a>stable.comp2 <span class="ot">&lt;-</span> perf.splsda.srbct<span class="sc">$</span>features<span class="sc">$</span>stable<span class="sc">$</span>comp2</span>
+<span id="cb117-10"><a href="id_05.html#cb117-10" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(stable.comp2, <span class="at">xlab =</span> <span class="st">&#39;variables selected across CV folds&#39;</span>, </span>
+<span id="cb117-11"><a href="id_05.html#cb117-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&#39;Stability frequency&#39;</span>,</span>
+<span id="cb117-12"><a href="id_05.html#cb117-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;Feature stability for comp = 2&#39;</span>)</span>
+<span id="cb117-13"><a href="id_05.html#cb117-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-stab"></span>
+<img src="Figures/PLSDA/05-splsda-stab-1.png" alt="Stability of variable selection from the sPLS-DA on the SRBCT gene expression data. We use a by-product from perf() to assess how often the same variables are selected for a given keepX value in the final sPLS-DA model. The barplot represents the frequency of selection across repeated CV folds for each selected gene for component 1 and 2. The genes are ranked according to decreasing frequency." width="70%" />
+<p class="caption">
+Figure 5.6: <strong>Stability of variable selection from the sPLS-DA on the SRBCT gene expression data.</strong> We use a by-product from <code>perf()</code> to assess how often the same variables are selected for a given <code>keepX</code> value in the final sPLS-DA model. The barplot represents the frequency of selection across repeated CV folds for each selected gene for component 1 and 2. The genes are ranked according to decreasing frequency.
+</p>
+</div>
+
+<p>Figure <a href="id_05.html#fig:05-splsda-stab">5.6</a> shows that the genes selected on component 1 are moderately stable (frequency &lt; 0.5) whereas those selected on component 2 are more stable (frequency &lt; 0.7). This can be explained as there are various combinations of genes that are discriminative on component 1, whereas the number of combinations decreases as we move to component 2 which attempts to refine the classification.</p>
+<p>The function <code>selectVar()</code> outputs the variables selected for a given component and their loading values (ranked in decreasing absolute value). We concatenate those results with the feature stability, as shown here for variables selected on component 1:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="id_05.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First extract the name of selected var:</span></span>
+<span id="cb118-2"><a href="id_05.html#cb118-2" aria-hidden="true" tabindex="-1"></a>select.name <span class="ot">&lt;-</span> <span class="fu">selectVar</span>(splsda.srbct, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>name</span>
+<span id="cb118-3"><a href="id_05.html#cb118-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-4"><a href="id_05.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Then extract the stability values from perf:</span></span>
+<span id="cb118-5"><a href="id_05.html#cb118-5" aria-hidden="true" tabindex="-1"></a>stability <span class="ot">&lt;-</span> perf.splsda.srbct<span class="sc">$</span>features<span class="sc">$</span>stable<span class="sc">$</span>comp1[select.name]</span>
+<span id="cb118-6"><a href="id_05.html#cb118-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-7"><a href="id_05.html#cb118-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Just the head of the stability of the selected var:</span></span>
+<span id="cb118-8"><a href="id_05.html#cb118-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(<span class="fu">selectVar</span>(splsda.srbct, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>value, stability))</span></code></pre></div>
+<pre><code>##        value.var  Var1 Freq
+## g123  0.82019919  g123 0.46
+## g846  0.48384321  g846 0.46
+## g335  0.18883438  g335 0.22
+## g1606 0.17786558 g1606 0.24
+## g836  0.14246204  g836 0.36
+## g783  0.07469278  g783 0.20</code></pre>
+<p>As we hinted previously, the genes selected on the first component are not necessarily the most stable, suggesting that different combinations can lead to the same discriminative ability of the model. The stability increases in the following components, as the classification task becomes more refined.</p>
+<p>Note:</p>
+<ul>
+<li><em>You can also apply the <code>vip()</code> function on <code>splsda.srbct</code>.</em></li>
+</ul>
+</div>
+<div id="sample-visualisation" class="section level3 hasAnchor" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Sample visualisation<a href="id_05.html#sample-visualisation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Previously, we showed the ellipse plots displayed for each class. Here we also use the star argument (<code>star = TRUE</code>), which displays arrows starting from each group centroid towards each individual sample (Figure <a href="id_05.html#fig:05-splsda-sample-plots">5.7</a>).</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="id_05.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(splsda.srbct, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb120-2"><a href="id_05.html#cb120-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb120-3"><a href="id_05.html#cb120-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ellipse =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb120-4"><a href="id_05.html#cb120-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">star =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb120-5"><a href="id_05.html#cb120-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;SRBCT, sPLS-DA comp 1 - 2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="id_05.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(splsda.srbct, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb121-2"><a href="id_05.html#cb121-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb121-3"><a href="id_05.html#cb121-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ellipse =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb121-4"><a href="id_05.html#cb121-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">star =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb121-5"><a href="id_05.html#cb121-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;SRBCT, sPLS-DA comp 2 - 3&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-sample-plots"></span>
+<img src="Figures/PLSDA/05-splsda-sample-plot-nc12-1.png" alt="Sample plots from the sPLS-DA performed on the SRBCT gene expression data. Samples are projected into the space spanned by the first three components. The plots represent 95% ellipse confidence intervals around each sample class. The start of each arrow represents the centroid of each class in the space spanned by the components. (a) Components 1 and 2 and (b) Components 2 and 3. Samples are coloured by their tumour subtype. Component 1 discriminates BL vs. the rest, component 2 discriminates EWS vs. the rest, while component 3 further discriminates NB vs. RMS vs. the rest. The combination of all three components enables us to discriminate all classes." width="50%" /><img src="Figures/PLSDA/05-splsda-sample-plot-nc23-1.png" alt="Sample plots from the sPLS-DA performed on the SRBCT gene expression data. Samples are projected into the space spanned by the first three components. The plots represent 95% ellipse confidence intervals around each sample class. The start of each arrow represents the centroid of each class in the space spanned by the components. (a) Components 1 and 2 and (b) Components 2 and 3. Samples are coloured by their tumour subtype. Component 1 discriminates BL vs. the rest, component 2 discriminates EWS vs. the rest, while component 3 further discriminates NB vs. RMS vs. the rest. The combination of all three components enables us to discriminate all classes." width="50%" />
+<p class="caption">
+Figure 5.7: <strong>Sample plots from the sPLS-DA performed on the <code>SRBCT</code> gene expression data</strong>. Samples are projected into the space spanned by the first three components. The plots represent 95% ellipse confidence intervals around each sample class. The start of each arrow represents the centroid of each class in the space spanned by the components. (a) Components 1 and 2 and (b) Components 2 and 3. Samples are coloured by their tumour subtype. Component 1 discriminates <span style="color: #F68B33;">BL</span> vs. the rest, component 2 discriminates <span style="color: #388ECC;">EWS</span> vs. the rest, while component 3 further discriminates <span style="color: #585858;">NB</span> vs. <span style="color: #009E73;">RMS</span> vs. the rest. The combination of all three components enables us to discriminate all classes.
+</p>
+</div>
+
+<p>The sample plots are different from PLS-DA (Figure <a href="id_05.html#fig:05-plsda-sample-plots">5.3</a>) with an overlap of specific classes (i.e. <span style="color: #585858;">NB</span> + <span style="color: #009E73;">RMS</span> on component 1 and 2), that are then further separated on component 3, thus showing how the genes selected on each component discriminate particular sets of sample groups.</p>
+</div>
+<div id="id_05:varplot" class="section level3 hasAnchor" number="5.3.5">
+<h3><span class="header-section-number">5.3.5</span> Variable visualisation<a href="id_05.html#id_05:varplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We represent the genes selected with sPLS-DA on the correlation circle plot. Here to increase interpretation, we specify the argument <code>var.names</code> as the first 10 characters of the gene names (Figure <a href="id_05.html#fig:05-splsda-variable-plot">5.8</a>). We also reduce the size of the font with the argument <code>cex</code>.</p>
+<p>Note:</p>
+<ul>
+<li><em>We can store the <code>plotvar()</code> as an object to output the coordinates and variable names if the plot is too cluttered.</em></li>
+</ul>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="id_05.html#cb122-1" aria-hidden="true" tabindex="-1"></a>var.name.short <span class="ot">&lt;-</span> <span class="fu">substr</span>(srbct<span class="sc">$</span>gene.name[, <span class="dv">2</span>], <span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb122-2"><a href="id_05.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(splsda.srbct, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb122-3"><a href="id_05.html#cb122-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">var.names =</span> <span class="fu">list</span>(var.name.short), <span class="at">cex =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-variable-plot"></span>
+<img src="Figures/PLSDA/05-splsda-variable-plot-1.png" alt="Correlation circle plot representing the genes selected by sPLS-DA performed on the SRBCT gene expression data. Gene names are truncated to the first 10 characters. Only the genes selected by sPLS-DA are shown in components 1 and 2. We observe three groups of genes (positively associated with component 1, and positively or negatively associated with component 2). This graphic should be interpreted in conjunction with the sample plot." width="70%" />
+<p class="caption">
+Figure 5.8: <strong>Correlation circle plot representing the genes selected by sPLS-DA performed on the <code>SRBCT</code> gene expression data</strong>. Gene names are truncated to the first 10 characters. Only the genes selected by sPLS-DA are shown in components 1 and 2. We observe three groups of genes (positively associated with component 1, and positively or negatively associated with component 2). This graphic should be interpreted in conjunction with the sample plot.
+</p>
+</div>
+
+<p>By considering both the correlation circle plot (Figure <a href="id_05.html#fig:05-splsda-variable-plot">5.8</a>) and the sample plot in Figure <a href="id_05.html#fig:05-splsda-sample-plots">5.7</a>, we observe that a group of genes with a positive correlation with component 1 (‘EH domain’, ‘proteasome’ etc.) are associated with the <span style="color: #F68B33;">BL</span> samples. We also observe two groups of genes either positively or negatively correlated with component 2. These genes are likely to characterise either the <span style="color: #585858;">NB</span> + <span style="color: #009E73;">RMS</span> classes, or the <span style="color: #388ECC;">EWS</span> class. This interpretation can be further examined with the <code>plotLoadings()</code> function.</p>
+<p>In this plot, the loading weights of each selected variable on each component are represented (see Module 2). The colours indicate the group in which the expression of the selected gene is maximal based on the mean (<code>method = 'median'</code> is also available for skewed data). For example on component 1:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="id_05.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLoadings</span>(splsda.srbct, <span class="at">comp =</span> <span class="dv">1</span>, <span class="at">method =</span> <span class="st">&#39;mean&#39;</span>, <span class="at">contrib =</span> <span class="st">&#39;max&#39;</span>, </span>
+<span id="cb123-2"><a href="id_05.html#cb123-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">name.var =</span> var.name.short)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-loading-plot"></span>
+<img src="Figures/PLSDA/05-splsda-loading-plot-1.png" alt="Loading plot of the genes selected by sPLS-DA on component 1 on the SRBCT gene expression data. Genes are ranked according to their loading weight (most important at the bottom to least important at the top), represented as a barplot. Colours indicate the class for which a particular gene is maximally expressed, on average, in this particular class. The plot helps to further characterise the gene signature and should be interpreted jointly with the sample plot (Figure 5.7)." width="70%" />
+<p class="caption">
+Figure 5.9: <strong>Loading plot of the genes selected by sPLS-DA on component 1 on the <code>SRBCT</code> gene expression data</strong>. Genes are ranked according to their loading weight (most important at the bottom to least important at the top), represented as a barplot. Colours indicate the class for which a particular gene is maximally expressed, on average, in this particular class. The plot helps to further characterise the gene signature and should be interpreted jointly with the sample plot (Figure <a href="id_05.html#fig:05-splsda-sample-plots">5.7</a>).
+</p>
+</div>
+
+<p>Here all genes are associated with <span style="color: #F68B33;">BL</span> (on average, their expression levels are higher in this class than in the other classes).</p>
+<p>Notes:</p>
+<ul>
+<li><em>Consider using the argument <code>ndisplay</code> to only display the top selected genes if the signature is too large.</em></li>
+<li><em>Consider using the argument <code>contrib = 'min'</code> to interpret the inverse trend of the signature (i.e. which genes have the smallest expression in which class, here a mix of <span style="color: #585858;">NB</span> and <span style="color: #009E73;">RMS</span> samples).</em></li>
+</ul>
+<p>To complete the visualisation, the CIM in this special case is a simple hierarchical heatmap (see <code>?cim</code>) representing the expression levels of the genes selected across all three components with respect to each sample. Here we use an Euclidean distance with Complete agglomeration method, and we specify the argument <code>row.sideColors</code> to colour the samples according to their tumour type (Figure <a href="id_05.html#fig:05-splsda-cim">5.10</a>).</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="id_05.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cim</span>(splsda.srbct, <span class="at">row.sideColors =</span> <span class="fu">color.mixo</span>(Y))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-cim"></span>
+<img src="Figures/PLSDA/05-splsda-cim-1.png" alt="Clustered Image Map of the genes selected by sPLS-DA on the SRBCT gene expression data across all 3 components. A hierarchical clustering based on the gene expression levels of the selected genes, with samples in rows coloured according to their tumour subtype (using Euclidean distance with Complete agglomeration method). As expected, we observe a separation of all different tumour types, which are characterised by different levels of expression." width="70%" />
+<p class="caption">
+Figure 5.10: <strong>Clustered Image Map of the genes selected by sPLS-DA on the <code>SRBCT</code> gene expression data across all 3 components</strong>. A hierarchical clustering based on the gene expression levels of the selected genes, with samples in rows coloured according to their tumour subtype (using Euclidean distance with Complete agglomeration method). As expected, we observe a separation of all different tumour types, which are characterised by different levels of expression.
+</p>
+</div>
+
+<p>The heatmap shows the level of expression of the genes selected by sPLS-DA across all three components, and the overall ability of the gene signature to discriminate the tumour subtypes.</p>
+<p>Note:</p>
+<ul>
+<li><em>You can change the argument <code>comp</code> if you wish to visualise a specific set of components in <code>cim()</code>.</em></li>
+</ul>
+</div>
+</div>
+<div id="id_05:splsda-predict" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Take a detour: prediction<a href="id_05.html#id_05:splsda-predict" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section, we artificially create an ‘external’ test set on which we want to predict the class membership to illustrate the prediction process in sPLS-DA (see Extra Reading material). We randomly select 50 samples from the <code>srbct</code> study as part of the training set, and the remainder as part of the test set:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="id_05.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">33</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
+<span id="cb125-2"><a href="id_05.html#cb125-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(X), <span class="dv">50</span>)    <span class="co"># Randomly select 50 samples in training</span></span>
+<span id="cb125-3"><a href="id_05.html#cb125-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(X), train) <span class="co"># Rest is part of the test set</span></span>
+<span id="cb125-4"><a href="id_05.html#cb125-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-5"><a href="id_05.html#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Store matrices into training and test set:</span></span>
+<span id="cb125-6"><a href="id_05.html#cb125-6" aria-hidden="true" tabindex="-1"></a>X.train <span class="ot">&lt;-</span> X[train, ]</span>
+<span id="cb125-7"><a href="id_05.html#cb125-7" aria-hidden="true" tabindex="-1"></a>X.test <span class="ot">&lt;-</span> X[test,]</span>
+<span id="cb125-8"><a href="id_05.html#cb125-8" aria-hidden="true" tabindex="-1"></a>Y.train <span class="ot">&lt;-</span> Y[train]</span>
+<span id="cb125-9"><a href="id_05.html#cb125-9" aria-hidden="true" tabindex="-1"></a>Y.test <span class="ot">&lt;-</span> Y[test]</span>
+<span id="cb125-10"><a href="id_05.html#cb125-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-11"><a href="id_05.html#cb125-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check dimensions are OK:</span></span>
+<span id="cb125-12"><a href="id_05.html#cb125-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X.train); <span class="fu">dim</span>(X.test)</span></code></pre></div>
+<pre><code>## [1]   50 2308
+## [1]   13 2308</code></pre>
+<p>Here we assume that the tuning step was performed on the training set <em>only</em> (it is <em>really important</em> to tune only on the training step to avoid overfitting), and that the optimal <code>keepX</code> values are, for example, <code>keepX = c(20,30,40)</code> on three components. The final model on the training data is:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="id_05.html#cb127-1" aria-hidden="true" tabindex="-1"></a>train.splsda.srbct <span class="ot">&lt;-</span> <span class="fu">splsda</span>(X.train, Y.train, <span class="at">ncomp =</span> <span class="dv">3</span>, <span class="at">keepX =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>))</span></code></pre></div>
+<p>We now apply the trained model on the test set <code>X.test</code> and we specify the prediction distance, for example <code>mahalanobis.dist</code> (see also <code>?predict.splsda</code>):</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="id_05.html#cb128-1" aria-hidden="true" tabindex="-1"></a>predict.splsda.srbct <span class="ot">&lt;-</span> <span class="fu">predict</span>(train.splsda.srbct, X.test, </span>
+<span id="cb128-2"><a href="id_05.html#cb128-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">dist =</span> <span class="st">&quot;mahalanobis.dist&quot;</span>)</span></code></pre></div>
+<p>The <code>$class</code> output of our object <code>predict.splsda.srbct</code> gives the predicted classes of the test samples.</p>
+<p>First we concatenate the prediction for each of the three components (conditionally on the previous component) and the real class - in a real application case you may not know the true class.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="id_05.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Just the head:</span></span>
+<span id="cb129-2"><a href="id_05.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(predict.splsda.srbct<span class="sc">$</span>class, <span class="at">Truth =</span> Y.test))</span></code></pre></div>
+<pre><code>##         mahalanobis.dist.comp1 mahalanobis.dist.comp2 mahalanobis.dist.comp3
+## EWS.T7                     EWS                    EWS                    EWS
+## EWS.T15                    EWS                    EWS                    EWS
+## EWS.C8                     EWS                    EWS                    EWS
+## EWS.C10                    EWS                    EWS                    EWS
+## BL.C8                       BL                     BL                     BL
+## NB.C6                       NB                     NB                     NB
+##         Truth
+## EWS.T7    EWS
+## EWS.T15   EWS
+## EWS.C8    EWS
+## EWS.C10   EWS
+## BL.C8      BL
+## NB.C6      NB</code></pre>
+<p>If we only look at the final prediction on component 2, compared to the real class:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="id_05.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare prediction on the second component and change as factor</span></span>
+<span id="cb131-2"><a href="id_05.html#cb131-2" aria-hidden="true" tabindex="-1"></a>predict.comp2 <span class="ot">&lt;-</span> predict.splsda.srbct<span class="sc">$</span>class<span class="sc">$</span>mahalanobis.dist[,<span class="dv">2</span>]</span>
+<span id="cb131-3"><a href="id_05.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">factor</span>(predict.comp2, <span class="at">levels =</span> <span class="fu">levels</span>(Y)), Y.test)</span></code></pre></div>
+<pre><code>##      Y.test
+##       EWS BL NB RMS
+##   EWS   4  0  0   0
+##   BL    0  1  0   0
+##   NB    0  0  1   1
+##   RMS   0  0  0   6</code></pre>
+<p>And on the third compnent:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="id_05.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare prediction on the third component and change as factor</span></span>
+<span id="cb133-2"><a href="id_05.html#cb133-2" aria-hidden="true" tabindex="-1"></a>predict.comp3 <span class="ot">&lt;-</span> predict.splsda.srbct<span class="sc">$</span>class<span class="sc">$</span>mahalanobis.dist[,<span class="dv">3</span>]</span>
+<span id="cb133-3"><a href="id_05.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">factor</span>(predict.comp3, <span class="at">levels =</span> <span class="fu">levels</span>(Y)), Y.test)</span></code></pre></div>
+<pre><code>##      Y.test
+##       EWS BL NB RMS
+##   EWS   4  0  0   0
+##   BL    0  1  0   0
+##   NB    0  0  1   0
+##   RMS   0  0  0   7</code></pre>
+<p>The prediction is better on the third component, compared to a 2-component model.</p>
+<p>Next, we look at the output <code>$predict</code>, which gives the predicted dummy scores assigned for each test sample and each class level for a given component (as explained in Extra Reading material). Each column represents a class category:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="id_05.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On component 3, just the head:</span></span>
+<span id="cb135-2"><a href="id_05.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predict.splsda.srbct<span class="sc">$</span>predict[, , <span class="dv">3</span>])</span></code></pre></div>
+<pre><code>##                EWS          BL          NB          RMS
+## EWS.T7  1.26848551 -0.05273773 -0.24070902  0.024961232
+## EWS.T15 1.15058424 -0.02222145 -0.11877994 -0.009582845
+## EWS.C8  1.25628411  0.05481026 -0.16500118 -0.146093198
+## EWS.C10 0.83995956  0.10871106  0.16452934 -0.113199949
+## BL.C8   0.02431262  0.90877176  0.01775304  0.049162580
+## NB.C6   0.06738230  0.05086884  0.86247360  0.019275265</code></pre>
+<p>In PLS-DA and sPLS-DA, the final prediction call is given based on this matrix on which a pre-specified distance (such as <code>mahalanobis.dist</code> here) is applied. From this output, we can understand the link between the dummy matrix <span class="math inline">\(\boldsymbol Y\)</span>, the prediction, and the importance of choosing the prediction distance. More details are provided in Extra Reading material.</p>
+</div>
+<div id="id_05:splsda-auroc" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> AUROC outputs complement performance evaluation<a href="id_05.html#id_05:splsda-auroc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As PLS-DA acts as a classifier, we can plot the AUC (Area Under The Curve) ROC (Receiver Operating Characteristics) to complement the sPLS-DA classification performance results. The AUC is calculated from training cross-validation sets and averaged. The ROC curve is displayed in Figure <a href="id_05.html#fig:05-splsda-auroc">5.11</a>. In a multiclass setting, each curve represents one class vs. the others and the AUC is indicated in the legend, and also in the numerical output:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="id_05.html#cb137-1" aria-hidden="true" tabindex="-1"></a>auc.srbct <span class="ot">&lt;-</span> <span class="fu">auroc</span>(splsda.srbct)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:05-splsda-auroc"></span>
+<img src="Figures/PLSDA/05-splsda-auroc-1.png" alt="ROC curve and AUC from sPLS-DA on the SRBCT gene expression data on component 1 averaged across one-vs.-all comparisons. Numerical outputs include the AUC and a Wilcoxon test p-value for each ‘one vs. other’ class comparisons that are performed per component. This output complements the sPLS-DA performance evaluation but should not be used for tuning (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the sPLS-DA model can distinguish BL subjects from the other groups with a high true positive and low false positive rate, while the model is less well able to distinguish samples from other classes on component 1." width="70%" />
+<p class="caption">
+Figure 5.11: <strong>ROC curve and AUC from sPLS-DA on the <code>SRBCT</code> gene expression data on component 1</strong> averaged across one-vs.-all comparisons. Numerical outputs include the AUC and a Wilcoxon test p-value for each ‘one vs. other’ class comparisons that are performed per component. This output complements the sPLS-DA performance evaluation but <em>should not be used for tuning</em> (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the sPLS-DA model can distinguish <span style="color: #CC0000;">BL</span> subjects from the other groups with a high true positive and low false positive rate, while the model is less well able to distinguish samples from other classes on component 1.
+</p>
+</div>
+<pre><code>## $Comp1
+##                    AUC   p-value
+## EWS vs Other(s) 0.4163 2.717e-01
+## BL vs Other(s)  1.0000 5.586e-06
+## NB vs Other(s)  0.8448 2.214e-04
+## RMS vs Other(s) 0.6000 2.041e-01
+## 
+## $Comp2
+##                    AUC   p-value
+## EWS vs Other(s) 1.0000 5.135e-11
+## BL vs Other(s)  1.0000 5.586e-06
+## NB vs Other(s)  0.9020 1.663e-05
+## RMS vs Other(s) 0.7895 2.363e-04
+## 
+## $Comp3
+##                 AUC   p-value
+## EWS vs Other(s)   1 5.135e-11
+## BL vs Other(s)    1 5.586e-06
+## NB vs Other(s)    1 8.505e-08
+## RMS vs Other(s)   1 2.164e-10</code></pre>
+
+<p>The ideal ROC curve should be along the top left corner, indicating a high true positive rate (sensitivity on the y-axis) and a high true negative rate (or low 100 - specificity on the x-axis), with an AUC close to 1. This is the case for <span style="color: #CC0000;">BL</span> vs. the others on component 1. The numerical output shows a perfect classification on component 3.</p>
+<p><em>Note:</em></p>
+<ul>
+<li><em>A word of caution when using the ROC and AUC in s/PLS-DA: these criteria may not be particularly insightful, or may not be in full agreement with the s/PLS-DA performance, as the prediction threshold in PLS-DA is based on a specified distance as we described earlier in this section and in Extra Reading material related to PLS-DA. Thus, such a result complements the sPLS-DA performance we have calculated earlier.</em></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="id_04.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="id_06.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-PLSDA.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["mixOmics Vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

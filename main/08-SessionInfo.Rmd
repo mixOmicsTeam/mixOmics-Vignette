@@ -1,0 +1,13 @@
+
+# Session Information {#08}
+
+## mixOmics version {#08:mixomics-ver}
+```{r 08-mixOmics-version, echo = FALSE}
+suppressMessages(library(mixOmics))
+print(packageVersion("mixOmics"))
+```
+
+## Session info {#08:session-info}
+```{r 08-sessionInfo, echo = FALSE}
+sessionInfo()
+```

@@ -1,5 +1,5 @@
 --- 
-title: 'Hands-on activities'
+title: 'mixOmics Bookdown Vignette'
 author:
 - name: Kim-Anh Le Cao
   email: kimanh.lecao@unimelb.edu.au
@@ -14,12 +14,13 @@ output:
     includes:
      in_header: header.html
 documentclass: book
-bibliography: ["mybib3.bib"]
+bibliography: ["bibliography.bib"]
 biblio-style: apalike
 link-citations: true
 github-repo: mixOmicsTeam/mixOmics
-description: "Hands-on activities using the R package mixOmics"
+description: "Vignette for the R package mixOmics"
 ---
+
 
 
 
@@ -27,12 +28,20 @@ description: "Hands-on activities using the R package mixOmics"
 
 # Preamble {-}
 
-The following vignettes serve as support for our [online course](https://study.unimelb.edu.au/find/short-courses/mixomics-r-essentials-for-biological-data-integration/#course-specifics). The methods are described in the course. Here we will cover the methods PCA, PLS1 and PLS2, N-integration (multi block PLS-DA) and P-integration (multi-group PLS-DA).
+If you are following our [online course](https://study.unimelb.edu.au/find/short-courses/mixomics-r-essentials-for-biological-data-integration/#course-specifics), the following vignette will be useful as a complementary learning tool. This vignette also covers the essential use cases of various methods in this package for the general `mixOmcis` user. The below methods will be covered:
+
+- (s)PCA, 
+- PLS1 and PLS2, 
+- (s)PLS-DA,
+- N-integration (multi-block sPLS-DA, aka. "DIABLO"), and 
+- P-integration (multi-group sPLS-DA, aka "MINT").
+
+As outlined in [1.3](#01:outline), this is not an exhaustive list of all the methods found within `mixOmics`. More information can be found at [our website](http://mixomics.org/) and you can ask questions via our [discourse forum](https://mixomics-users.discourse.group/).
 
 
 <div class="figure">
-<img src="XtraFigs/MixOmicsAnalysesV2.png" alt="**Different types of analyses with mixOmics** [@mixomics].The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from @Ten11) can integrate more than two data sets. In P-integration, our method MINT is based on multi-group PLS [@Esl14b].The following activities cover some of these methods." width="1352" />
-<p class="caption">(\#fig:methods-fig)**Different types of analyses with mixOmics** [@mixomics].The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from @Ten11) can integrate more than two data sets. In P-integration, our method MINT is based on multi-group PLS [@Esl14b].The following activities cover some of these methods.</p>
+<img src="InputFigures/MixOmicsAnalysesV2.png" alt="**Different types of analyses with mixOmics** [@mixomics].The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from @Ten11) can integrate more than two data sets. In P-integration, our method MINT is based on multi-group PLS [@Esl14b].The following activities cover some of these methods."  />
+<p class="caption">(\#fig:00-analyses-diagram)**Different types of analyses with mixOmics** [@mixomics].The biological questions, the number of data sets to integrate, and the type of response variable, whether qualitative (classification), quantitative (regression), one (PLS1) or several (PLS) responses, all drive the choice of analytical method. All methods featured in this diagram include variable selection except rCCA. In N-integration, rCCA and PLS enable the integration of two quantitative data sets, whilst the block PLS methods (that derive from the methods from @Ten11) can integrate more than two data sets. In P-integration, our method MINT is based on multi-group PLS [@Esl14b].The following activities cover some of these methods.</p>
 </div>
 
 

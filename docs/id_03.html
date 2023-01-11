@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 PCA on the multidrug study | mixOmics Bookdown Vignette</title>
+  <meta name="description" content="Vignette for the R package mixOmics" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 PCA on the multidrug study | mixOmics Bookdown Vignette" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Vignette for the R package mixOmics" />
+  <meta name="github-repo" content="mixOmicsTeam/mixOmics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 PCA on the multidrug study | mixOmics Bookdown Vignette" />
+  
+  <meta name="twitter:description" content="Vignette for the R package mixOmics" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="id_02.html"/>
+<link rel="next" href="id_04.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+<script>
+document.write('<div class="logos"><img src="data:image/jpeg;base64,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" alt="logo" style="position:absolute; top:25px; right:1%; padding:10px;z-index:200;"/></div>')
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a></li>
+<li class="chapter" data-level="1" data-path="id_01.html"><a href="id_01.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="id_01.html"><a href="id_01.html#id_01:datatypes"><i class="fa fa-check"></i><b>1.1</b> Input data</a></li>
+<li class="chapter" data-level="1.2" data-path="id_01.html"><a href="id_01.html#methods"><i class="fa fa-check"></i><b>1.2</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="id_01.html"><a href="id_01.html#id_01:methods"><i class="fa fa-check"></i><b>1.2.1</b> Some background knowledge</a></li>
+<li class="chapter" data-level="1.2.2" data-path="id_01.html"><a href="id_01.html#id_01:overview"><i class="fa fa-check"></i><b>1.2.2</b> Overview</a></li>
+<li class="chapter" data-level="1.2.3" data-path="id_01.html"><a href="id_01.html#id_01:pubs"><i class="fa fa-check"></i><b>1.2.3</b> Key publications</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="id_01.html"><a href="id_01.html#id_01:outline"><i class="fa fa-check"></i><b>1.3</b> Outline of this Vignette</a></li>
+<li class="chapter" data-level="1.4" data-path="id_01.html"><a href="id_01.html#other-methods-not-covered-in-this-vignette"><i class="fa fa-check"></i><b>1.4</b> Other methods not covered in this vignette</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="id_02.html"><a href="id_02.html"><i class="fa fa-check"></i><b>2</b> Let’s get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="id_02.html"><a href="id_02.html#id_02:install"><i class="fa fa-check"></i><b>2.1</b> Installation</a></li>
+<li class="chapter" data-level="2.2" data-path="id_02.html"><a href="id_02.html#id_02:load-data"><i class="fa fa-check"></i><b>2.2</b> Load the package</a></li>
+<li class="chapter" data-level="2.3" data-path="id_02.html"><a href="id_02.html#upload-data"><i class="fa fa-check"></i><b>2.3</b> Upload data</a></li>
+<li class="chapter" data-level="2.4" data-path="id_02.html"><a href="id_02.html#id_02:quick-start"><i class="fa fa-check"></i><b>2.4</b> Quick start in <code>mixOmics</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="id_03.html"><a href="id_03.html"><i class="fa fa-check"></i><b>3</b> PCA on the <code>multidrug</code> study</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="id_03.html"><a href="id_03.html#id_03:load-data"><i class="fa fa-check"></i><b>3.1</b> Load the data</a></li>
+<li class="chapter" data-level="3.2" data-path="id_03.html"><a href="id_03.html#id_03:pca"><i class="fa fa-check"></i><b>3.2</b> Example: PCA</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="id_03.html"><a href="id_03.html#id_03:pca-ncomp"><i class="fa fa-check"></i><b>3.2.1</b> Choose the number of components</a></li>
+<li class="chapter" data-level="3.2.2" data-path="id_03.html"><a href="id_03.html#id_03:pca-final"><i class="fa fa-check"></i><b>3.2.2</b> PCA with fewer components</a></li>
+<li class="chapter" data-level="3.2.3" data-path="id_03.html"><a href="id_03.html#id_03:pca-vars"><i class="fa fa-check"></i><b>3.2.3</b> Identify the informative variables</a></li>
+<li class="chapter" data-level="3.2.4" data-path="id_03.html"><a href="id_03.html#id_03:pca-sample-plot"><i class="fa fa-check"></i><b>3.2.4</b> Sample plots</a></li>
+<li class="chapter" data-level="3.2.5" data-path="id_03.html"><a href="id_03.html#id_03:pca-variable-plot"><i class="fa fa-check"></i><b>3.2.5</b> Variable plot: correlation circle plot</a></li>
+<li class="chapter" data-level="3.2.6" data-path="id_03.html"><a href="id_03.html#id_03:pca-biplot"><i class="fa fa-check"></i><b>3.2.6</b> Biplot: samples and variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="id_03.html"><a href="id_03.html#id_03:spca"><i class="fa fa-check"></i><b>3.3</b> Example: sparse PCA</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="id_03.html"><a href="id_03.html#id_03:spca-vars"><i class="fa fa-check"></i><b>3.3.1</b> Choose the number of variables to select</a></li>
+<li class="chapter" data-level="3.3.2" data-path="id_03.html"><a href="id_03.html#id_03:spca-final"><i class="fa fa-check"></i><b>3.3.2</b> Final sparse PCA</a></li>
+<li class="chapter" data-level="3.3.3" data-path="id_03.html"><a href="id_03.html#id_03:spca-plots"><i class="fa fa-check"></i><b>3.3.3</b> Sample and variable plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="id_04.html"><a href="id_04.html"><i class="fa fa-check"></i><b>4</b> PLS on the liver toxicity study</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="id_04.html"><a href="id_04.html#id_04:load-data"><i class="fa fa-check"></i><b>4.1</b> Load the data</a></li>
+<li class="chapter" data-level="4.2" data-path="id_04.html"><a href="id_04.html#id_04:spls1"><i class="fa fa-check"></i><b>4.2</b> Example: sPLS1 regression</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="id_04.html"><a href="id_04.html#id_04:spls1-ncomp"><i class="fa fa-check"></i><b>4.2.1</b> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</a></li>
+<li class="chapter" data-level="4.2.2" data-path="id_04.html"><a href="id_04.html#id_04:spls1-tuning"><i class="fa fa-check"></i><b>4.2.2</b> Number of variables to select in <span class="math inline">\(\boldsymbol X\)</span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="id_04.html"><a href="id_04.html#id_04:spls1-final"><i class="fa fa-check"></i><b>4.2.3</b> Final sPLS1 model</a></li>
+<li class="chapter" data-level="4.2.4" data-path="id_04.html"><a href="id_04.html#id_04:spls1-sample-plots"><i class="fa fa-check"></i><b>4.2.4</b> Sample plots</a></li>
+<li class="chapter" data-level="4.2.5" data-path="id_04.html"><a href="id_04.html#id_04:spls1-perf"><i class="fa fa-check"></i><b>4.2.5</b> Performance assessment of sPLS1</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="id_04.html"><a href="id_04.html#id_04:spls2"><i class="fa fa-check"></i><b>4.3</b> Example: PLS2 regression</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="id_04.html"><a href="id_04.html#id_04:spls2-ncomp"><i class="fa fa-check"></i><b>4.3.1</b> Number of dimensions using the <span class="math inline">\(Q^2\)</span> criterion</a></li>
+<li class="chapter" data-level="4.3.2" data-path="id_04.html"><a href="id_04.html#id_04:spls2-tuning"><i class="fa fa-check"></i><b>4.3.2</b> Number of variables to select in both <span class="math inline">\(\boldsymbol X\)</span> and <span class="math inline">\(\boldsymbol Y\)</span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="id_04.html"><a href="id_04.html#id_04:spls2-final"><i class="fa fa-check"></i><b>4.3.3</b> Final sPLS2 model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="id_05.html"><a href="id_05.html"><i class="fa fa-check"></i><b>5</b> PLS-DA on the SRBCT case study</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="id_05.html"><a href="id_05.html#id_05:load-data"><i class="fa fa-check"></i><b>5.1</b> Load the data</a></li>
+<li class="chapter" data-level="5.2" data-path="id_05.html"><a href="id_05.html#id_05:plsda"><i class="fa fa-check"></i><b>5.2</b> Example: PLS-DA</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="id_05.html"><a href="id_05.html#id_05:plsda-pca"><i class="fa fa-check"></i><b>5.2.1</b> Initial exploration with PCA</a></li>
+<li class="chapter" data-level="5.2.2" data-path="id_05.html"><a href="id_05.html#id_05:plsda-ncomp"><i class="fa fa-check"></i><b>5.2.2</b> Number of components in PLS-DA</a></li>
+<li class="chapter" data-level="5.2.3" data-path="id_05.html"><a href="id_05.html#id_05:plsda-final"><i class="fa fa-check"></i><b>5.2.3</b> Final PLS-DA model</a></li>
+<li class="chapter" data-level="5.2.4" data-path="id_05.html"><a href="id_05.html#id_05:plsda-perf"><i class="fa fa-check"></i><b>5.2.4</b> Classification performance</a></li>
+<li class="chapter" data-level="5.2.5" data-path="id_05.html"><a href="id_05.html#id_05:plsda-bgp"><i class="fa fa-check"></i><b>5.2.5</b> Background prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="id_05.html"><a href="id_05.html#id_05:splsda"><i class="fa fa-check"></i><b>5.3</b> Example: sPLS-DA</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="id_05.html"><a href="id_05.html#id_05:splsda-keepX"><i class="fa fa-check"></i><b>5.3.1</b> Number of variables to select</a></li>
+<li class="chapter" data-level="5.3.2" data-path="id_05.html"><a href="id_05.html#final-splsda-perf"><i class="fa fa-check"></i><b>5.3.2</b> Final model and performance</a></li>
+<li class="chapter" data-level="5.3.3" data-path="id_05.html"><a href="id_05.html#id_05:stab"><i class="fa fa-check"></i><b>5.3.3</b> Variable selection and stability</a></li>
+<li class="chapter" data-level="5.3.4" data-path="id_05.html"><a href="id_05.html#sample-visualisation"><i class="fa fa-check"></i><b>5.3.4</b> Sample visualisation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="id_05.html"><a href="id_05.html#id_05:varplot"><i class="fa fa-check"></i><b>5.3.5</b> Variable visualisation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="id_05.html"><a href="id_05.html#id_05:splsda-predict"><i class="fa fa-check"></i><b>5.4</b> Take a detour: prediction</a></li>
+<li class="chapter" data-level="5.5" data-path="id_05.html"><a href="id_05.html#id_05:splsda-auroc"><i class="fa fa-check"></i><b>5.5</b> AUROC outputs complement performance evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="id_06.html"><a href="id_06.html"><i class="fa fa-check"></i><b>6</b> N-Integration</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="id_06.html"><a href="id_06.html#id_06:diablo"><i class="fa fa-check"></i><b>6.1</b> Block sPLS-DA on the TCGA case study</a></li>
+<li class="chapter" data-level="6.2" data-path="id_06.html"><a href="id_06.html#id_06:diablo-load-data"><i class="fa fa-check"></i><b>6.2</b> Load the data</a></li>
+<li class="chapter" data-level="6.3" data-path="id_06.html"><a href="id_06.html#id_06:diablo-params"><i class="fa fa-check"></i><b>6.3</b> Parameter choice</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="id_06.html"><a href="id_06.html#id_06:diablo-design"><i class="fa fa-check"></i><b>6.3.1</b> Design matrix</a></li>
+<li class="chapter" data-level="6.3.2" data-path="id_06.html"><a href="id_06.html#id_06:diablo-ncomp"><i class="fa fa-check"></i><b>6.3.2</b> Number of components</a></li>
+<li class="chapter" data-level="6.3.3" data-path="id_06.html"><a href="id_06.html#id_06:diablo-tuning"><i class="fa fa-check"></i><b>6.3.3</b> Number of variables to select</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="id_06.html"><a href="id_06.html#id_06:diablo-final"><i class="fa fa-check"></i><b>6.4</b> Final model</a></li>
+<li class="chapter" data-level="6.5" data-path="id_06.html"><a href="id_06.html#id_06:diablo-sample-plots"><i class="fa fa-check"></i><b>6.5</b> Sample plots</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="id_06.html"><a href="id_06.html#plotdiablo"><i class="fa fa-check"></i><b>6.5.1</b> <code>plotDiablo</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="id_06.html"><a href="id_06.html#plotindiv"><i class="fa fa-check"></i><b>6.5.2</b> <code>plotIndiv</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="id_06.html"><a href="id_06.html#plotarrow"><i class="fa fa-check"></i><b>6.5.3</b> <code>plotArrow</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="id_06.html"><a href="id_06.html#id_06:diablo-variable-plots"><i class="fa fa-check"></i><b>6.6</b> Variable plots</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="id_06.html"><a href="id_06.html#plotvar"><i class="fa fa-check"></i><b>6.6.1</b> <code>plotVar</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="id_06.html"><a href="id_06.html#circosplot"><i class="fa fa-check"></i><b>6.6.2</b> <code>circosPlot</code></a></li>
+<li class="chapter" data-level="6.6.3" data-path="id_06.html"><a href="id_06.html#network"><i class="fa fa-check"></i><b>6.6.3</b> <code>network</code></a></li>
+<li class="chapter" data-level="6.6.4" data-path="id_06.html"><a href="id_06.html#plotloadings"><i class="fa fa-check"></i><b>6.6.4</b> <code>plotLoadings</code></a></li>
+<li class="chapter" data-level="6.6.5" data-path="id_06.html"><a href="id_06.html#cimdiablo"><i class="fa fa-check"></i><b>6.6.5</b> <code>cimDiablo</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="id_06.html"><a href="id_06.html#id_06:diablo-perf"><i class="fa fa-check"></i><b>6.7</b> Model performance and prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="id_07.html"><a href="id_07.html"><i class="fa fa-check"></i><b>7</b> P-Integration</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="id_07.html"><a href="id_07.html#id_07:mint"><i class="fa fa-check"></i><b>7.1</b> MINT on the stem cell case study</a></li>
+<li class="chapter" data-level="7.2" data-path="id_07.html"><a href="id_07.html#id_07:load-data"><i class="fa fa-check"></i><b>7.2</b> Load the data</a></li>
+<li class="chapter" data-level="7.3" data-path="id_07.html"><a href="id_07.html#id_07:plsda"><i class="fa fa-check"></i><b>7.3</b> Example: MINT PLS-DA</a></li>
+<li class="chapter" data-level="7.4" data-path="id_07.html"><a href="id_07.html#id_07:splsda"><i class="fa fa-check"></i><b>7.4</b> Example: MINT sPLS-DA</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="id_07.html"><a href="id_07.html#id_07:splsda-tuning"><i class="fa fa-check"></i><b>7.4.1</b> Number of variables to select</a></li>
+<li class="chapter" data-level="7.4.2" data-path="id_07.html"><a href="id_07.html#id_07:splsda-final"><i class="fa fa-check"></i><b>7.4.2</b> Final MINT sPLS-DA model</a></li>
+<li class="chapter" data-level="7.4.3" data-path="id_07.html"><a href="id_07.html#id_07:splsda-sample-plots"><i class="fa fa-check"></i><b>7.4.3</b> Sample plots</a></li>
+<li class="chapter" data-level="7.4.4" data-path="id_07.html"><a href="id_07.html#id_07:splsda-variable-plots"><i class="fa fa-check"></i><b>7.4.4</b> Variable plots</a></li>
+<li class="chapter" data-level="7.4.5" data-path="id_07.html"><a href="id_07.html#id_07:splsda-perf"><i class="fa fa-check"></i><b>7.4.5</b> Classification performance</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="id_07.html"><a href="id_07.html#id_07:splsda-auroc"><i class="fa fa-check"></i><b>7.5</b> Take a detour</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="id_07.html"><a href="id_07.html#auc"><i class="fa fa-check"></i><b>7.5.1</b> AUC</a></li>
+<li class="chapter" data-level="7.5.2" data-path="id_07.html"><a href="id_07.html#id_07:splsda-predict"><i class="fa fa-check"></i><b>7.5.2</b> Prediction on an external study</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="id_08.html"><a href="id_08.html"><i class="fa fa-check"></i><b>8</b> Session Information</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="id_08.html"><a href="id_08.html#id_08:mixomics-ver"><i class="fa fa-check"></i><b>8.1</b> mixOmics version</a></li>
+<li class="chapter" data-level="8.2" data-path="id_08.html"><a href="id_08.html#id_08:session-info"><i class="fa fa-check"></i><b>8.2</b> Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">mixOmics Bookdown Vignette</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="id_03" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number"> 3</span> PCA on the <code>multidrug</code> study<a href="id_03.html#id_03" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>To illustrate PCA and is variants, we will analyse the <code>multidrug</code> case study available in the package. This pharmacogenomic study investigates the patterns of drug activity in cancer cell lines <span class="citation">(<a href="references.html#ref-Sza04" role="doc-biblioref">Szakács et al. 2004</a>)</span>. These cell lines come from the <a href="https://dtp.cancer.gov/discovery_development/nci-60/">NCI-60 Human Tumor Cell Lines</a> established by the Developmental Therapeutics Program of the National Cancer Institute (NCI) to screen for the toxicity of chemical compound repositories in diverse cancer cell lines. NCI-60 includes cell lines derived from cancers of colorectal (7 cell lines), renal (8), ovarian (6), breast (8), prostate (2), lung (9) and central nervous system origin (6), as well as leukemia (6) and melanoma (8).</p>
+<p>Two separate data sets (representing two types of measurements) on the same NCI-60 cancer cell lines are available in <code>multidrug</code> (see also <code>?multidrug</code>):</p>
+<ul>
+<li><p><code>$ABC.trans</code>: Contains the expression of 48 human ABC transporters measured by quantitative real-time PCR (RT-PCR) for each cell line.</p></li>
+<li><p><code>$compound</code>: Contains the activity of 1,429 drugs expressed as GI50, which is the drug concentration that induces 50% inhibition of cellular growth for the tested cell line.</p></li>
+</ul>
+<p>Additional information will also be used in the outputs:</p>
+<ul>
+<li><p><code>$comp.name</code>: The names of the 1,429 compounds.</p></li>
+<li><p><code>$cell.line</code>: Information on the cell line names (<code>$Sample</code>) and the cell line types (<code>$Class</code>).</p></li>
+</ul>
+<p>In this activity, we illustrate PCA performed on the human ABC transporters <code>ABC.trans</code>, and sparse PCA on the compound data <code>compound</code>.</p>
+<div id="id_03:load-data" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Load the data<a href="id_03.html#id_03:load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The input data matrix <span class="math inline">\(\boldsymbol{X}\)</span> is of size <span class="math inline">\(N\)</span> samples in rows and <span class="math inline">\(P\)</span> variables (e.g. genes) in columns. We start with the <code>ABC.trans</code> data.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="id_03.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
+<span id="cb10-2"><a href="id_03.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(multidrug)</span>
+<span id="cb10-3"><a href="id_03.html#cb10-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> multidrug<span class="sc">$</span>ABC.trans</span>
+<span id="cb10-4"><a href="id_03.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X) <span class="co"># Check dimensions of data</span></span></code></pre></div>
+<pre><code>## [1] 60 48</code></pre>
+</div>
+<div id="id_03:pca" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Example: PCA<a href="id_03.html#id_03:pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="id_03:pca-ncomp" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Choose the number of components<a href="id_03.html#id_03:pca-ncomp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Contrary to the minimal code example, here we choose to also scale the variables for the reasons detailed earlier. The function <code>tune.pca()</code> calculates the cumulative proportion of explained variance for a large number of principal components (here we set <code>ncomp = 10</code>). A screeplot of the proportion of explained variance relative to the total amount of variance in the data for each principal component is output (Fig. <a href="id_03.html#fig:03-screeplot">3.1</a>):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="id_03.html#cb12-1" aria-hidden="true" tabindex="-1"></a>tune.pca.multi <span class="ot">&lt;-</span> <span class="fu">tune.pca</span>(X, <span class="at">ncomp =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-2"><a href="id_03.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tune.pca.multi)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-screeplot"></span>
+<img src="Figures/PCA/03-screeplot-1.png" alt="Screeplot from the PCA performed on the ABC.trans data: Amount of explained variance for each principal component on the ABC transporter data." width="70%" />
+<p class="caption">
+Figure 3.1: <strong>Screeplot from the PCA performed on the <code>ABC.trans</code> data</strong>: Amount of explained variance for each principal component on the ABC transporter data.
+</p>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="id_03.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tune.pca.multidrug$cum.var       # Outputs cumulative proportion of variance</span></span></code></pre></div>
+
+<p>From the numerical output (not shown here), we observe that the first two principal components explain 22.87% of the total variance, and the first three principal components explain 29.88% of the total variance. The rule of thumb for choosing the number of components is not so much to set a hard threshold based on the cumulative proportion of explained variance (as this is data-dependent), but to observe when a drop, or elbow, appears on the screeplot. The elbow indicates that the remaining variance is spread over many principal components and is not relevant in obtaining a low dimensional ‘snapshot’ of the data. This is an empirical way of choosing the number of principal components to retain in the analysis. In this specific example we could choose between 2 to 3 components for the final PCA, however these criteria are highly subjective and the reader must keep in mind that visualisation becomes difficult above three dimensions.</p>
+</div>
+<div id="id_03:pca-final" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> PCA with fewer components<a href="id_03.html#id_03:pca-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the preliminary analysis above, we run a PCA with three components. Here we show additional input, such as whether to center or scale the variables.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="id_03.html#cb14-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi <span class="ot">&lt;-</span> <span class="fu">pca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="id_03.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># final.pca.multi  # Lists possible outputs</span></span></code></pre></div>
+<p>The output is similar to the tuning step above. Here the total variance in the data is:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="id_03.html#cb15-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>var.tot</span></code></pre></div>
+<pre><code>## [1] 47.98305</code></pre>
+<p>By summing the variance explained from all possible components, we would achieve the same amount of explained variance. The proportion of explained variance per component is:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="id_03.html#cb17-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>prop_expl_var<span class="sc">$</span>X</span></code></pre></div>
+<pre><code>##        PC1        PC2        PC3 
+## 0.12677541 0.10194929 0.07011818</code></pre>
+<p>The cumulative proportion of variance explained can also be extracted (as displayed in Figure <a href="id_03.html#fig:03-screeplot">3.1</a>):</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="id_03.html#cb19-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>cum.var</span></code></pre></div>
+<pre><code>##       PC1       PC2       PC3 
+## 0.1267754 0.2287247 0.2988429</code></pre>
+</div>
+<div id="id_03:pca-vars" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Identify the informative variables<a href="id_03.html#id_03:pca-vars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To calculate components, we use the variable coefficient weights indicated in the loading vectors. Therefore, the absolute value of the coefficients in the loading vectors inform us about the importance of each variable in contributing to the definition of each component. We can extract this information through the <code>selectVar()</code> function which ranks the most important variables in decreasing order according to their absolute loading weight value for each principal component.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="id_03.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top variables on the first component only:</span></span>
+<span id="cb21-2"><a href="id_03.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.pca.multi, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>value)</span></code></pre></div>
+<pre><code>##        value.var
+## ABCE1  0.3242162
+## ABCD3  0.2647565
+## ABCF3  0.2613074
+## ABCA8 -0.2609394
+## ABCB7  0.2493680
+## ABCF1  0.2424253</code></pre>
+<p>Note:</p>
+<ul>
+<li><em>Here the variables are not selected (all are included), but ranked according to their importance in defining each component.</em></li>
+</ul>
+</div>
+<div id="id_03:pca-sample-plot" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Sample plots<a href="id_03.html#id_03:pca-sample-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We project the samples into the space spanned by the principal components to visualise how the samples cluster and assess for biological or technical variation in the data. We colour the samples according to the cell line information available in <code>multidrug$cell.line$Class</code> by specifying the argument <code>group</code> (Fig. <a href="id_03.html#fig:03-pca-sample-plot">3.2</a>).</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="id_03.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.pca.multi,</span>
+<span id="cb23-2"><a href="id_03.html#cb23-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),   <span class="co"># Specify components to plot</span></span>
+<span id="cb23-3"><a href="id_03.html#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">TRUE</span>, <span class="co"># Show row names of samples</span></span>
+<span id="cb23-4"><a href="id_03.html#cb23-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
+<span id="cb23-5"><a href="id_03.html#cb23-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, PCA comp 1 - 2&#39;</span>,</span>
+<span id="cb23-6"><a href="id_03.html#cb23-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-sample-plot"></span>
+<img src="Figures/PCA/03-pca-sample-plot-1.png" alt="Sample plot from the PCA performed on the ABC.trans data. Samples are projected into the space spanned by the first two principal components, and coloured according to cell line type. Numbers indicate the rownames of the data." width="70%" />
+<p class="caption">
+Figure 3.2: <strong>Sample plot from the PCA performed on the <code>ABC.trans</code> data</strong>. Samples are projected into the space spanned by the first two principal components, and coloured according to cell line type. Numbers indicate the rownames of the data.
+</p>
+</div>
+
+<p>Because we have run PCA on three components, we can examine the third component, either by plotting the samples onto the principal components 1 and 3 (PC1 and PC3) in the code above (<code>comp = c(1, 3)</code>) or by using the 3D interactive plot (code shown below). The addition of the third principal component only seems to highlight a potential outlier (sample 8, not shown). Potentially, this sample could be removed from the analysis, or, noted when doing further downstream analysis. The removal of outliers should be exercised with great caution and backed up with several other types of analyses (e.g. clustering) or graphical outputs (e.g. boxplots, heatmaps, etc).</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="id_03.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive 3D plot will load the rgl library.</span></span>
+<span id="cb24-2"><a href="id_03.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.pca.multi, <span class="at">style =</span> <span class="st">&#39;3d&#39;</span>,</span>
+<span id="cb24-3"><a href="id_03.html#cb24-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
+<span id="cb24-4"><a href="id_03.html#cb24-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, PCA comp 1 - 3&#39;</span>)</span></code></pre></div>
+<p>These plots suggest that the largest source of variation explained by the first two components can be attributed to the <span style="color: #CC79A7;">melanoma</span> cell line, while the third component highlights a single outlier sample. Hence, the interpretation of the following outputs should primarily focus on the first two components.</p>
+<p>Note:</p>
+<ul>
+<li><em>Had we not scaled the data, the separation of the melanoma cell lines would have been more obvious with the addition of the third component, while PC1 and PC2 would have also highlighted the sample outliers 4 and 8. Thus, centering and scaling are important steps to take into account in PCA.</em></li>
+</ul>
+</div>
+<div id="id_03:pca-variable-plot" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> Variable plot: correlation circle plot<a href="id_03.html#id_03:pca-variable-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Correlation circle plots indicate the contribution of each variable to each component using the <code>plotVar()</code> function, as well as the correlation between variables (indicated by a ‘cluster’ of variables). Note that to interpret the latter, the variables need to be centered and scaled in PCA:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="id_03.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(final.pca.multi, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb25-2"><a href="id_03.html#cb25-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">var.names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-3"><a href="id_03.html#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex =</span> <span class="dv">3</span>,         <span class="co"># To change the font size</span></span>
+<span id="cb25-4"><a href="id_03.html#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># cutoff = 0.5,  # For further cutoff</span></span>
+<span id="cb25-5"><a href="id_03.html#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&#39;Multidrug transporter, PCA comp 1 - 2&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-variable-plot"></span>
+<img src="Figures/PCA/03-pca-variable-plot-1.png" alt="Correlation Circle plot from the PCA performed on the ABC.trans data. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in orange), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in pink and yellow." width="70%" />
+<p class="caption">
+Figure 3.3: <strong>Correlation Circle plot from the PCA performed on the <code>ABC.trans</code> data</strong>. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in <span style="color: #F68B33;">orange</span>), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in <span style="color: #CC79A7;">pink</span> and <span style="color: #999900;">yellow</span>.
+</p>
+</div>
+
+<p>The plot in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a> highlights a group of ABC transporters that contribute to PC1: <span style="color: #F68B33;">ABCE1</span>, and to some extent the group clustered with <span style="color: #F68B33;">ABCB8</span> that contributes positively to PC1, while <span style="color: #009E73;">ABCA8</span> contributes negatively. We also observe a group of transporters that contribute to both PC1 and PC2: the group clustered with <span style="color: #CC79A7;">ABCC2</span> contributes positively to PC2 and negatively to PC1, and a cluster of <span style="color: #999900;">ABCC12</span> and <span style="color: #999900;">ABCD2</span> that contributes negatively to both PC1 and PC2. We observe that several transporters are inside the small circle. However, examining the third component (argument <code>comp = c(1, 3)</code>) does not appear to reveal further transporters that contribute to this third component. The additional argument <code>cutoff = 0.5</code> could further simplify this plot.</p>
+</div>
+<div id="id_03:pca-biplot" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> Biplot: samples and variables<a href="id_03.html#id_03:pca-biplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A biplot allows us to display both samples and variables simultaneously to further understand their relationships. Samples are displayed as dots while variables are displayed at the tips of the arrows. Similar to correlation circle plots, data must be centered and scaled to interpret the correlation between variables (as a cosine angle between variable arrows).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="id_03.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(final.pca.multi, <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, </span>
+<span id="cb26-2"><a href="id_03.html#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-biplot"></span>
+<img src="Figures/PCA/03-pca-biplot-1.png" alt="Biplot from the PCA performed on the ABS.trans data. The plot highlights which transporter expression levels may be related to specific cell lines, such as melanoma." width="70%" />
+<p class="caption">
+Figure 3.4: <strong>Biplot from the PCA performed on the <code>ABS.trans</code> data</strong>. The plot highlights which transporter expression levels may be related to specific cell lines, such as <span style="color: #CC79A7;">melanoma</span>.
+</p>
+</div>
+
+<p>The biplot in Figure <a href="id_03.html#fig:03-pca-biplot">3.4</a> shows that the <span style="color: #CC79A7;">melanoma</span> cell lines seem to be characterised by a subset of transporters such as the cluster around <span style="color: #CC79A7;">ABCC2</span> as highlighted previously in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a>. Further examination of the data, such as boxplots (as shown in Fig. <a href="id_03.html#fig:03-pca-boxplot">3.5</a>), can further elucidate the transporter expression levels for these specific samples.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="id_03.html#cb27-1" aria-hidden="true" tabindex="-1"></a>ABCC2.scale <span class="ot">&lt;-</span> <span class="fu">scale</span>(X[, <span class="st">&#39;ABCC2&#39;</span>], <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-2"><a href="id_03.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="id_03.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ABCC2.scale <span class="sc">~</span></span>
+<span id="cb27-4"><a href="id_03.html#cb27-4" aria-hidden="true" tabindex="-1"></a>        multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, <span class="at">col =</span> <span class="fu">color.mixo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>),</span>
+<span id="cb27-5"><a href="id_03.html#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&#39;Cell lines&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Expression levels, scaled&#39;</span>,</span>
+<span id="cb27-6"><a href="id_03.html#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">par</span>(<span class="at">cex.axis =</span> <span class="fl">0.5</span>), <span class="co"># Font size</span></span>
+<span id="cb27-7"><a href="id_03.html#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;ABCC2 transporter&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-boxplot"></span>
+<img src="Figures/PCA/03-pca-boxplot-1.png" alt="Boxplots of the transporter ABCC2 identified from the PCA correlation circle plot (Fig. 3.3) and the biplot (Fig. 3.4) show the level of ABCC2 expression related to cell line types. The expression level of ABCC2 was centered and scaled in the PCA, but similar patterns are also observed in the original data." width="70%" />
+<p class="caption">
+Figure 3.5: <strong>Boxplots of the transporter <span style="color: #CC79A7;">ABCC2</span></strong> identified from the PCA correlation circle plot (Fig. <a href="id_03.html#fig:03-pca-variable-plot">3.3</a>) and the biplot (Fig. <a href="id_03.html#fig:03-pca-biplot">3.4</a>) show the level of <span style="color: #CC79A7;">ABCC2</span> expression related to cell line types. The expression level of <span style="color: #CC79A7;">ABCC2</span> was centered and scaled in the PCA, but similar patterns are also observed in the original data.
+</p>
+</div>
+
+</div>
+</div>
+<div id="id_03:spca" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Example: sparse PCA<a href="id_03.html#id_03:spca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the <code>ABC.trans</code> data, there is only one missing value. Missing values can be handled by sPCA via the NIPALS algorithm . However, if the number of missing values is large, we recommend imputing them with NIPALS, as we describe in our website in www.mixOmics.org.</p>
+<div id="id_03:spca-vars" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Choose the number of variables to select<a href="id_03.html#id_03:spca-vars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, we must decide on the number of components to evaluate. The previous tuning step indicated that <code>ncomp = 3</code> was sufficient to explain most of the variation in the data, which is the value we choose in this example. We then set up a grid of <code>keepX</code> values to test, which can be thin or coarse depending on the total number of variables. We set up the grid to be thin at the start, and coarse as the number of variables increases. The <code>ABC.trans</code> data includes a sufficient number of samples to perform repeated 5-fold cross-validation to define the number of folds and repeats (leave-one-out CV is also possible if the number of samples <span class="math inline">\(N\)</span> is small by specifying <code>folds =</code> <span class="math inline">\(N\)</span>). The computation may take a while if you are not using parallelisation (see additional parameters in <code>tune.spca()</code>), here we use a small number of repeats for illustrative purposes. We then plot the output of the tuning function.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="id_03.html#cb28-1" aria-hidden="true" tabindex="-1"></a>grid.keepX <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
+<span id="cb28-2"><a href="id_03.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># grid.keepX  # To see the grid</span></span>
+<span id="cb28-3"><a href="id_03.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="id_03.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
+<span id="cb28-5"><a href="id_03.html#cb28-5" aria-hidden="true" tabindex="-1"></a>tune.spca.result <span class="ot">&lt;-</span> <span class="fu">tune.spca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, </span>
+<span id="cb28-6"><a href="id_03.html#cb28-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">folds =</span> <span class="dv">5</span>, </span>
+<span id="cb28-7"><a href="id_03.html#cb28-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">test.keepX =</span> grid.keepX, <span class="at">nrepeat =</span> <span class="dv">10</span>) </span>
+<span id="cb28-8"><a href="id_03.html#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="id_03.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Consider adding up to 50 repeats for more stable results</span></span>
+<span id="cb28-10"><a href="id_03.html#cb28-10" aria-hidden="true" tabindex="-1"></a>tune.spca.result<span class="sc">$</span>choice.keepX</span></code></pre></div>
+<pre><code>## comp1 comp2 comp3 
+##    25    30    30</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="id_03.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tune.spca.result)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-tuning"></span>
+<img src="Figures/PCA/03-spca-tuning-1.png" alt="Tuning the number of variables to select with sPCA on the ABC.trans data. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided \(t-\)tests and is indicated with a diamond." width="70%" />
+<p class="caption">
+Figure 3.6: <strong>Tuning the number of variables to select with sPCA on the <code>ABC.trans</code> data</strong>. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided <span class="math inline">\(t-\)</span>tests and is indicated with a diamond.
+</p>
+</div>
+
+<p>The tuning function outputs the averaged correlation between predicted and actual components per <code>keepX</code> value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component. Figure <a href="id_03.html#fig:03-spca-tuning">3.6</a> shows that this is achieved when selecting 25 transporters on the first component, and 30 on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components.</p>
+<p>Note:</p>
+<ul>
+<li><em>If the tuning results suggest a large number of variables to select that is close to the total number of variables, we can arbitrarily choose a much smaller selection size.</em></li>
+</ul>
+</div>
+<div id="id_03:spca-final" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Final sparse PCA<a href="id_03.html#id_03:spca-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the tuning above, we perform the final sPCA where the number of variables to select on each component is specified with the argument <code>keepX</code>. Arbitrary values can also be input if you would like to skip the tuning step for more exploratory analyses:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="id_03.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By default center = TRUE, scale = TRUE</span></span>
+<span id="cb31-2"><a href="id_03.html#cb31-2" aria-hidden="true" tabindex="-1"></a>keepX.select <span class="ot">&lt;-</span> tune.spca.result<span class="sc">$</span>choice.keepX[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb31-3"><a href="id_03.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="id_03.html#cb31-4" aria-hidden="true" tabindex="-1"></a>final.spca.multi <span class="ot">&lt;-</span> <span class="fu">spca</span>(X, <span class="at">ncomp =</span> <span class="dv">2</span>, <span class="at">keepX =</span> keepX.select)</span>
+<span id="cb31-5"><a href="id_03.html#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="id_03.html#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of explained variance:</span></span>
+<span id="cb31-7"><a href="id_03.html#cb31-7" aria-hidden="true" tabindex="-1"></a>final.spca.multi<span class="sc">$</span>prop_expl_var<span class="sc">$</span>X</span></code></pre></div>
+<pre><code>##       PC1       PC2 
+## 0.1201529 0.1040587</code></pre>
+<p>Overall when considering two components, we lose approximately 0.5 % of explained variance compared to a full PCA, but the aim of this analysis is to identify key transporters driving the variation in the data, as we show below.</p>
+</div>
+<div id="id_03:spca-plots" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Sample and variable plots<a href="id_03.html#id_03:spca-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first examine the sPCA sample plot:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="id_03.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.spca.multi,</span>
+<span id="cb33-2"><a href="id_03.html#cb33-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),   <span class="co"># Specify components to plot</span></span>
+<span id="cb33-3"><a href="id_03.html#cb33-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">TRUE</span>, <span class="co"># Show row names of samples</span></span>
+<span id="cb33-4"><a href="id_03.html#cb33-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
+<span id="cb33-5"><a href="id_03.html#cb33-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, sPCA comp 1 - 2&#39;</span>,</span>
+<span id="cb33-6"><a href="id_03.html#cb33-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-sample-plot"></span>
+<img src="Figures/PCA/03-spca-sample-plot-1.png" alt="Sample plot from the sPCA performed on the ABC.trans data. Samples are projected onto the space spanned by the first two sparse principal components that are calculated based on a subset of selected variables. Samples are coloured by cell line type and numbers indicate the sample IDs." width="70%" />
+<p class="caption">
+Figure 3.7: <strong>Sample plot from the sPCA performed on the <code>ABC.trans</code> data</strong>. Samples are projected onto the space spanned by the first two sparse principal components that are calculated based on a subset of selected variables. Samples are coloured by cell line type and numbers indicate the sample IDs.
+</p>
+</div>
+
+<p>In Figure <a href="id_03.html#fig:03-spca-sample-plot">3.7</a>, component 2 in sPCA shows clearer separation of the <span style="color: #CC79A7;">melanoma</span> samples compared to the full PCA. Component 1 is similar to the full PCA. Overall, this sample plot shows that little information is lost compared to a full PCA.</p>
+<p>A biplot can also be plotted that only shows the selected transporters (Figure <a href="id_03.html#fig:03-spca-biplot">3.8</a>):</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="id_03.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(final.spca.multi, <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, </span>
+<span id="cb34-2"><a href="id_03.html#cb34-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-biplot"></span>
+<img src="Figures/PCA/03-spca-biplot-1.png" alt="Biplot from the sPCA performed on the ABS.trans data after variable selection. The plot highlights in more detail which transporter expression levels may be related to specific cell lines, such as melanoma, compared to a classical PCA." width="70%" />
+<p class="caption">
+Figure 3.8: <strong>Biplot from the sPCA performed on the <code>ABS.trans</code> data after variable selection</strong>. The plot highlights in more detail which transporter expression levels may be related to specific cell lines, such as melanoma, compared to a classical PCA.
+</p>
+</div>
+
+<p>The correlation circle plot highlights variables that contribute to component 1 and component 2 (Fig. <a href="id_03.html#fig:03-spca-variable-plot">3.9</a>):</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="id_03.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(final.spca.multi, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">var.names =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb35-2"><a href="id_03.html#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex =</span> <span class="dv">3</span>, <span class="co"># To change the font size </span></span>
+<span id="cb35-3"><a href="id_03.html#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&#39;Multidrug transporter, sPCA comp 1 - 2&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-variable-plot"></span>
+<img src="Figures/PCA/03-spca-variable-plot-1.png" alt="Correlation Circle plot from the sPCA performed on the ABC.trans data. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in green are discussed in the text." width="70%" />
+<p class="caption">
+Figure 3.9: <strong>Correlation Circle plot from the sPCA performed on the <code>ABC.trans</code> data</strong>. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in <span style="color: #009E73;">green</span> are discussed in the text.
+</p>
+</div>
+
+<p>The transporters selected by sPCA are amongst the most important ones in PCA. Those coloured in green in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a> (<span style="color: #009E73;">ABCA9, ABCB5, ABCC2</span> and <span style="color: #009E73;">ABCD1</span>) show an example of variables that contribute positively to component 2, but with a larger weight than in PCA. Thus, they appear as a clearer cluster in the top part of the correlation circle plot compared to PCA. As shown in the biplot in Figure <a href="id_03.html#fig:03-spca-biplot">3.8</a>, they contribute in explaining the variation in the <span style="color: #CC79A7;">melanoma</span> samples.</p>
+<p>We can extract the variable names and their positive or negative contribution to a given component (here 2), using the <code>selectVar()</code> function:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="id_03.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On the first component, just a head</span></span>
+<span id="cb36-2"><a href="id_03.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.spca.multi, <span class="at">comp =</span> <span class="dv">2</span>)<span class="sc">$</span>value)</span></code></pre></div>
+<pre><code>##        value.var
+## ABCA9  0.3744148
+## ABCB5  0.3690872
+## ABCC2  0.3639616
+## ABCD1  0.3418706
+## ABCD2 -0.2581438
+## ABCA5  0.2536514</code></pre>
+<p>The loading weights can also be visualised with <code>plotLoading()</code>, where variables are ranked from the least important (top) to the most important (bottom) in Figure <a href="id_03.html#fig:03-spca-loading-plot">3.10</a>). Here on component 2:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="id_03.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLoadings</span>(final.spca.multi, <span class="at">comp =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-loading-plot"></span>
+<img src="Figures/PCA/03-spca-loading-plot-1.png" alt="sPCA loading plot of the ABS.trans data for component 2. Only the transporters selected by sPCA on component 2 are shown, and are ranked from least important (top) to most important. Bar length indicates the loading weight in PC2." width="70%" />
+<p class="caption">
+Figure 3.10: <strong>sPCA loading plot of the <code>ABS.trans</code> data for component 2</strong>. Only the transporters selected by sPCA on component 2 are shown, and are ranked from least important (top) to most important. Bar length indicates the loading weight in PC2.
+</p>
+</div>
+
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="id_02.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="id_04.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-PCA.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["mixOmics Vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
