@@ -1,12 +1,11 @@
 --- 
-title: 'mixOmics Bookdown Vignette'
+title: 'mixOmics vignette'
 author:
 - name: Kim-Anh Le Cao
   email: kimanh.lecao@unimelb.edu.au
   affiliation: Melbourne Integrative Genomics & School of Mathematics and Statistics, The University of Melbourne, Australia
 
 package: mixOmics
-date: '\today'
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
