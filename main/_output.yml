@@ -15,3 +15,5 @@ bookdown::pdf_book:
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
+  
+bookdown::html_document2: default

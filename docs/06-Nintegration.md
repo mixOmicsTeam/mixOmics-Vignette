@@ -3,6 +3,8 @@
 
 
 
+
+
 # N-Integration {#06}
 
 N-Integration is the framework of having multiple datasets which measure different aspects of the same samples. For example, you may have transcriptomic, genetic and proteomic data for the same set of cells. N-integrative methods are built to use the information in all three of these dataframes simultaenously.
@@ -122,7 +124,7 @@ plot(perf.diablo.tcga)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-ncomp-1.png" alt="(ref:06-ncomp)" width="70%" />
+<img src="Figures/N-Integration/06-ncomp-1.png" alt="(ref:06-ncomp)" width="70%" />
 <p class="caption">(\#fig:06-ncomp)(ref:06-ncomp)</p>
 </div>
 
@@ -263,7 +265,7 @@ plotDiablo(diablo.tcga, ncomp = 1)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-diablo-plot-1.png" alt="(ref:06-diablo-plot)" width="70%" />
+<img src="Figures/N-Integration/06-diablo-plot-1.png" alt="(ref:06-diablo-plot)" width="70%" />
 <p class="caption">(\#fig:06-diablo-plot)(ref:06-diablo-plot)</p>
 </div>
 
@@ -282,7 +284,7 @@ plotIndiv(diablo.tcga, ind.names = FALSE, legend = TRUE,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-sample-plot-1.png" alt="(ref:06-sample-plot)" width="70%" />
+<img src="Figures/N-Integration/06-sample-plot-1.png" alt="(ref:06-sample-plot)" width="70%" />
 <p class="caption">(\#fig:06-sample-plot)(ref:06-sample-plot)</p>
 </div>
 
@@ -305,7 +307,7 @@ plotArrow(diablo.tcga, ind.names = FALSE, legend = TRUE,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-arrow-plot-1.png" alt="(ref:06-arrow-plot)" width="70%" />
+<img src="Figures/N-Integration/06-arrow-plot-1.png" alt="(ref:06-arrow-plot)" width="70%" />
 <p class="caption">(\#fig:06-arrow-plot)(ref:06-arrow-plot)</p>
 </div>
 
@@ -331,7 +333,7 @@ plotVar(diablo.tcga, var.names = FALSE, style = 'graphics', legend = TRUE,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-correlation-plot-1.png" alt="(ref:06-correlation-plot)" width="70%" />
+<img src="Figures/N-Integration/06-correlation-plot-1.png" alt="(ref:06-correlation-plot)" width="70%" />
 <p class="caption">(\#fig:06-correlation-plot)(ref:06-correlation-plot)</p>
 </div>
 
@@ -358,7 +360,7 @@ circosPlot(diablo.tcga, cutoff = 0.7, line = TRUE,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-circos-plot-1.png" alt="(ref:06-circos-plot)" width="70%" />
+<img src="Figures/N-Integration/06-circos-plot-1.png" alt="(ref:06-circos-plot)" width="70%" />
 <p class="caption">(\#fig:06-circos-plot)(ref:06-circos-plot)</p>
 </div>
 
@@ -385,7 +387,7 @@ network(diablo.tcga, blocks = c(1,2,3),
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-network-1.png" alt="(ref:06-network)" width="70%" />
+<img src="Figures/N-Integration/06-network-1.png" alt="(ref:06-network)" width="70%" />
 <p class="caption">(\#fig:06-network)(ref:06-network)</p>
 </div>
 
@@ -413,7 +415,7 @@ plotLoadings(diablo.tcga, comp = 1, contrib = 'max', method = 'median')
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-loading-plot-1.png" alt="(ref:06-loading-plot)" width="70%" />
+<img src="Figures/N-Integration/06-loading-plot-1.png" alt="(ref:06-loading-plot)" width="70%" />
 <p class="caption">(\#fig:06-loading-plot)(ref:06-loading-plot)</p>
 </div>
 
@@ -438,7 +440,7 @@ cimDiablo(diablo.tcga, color.blocks = c('darkorchid', 'brown1', 'lightgreen'),
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-cim-1.png" alt="(ref:06-cim)" width="70%" />
+<img src="Figures/N-Integration/06-cim-1.png" alt="(ref:06-cim)" width="70%" />
 <p class="caption">(\#fig:06-cim)(ref:06-cim)</p>
 </div>
 
@@ -514,7 +516,7 @@ auc.diablo.tcga <- auroc(diablo.tcga, roc.block = "miRNA", roc.comp = 2,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/DIABLO/06-auroc-1.png" alt="(ref:06-auroc)" width="70%" />
+<img src="Figures/N-Integration/06-auroc-1.png" alt="(ref:06-auroc)" width="70%" />
 <p class="caption">(\#fig:06-auroc)(ref:06-auroc)</p>
 </div>
 

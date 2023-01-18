@@ -1,5 +1,7 @@
 
 
+
+
 # Let's get started {#02}
 
 ## Installation {#02:install}
@@ -74,13 +76,13 @@ MyResult.pca <- pca(X)  # 1 Run the method
 plotIndiv(MyResult.pca) # 2 Plot the samples
 ```
 
-<img src="Figures/02-pca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" />
+<img src="Figures/Getting-Started02-pca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" />
 
 ```r
 plotVar(MyResult.pca)   # 3 Plot the variables
 ```
 
-<img src="Figures/02-pca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" />
+<img src="Figures/Getting-Started02-pca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" />
 
 
 This is only a first quick-start, there will be many avenues you can take to deepen your exploratory and integrative analyses. The package proposes several methods to perform variable, or feature selection to identify the relevant information from rather large omics data sets. The sparse methods are listed in the Table in [1.2.2](#01:overview).
@@ -93,13 +95,13 @@ MyResult.spca <- spca(X, keepX=c(5,5)) # 1 Run the method
 plotIndiv(MyResult.spca)               # 2 Plot the samples
 ```
 
-<img src="Figures/02-spca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" />
+<img src="Figures/Getting-Started02-spca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" />
 
 ```r
 plotVar(MyResult.spca)                 # 3 Plot the variables
 ```
 
-<img src="Figures/02-spca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" />
+<img src="Figures/Getting-Started02-spca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" />
 
 You can see know that we have considerably reduced the number of genes in the `plotVar` correlation circle plot.
 

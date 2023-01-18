@@ -18,14 +18,52 @@ biblio-style: apalike
 link-citations: true
 github-repo: mixOmicsTeam/mixOmics
 description: "Vignette for the R package mixOmics"
+
+vignette: >
+  %\VignetteIndexEntry{mixOmics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r 00-options, include=FALSE, eval=FALSE}
+```{r 00-options, include=FALSE, eval=TRUE}
 library(knitr)
 # global options - probably better to put out.width='60%' for pdf output
 knitr::opts_chunk$set(dpi = 100, echo=TRUE, warning=FALSE, message=FALSE, eval = TRUE, cache=FALSE,
                       fig.show=TRUE, fig.asp=1,fig.align='center', out.width = '75%',
                       fig.pos= "h", out.extra = '', fig.path= 'Figures/')
+
+colorize <- function(color, x) {
+  if (knitr::is_html_output()) {
+    htmlcolor = "black"
+    if(color == "blue"){
+      htmlcolor = "#388ECC"
+    }
+    if(color == "orange"){
+      htmlcolor = "#F68B33"
+    }
+    if(color == "grey"){
+      htmlcolor = "#585858"
+    }
+    if(color == "green"){
+      htmlcolor = "#009E73"
+    }
+    if(color == "pink"){
+      htmlcolor = "#CC79A7"
+    }
+    if(color == "yellow"){
+      htmlcolor = "#999900"
+    }
+    if(color == "darkred"){
+      htmlcolor = "#CC0000"
+    }
+    sprintf("<span style='color: %s;'>%s</span>", htmlcolor, x)
+  } else {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  }
+}
+
+# The libraries to load
+library(kableExtra)
 ```
 
 ```{r 00-header-generation, echo=FALSE, eval=FALSE}

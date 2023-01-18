@@ -1,6 +1,7 @@
 
 
 
+
 # Introduction {#01}
 
 `mixOmics` is an R toolkit dedicated to the exploration and integration of biological data sets with a specific focus on variable selection. The package currently includes more than twenty multivariate methodologies, mostly developed by the `mixOmics` team (see some of our references in [1.2.3](#01:pubs)). Originally, all methods were designed for omics data, however, their application is not limited to biological data only. Other applications where integration is required can be considered, but mostly for the case where the predictor variables are continuous (see also [1.1](#01:datatypes)). 

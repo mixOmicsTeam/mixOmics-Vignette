@@ -3,6 +3,8 @@
 
 
 
+
+
 # PLS-DA on the SRBCT case study {#05}
 
 The Small Round Blue Cell Tumours (SRBCT) data set from [@Kha01] includes the expression levels of 2,308 genes measured on 63 samples. The samples are divided into four classes: 8 Burkitt Lymphoma (BL), 23 Ewing Sarcoma (EWS), 12 neuroblastoma (NB), and 20 rhabdomyosarcoma (RMS). The data are directly available in a processed and normalised format from the `mixOmics` package and contains the following:

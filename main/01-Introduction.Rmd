@@ -3,7 +3,7 @@ library(knitr)
 # global options - probably better to put out.width='60%' for pdf output
 knitr::opts_chunk$set(dpi = 100, echo=TRUE, warning=FALSE, message=FALSE, eval = TRUE, cache=FALSE,
                       fig.show=TRUE, fig.asp=1,fig.align='center', out.width = '75%',
-                      fig.pos= "h", out.extra = '', fig.path= 'Figures/')
+                      fig.pos= "h", out.extra = '')
 
 colorize <- function(color, x) {
   if (knitr::is_html_output()) {
@@ -36,6 +36,9 @@ colorize <- function(color, x) {
 }
 ```
 
+``` {r 01-fig-path, echo = FALSE}
+knitr::opts_chunk$set(fig.path= 'Figures/Introduction')
+```
 
 # Introduction {#01}
 

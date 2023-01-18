@@ -349,16 +349,16 @@ div.csl-indent {
 <p>Then use the following steps:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="id_02.html#cb6-1" aria-hidden="true" tabindex="-1"></a>MyResult.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(X)  <span class="co"># 1 Run the method</span></span>
 <span id="cb6-2"><a href="id_02.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(MyResult.pca) <span class="co"># 2 Plot the samples</span></span></code></pre></div>
-<p><img src="Figures/02-pca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" /></p>
+<p><img src="Figures/Getting-Started02-pca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="id_02.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(MyResult.pca)   <span class="co"># 3 Plot the variables</span></span></code></pre></div>
-<p><img src="Figures/02-pca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" /></p>
+<p><img src="Figures/Getting-Started02-pca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" /></p>
 <p>This is only a first quick-start, there will be many avenues you can take to deepen your exploratory and integrative analyses. The package proposes several methods to perform variable, or feature selection to identify the relevant information from rather large omics data sets. The sparse methods are listed in the Table in <a href="id_01.html#id_01:overview">1.2.2</a>.</p>
 <p>Following our example here, sparse PCA can be applied to select the top 5 variables contributing to each of the two components in PCA. The user specifies the number of variables to selected on each component, for example, here 5 variables are selected on each of the first two components (<code>keepX=c(5,5)</code>):</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="id_02.html#cb8-1" aria-hidden="true" tabindex="-1"></a>MyResult.spca <span class="ot">&lt;-</span> <span class="fu">spca</span>(X, <span class="at">keepX=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>)) <span class="co"># 1 Run the method</span></span>
 <span id="cb8-2"><a href="id_02.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(MyResult.spca)               <span class="co"># 2 Plot the samples</span></span></code></pre></div>
-<p><img src="Figures/02-spca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" /></p>
+<p><img src="Figures/Getting-Started02-spca-nutrimouse-1.png" width="75%"  style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="id_02.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(MyResult.spca)                 <span class="co"># 3 Plot the variables</span></span></code></pre></div>
-<p><img src="Figures/02-spca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" /></p>
+<p><img src="Figures/Getting-Started02-spca-nutrimouse-2.png" width="75%"  style="display: block; margin: auto;" /></p>
 <p>You can see know that we have considerably reduced the number of genes in the <code>plotVar</code> correlation circle plot.</p>
 <p>Do not stop here! We are not done yet. You can enhance your analyses with the following:</p>
 <ul>

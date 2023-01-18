@@ -4,8 +4,7 @@
 library(knitr)
 # global options
 knitr::opts_chunk$set(dpi = 100, echo=TRUE, warning=FALSE, message=FALSE, eval = TRUE,
-                      fig.show=TRUE, fig.width= 9,fig.height= 7.5,fig.align='center', out.width = '70%', message = FALSE,
-                      fig.path= 'Figures/PCA/')
+                      fig.show=TRUE, fig.width= 9,fig.height= 7.5,fig.align='center', out.width = '70%', message = FALSE)
 
 colorize <- function(color, x) {
   if (knitr::is_html_output()) {
@@ -44,6 +43,9 @@ library(kableExtra)
 # code chunk for solutions should be: echo = show.result, eval = show.result
 ```
 
+``` {r 03-fig-path, echo = FALSE}
+knitr::opts_chunk$set(fig.path= 'Figures/PCA/')
+```
 
 
 # PCA on the `multidrug` study {#03}

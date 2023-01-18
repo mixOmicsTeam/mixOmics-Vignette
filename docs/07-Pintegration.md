@@ -3,6 +3,8 @@
 
 
 
+
+
 # P-Integration {#07}
 
 
@@ -95,7 +97,7 @@ plot(perf.mint.plsda.stem)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-plsda-perf-1.png" alt="(ref:07-plsda-perf)" width="70%" />
+<img src="Figures/N-Integration/07-plsda-perf-1.png" alt="(ref:07-plsda-perf)" width="70%" />
 <p class="caption">(\#fig:07-plsda-perf)(ref:07-plsda-perf)</p>
 </div>
 
@@ -134,7 +136,7 @@ plotIndiv(final.mint.plsda.stem, legend = TRUE, title = 'MINT PLS-DA',
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-plsda-sample-plot1-1.png" alt="(ref:07-plsda-sample-plot1)" width="70%" />
+<img src="Figures/N-Integration/07-plsda-sample-plot1-1.png" alt="(ref:07-plsda-sample-plot1)" width="70%" />
 <p class="caption">(\#fig:07-plsda-sample-plot1)(ref:07-plsda-sample-plot1)</p>
 </div>
 
@@ -154,7 +156,7 @@ plotIndiv(plsda.stem, pch = study,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-plsda-sample-plot2-1.png" alt="(ref:07-plsda-sample-plot2)" width="70%" />
+<img src="Figures/N-Integration/07-plsda-sample-plot2-1.png" alt="(ref:07-plsda-sample-plot2)" width="70%" />
 <p class="caption">(\#fig:07-plsda-sample-plot2)(ref:07-plsda-sample-plot2)</p>
 </div>
 
@@ -204,7 +206,7 @@ plot(tune.mint.splsda.stem)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-splsda-tuning-plot-1.png" alt="(ref:07-splsda-tuning-plot)" width="70%" />
+<img src="Figures/N-Integration/07-splsda-tuning-plot-1.png" alt="(ref:07-splsda-tuning-plot)" width="70%" />
 <p class="caption">(\#fig:07-splsda-tuning-plot)(ref:07-splsda-tuning-plot)</p>
 </div>
 
@@ -271,12 +273,12 @@ We can examine our molecular signature selected with MINT sPLS-DA. The correlati
 plotVar(final.mint.splsda.stem)
 ```
 
-<img src="Figures/MINT/07-splsda-correlation-plot1-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="Figures/N-Integration/07-splsda-correlation-plot1-1.png" width="70%" style="display: block; margin: auto;" />
 
 <!-- Code below to highlight specific genes -->
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-splsda-correlation-plot2-1.png" alt="(ref:07-splsda-correlation-plot2)" width="70%" />
+<img src="Figures/N-Integration/07-splsda-correlation-plot2-1.png" alt="(ref:07-splsda-correlation-plot2)" width="70%" />
 <p class="caption">(\#fig:07-splsda-correlation-plot2)(ref:07-splsda-correlation-plot2)</p>
 </div>
 
@@ -303,7 +305,7 @@ cim(final.mint.splsda.stem, comp = 1, margins=c(10,5),
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-splsda-cim-1.png" alt="(ref:07-splsda-cim)" width="70%" />
+<img src="Figures/N-Integration/07-splsda-cim-1.png" alt="(ref:07-splsda-cim)" width="70%" />
 <p class="caption">(\#fig:07-splsda-cim)(ref:07-splsda-cim)</p>
 </div>
 
@@ -325,7 +327,7 @@ network(final.mint.splsda.stem, comp = 1,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-splsda-network-1.png" alt="(ref:07-splsda-network)" width="70%" />
+<img src="Figures/N-Integration/07-splsda-network-1.png" alt="(ref:07-splsda-network)" width="70%" />
 <p class="caption">(\#fig:07-splsda-network)(ref:07-splsda-network)</p>
 </div>
 
@@ -362,7 +364,7 @@ plotLoadings(final.mint.splsda.stem, contrib = "max", method = 'mean', comp=1,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="Figures/MINT/07-splsda-loading-plot-1.png" alt="(ref:07-splsda-loading-plot)" width="70%" />
+<img src="Figures/N-Integration/07-splsda-loading-plot-1.png" alt="(ref:07-splsda-loading-plot)" width="70%" />
 <p class="caption">(\#fig:07-splsda-loading-plot)(ref:07-splsda-loading-plot)</p>
 </div>
 

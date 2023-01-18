@@ -2,6 +2,6 @@ book_filename: "mixOmics Vignette"
 language:
   ui:
     chapter_name: " "
-delete_merged_file: true
-new_session: yes
+delete_merged_file: false
+new_session: no
 output_dir: "../docs" ## this works only for gitbook. For BiocStyle it is created in top level.
