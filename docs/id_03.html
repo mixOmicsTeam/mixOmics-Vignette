@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 3 PCA on the multidrug study | mixOmics vignette</title>
   <meta name="description" content="Vignette for the R package mixOmics" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 3 PCA on the multidrug study | mixOmics vignette" />
   <meta property="og:type" content="book" />
@@ -58,7 +58,7 @@ document.write('<div class="logos"><img src="data:image/jpeg;base64,/9j/4AAQSkZJ
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +68,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,10 +122,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -307,7 +312,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="id_03" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number"> 3</span> PCA on the <code>multidrug</code> study<a href="id_03.html#id_03" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>To illustrate PCA and is variants, we will analyse the <code>multidrug</code> case study available in the package. This pharmacogenomic study investigates the patterns of drug activity in cancer cell lines <span class="citation">(<a href="references.html#ref-Sza04" role="doc-biblioref">Szakács et al. 2004</a>)</span>. These cell lines come from the <a href="https://dtp.cancer.gov/discovery_development/nci-60/">NCI-60 Human Tumor Cell Lines</a> established by the Developmental Therapeutics Program of the National Cancer Institute (NCI) to screen for the toxicity of chemical compound repositories in diverse cancer cell lines. NCI-60 includes cell lines derived from cancers of colorectal (7 cell lines), renal (8), ovarian (6), breast (8), prostate (2), lung (9) and central nervous system origin (6), as well as leukemia (6) and melanoma (8).</p>
+<p>To illustrate PCA and is variants, we will analyse the <code>multidrug</code> case study available in the package. This pharmacogenomic study investigates the patterns of drug activity in cancer cell lines <span class="citation">(<a href="references.html#ref-Sza04">Szakács et al. 2004</a>)</span>. These cell lines come from the <a href="https://dtp.cancer.gov/discovery_development/nci-60/">NCI-60 Human Tumor Cell Lines</a> established by the Developmental Therapeutics Program of the National Cancer Institute (NCI) to screen for the toxicity of chemical compound repositories in diverse cancer cell lines. NCI-60 includes cell lines derived from cancers of colorectal (7 cell lines), renal (8), ovarian (6), breast (8), prostate (2), lung (9) and central nervous system origin (6), as well as leukemia (6) and melanoma (8).</p>
 <p>Two separate data sets (representing two types of measurements) on the same NCI-60 cancer cell lines are available in <code>multidrug</code> (see also <code>?multidrug</code>):</p>
 <ul>
 <li><p><code>$ABC.trans</code>: Contains the expression of 48 human ABC transporters measured by quantitative real-time PCR (RT-PCR) for each cell line.</p></li>
@@ -322,10 +327,10 @@ div.csl-indent {
 <div id="id_03:load-data" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Load the data<a href="id_03.html#id_03:load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The input data matrix <span class="math inline">\(\boldsymbol{X}\)</span> is of size <span class="math inline">\(N\)</span> samples in rows and <span class="math inline">\(P\)</span> variables (e.g. genes) in columns. We start with the <code>ABC.trans</code> data.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="id_03.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
-<span id="cb10-2"><a href="id_03.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(multidrug)</span>
-<span id="cb10-3"><a href="id_03.html#cb10-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> multidrug<span class="sc">$</span>ABC.trans</span>
-<span id="cb10-4"><a href="id_03.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X) <span class="co"># Check dimensions of data</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="id_03.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
+<span id="cb10-2"><a href="id_03.html#cb10-2" tabindex="-1"></a><span class="fu">data</span>(multidrug)</span>
+<span id="cb10-3"><a href="id_03.html#cb10-3" tabindex="-1"></a>X <span class="ot">&lt;-</span> multidrug<span class="sc">$</span>ABC.trans</span>
+<span id="cb10-4"><a href="id_03.html#cb10-4" tabindex="-1"></a><span class="fu">dim</span>(X) <span class="co"># Check dimensions of data</span></span></code></pre></div>
 <pre><code>## [1] 60 48</code></pre>
 </div>
 <div id="id_03:pca" class="section level2 hasAnchor" number="3.2">
@@ -333,40 +338,40 @@ div.csl-indent {
 <div id="id_03:pca-ncomp" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Choose the number of components<a href="id_03.html#id_03:pca-ncomp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Contrary to the minimal code example, here we choose to also scale the variables for the reasons detailed earlier. The function <code>tune.pca()</code> calculates the cumulative proportion of explained variance for a large number of principal components (here we set <code>ncomp = 10</code>). A screeplot of the proportion of explained variance relative to the total amount of variance in the data for each principal component is output (Fig. <a href="id_03.html#fig:03-screeplot">3.1</a>):</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="id_03.html#cb12-1" aria-hidden="true" tabindex="-1"></a>tune.pca.multi <span class="ot">&lt;-</span> <span class="fu">tune.pca</span>(X, <span class="at">ncomp =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-2"><a href="id_03.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tune.pca.multi)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="id_03.html#cb12-1" tabindex="-1"></a>tune.pca.multi <span class="ot">&lt;-</span> <span class="fu">tune.pca</span>(X, <span class="at">ncomp =</span> <span class="dv">10</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-2"><a href="id_03.html#cb12-2" tabindex="-1"></a><span class="fu">plot</span>(tune.pca.multi)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-screeplot"></span>
-<img src="Figures/PCA/03-screeplot-1.png" alt="Screeplot from the PCA performed on the ABC.trans data: Amount of explained variance for each principal component on the ABC transporter data." width="70%" />
+<img src="Figures/PCA/03-screeplot-1.png" alt="Screeplot from the PCA performed on the ABC.trans data: Amount of explained variance for each principal component on the ABC transporter data." width="70%"  />
 <p class="caption">
 Figure 3.1: <strong>Screeplot from the PCA performed on the <code>ABC.trans</code> data</strong>: Amount of explained variance for each principal component on the ABC transporter data.
 </p>
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="id_03.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tune.pca.multidrug$cum.var       # Outputs cumulative proportion of variance</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="id_03.html#cb13-1" tabindex="-1"></a><span class="co"># tune.pca.multidrug$cum.var       # Outputs cumulative proportion of variance</span></span></code></pre></div>
 
 <p>From the numerical output (not shown here), we observe that the first two principal components explain 22.87% of the total variance, and the first three principal components explain 29.88% of the total variance. The rule of thumb for choosing the number of components is not so much to set a hard threshold based on the cumulative proportion of explained variance (as this is data-dependent), but to observe when a drop, or elbow, appears on the screeplot. The elbow indicates that the remaining variance is spread over many principal components and is not relevant in obtaining a low dimensional ‘snapshot’ of the data. This is an empirical way of choosing the number of principal components to retain in the analysis. In this specific example we could choose between 2 to 3 components for the final PCA, however these criteria are highly subjective and the reader must keep in mind that visualisation becomes difficult above three dimensions.</p>
 </div>
 <div id="id_03:pca-final" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> PCA with fewer components<a href="id_03.html#id_03:pca-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Based on the preliminary analysis above, we run a PCA with three components. Here we show additional input, such as whether to center or scale the variables.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="id_03.html#cb14-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi <span class="ot">&lt;-</span> <span class="fu">pca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-2"><a href="id_03.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># final.pca.multi  # Lists possible outputs</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="id_03.html#cb14-1" tabindex="-1"></a>final.pca.multi <span class="ot">&lt;-</span> <span class="fu">pca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="id_03.html#cb14-2" tabindex="-1"></a><span class="co"># final.pca.multi  # Lists possible outputs</span></span></code></pre></div>
 <p>The output is similar to the tuning step above. Here the total variance in the data is:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="id_03.html#cb15-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>var.tot</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="id_03.html#cb15-1" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>var.tot</span></code></pre></div>
 <pre><code>## [1] 47.98305</code></pre>
 <p>By summing the variance explained from all possible components, we would achieve the same amount of explained variance. The proportion of explained variance per component is:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="id_03.html#cb17-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>prop_expl_var<span class="sc">$</span>X</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="id_03.html#cb17-1" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>prop_expl_var<span class="sc">$</span>X</span></code></pre></div>
 <pre><code>##        PC1        PC2        PC3 
 ## 0.12677541 0.10194929 0.07011818</code></pre>
 <p>The cumulative proportion of variance explained can also be extracted (as displayed in Figure <a href="id_03.html#fig:03-screeplot">3.1</a>):</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="id_03.html#cb19-1" aria-hidden="true" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>cum.var</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="id_03.html#cb19-1" tabindex="-1"></a>final.pca.multi<span class="sc">$</span>cum.var</span></code></pre></div>
 <pre><code>##       PC1       PC2       PC3 
 ## 0.1267754 0.2287247 0.2988429</code></pre>
 </div>
 <div id="id_03:pca-vars" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Identify the informative variables<a href="id_03.html#id_03:pca-vars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To calculate components, we use the variable coefficient weights indicated in the loading vectors. Therefore, the absolute value of the coefficients in the loading vectors inform us about the importance of each variable in contributing to the definition of each component. We can extract this information through the <code>selectVar()</code> function which ranks the most important variables in decreasing order according to their absolute loading weight value for each principal component.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="id_03.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top variables on the first component only:</span></span>
-<span id="cb21-2"><a href="id_03.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.pca.multi, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>value)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="id_03.html#cb21-1" tabindex="-1"></a><span class="co"># Top variables on the first component only:</span></span>
+<span id="cb21-2"><a href="id_03.html#cb21-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.pca.multi, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>value)</span></code></pre></div>
 <pre><code>##        value.var
 ## ABCE1  0.3242162
 ## ABCD3  0.2647565
@@ -382,24 +387,24 @@ Figure 3.1: <strong>Screeplot from the PCA performed on the <code>ABC.trans</cod
 <div id="id_03:pca-sample-plot" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> Sample plots<a href="id_03.html#id_03:pca-sample-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We project the samples into the space spanned by the principal components to visualise how the samples cluster and assess for biological or technical variation in the data. We colour the samples according to the cell line information available in <code>multidrug$cell.line$Class</code> by specifying the argument <code>group</code> (Fig. <a href="id_03.html#fig:03-pca-sample-plot">3.2</a>).</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="id_03.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.pca.multi,</span>
-<span id="cb23-2"><a href="id_03.html#cb23-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),   <span class="co"># Specify components to plot</span></span>
-<span id="cb23-3"><a href="id_03.html#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">TRUE</span>, <span class="co"># Show row names of samples</span></span>
-<span id="cb23-4"><a href="id_03.html#cb23-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
-<span id="cb23-5"><a href="id_03.html#cb23-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, PCA comp 1 - 2&#39;</span>,</span>
-<span id="cb23-6"><a href="id_03.html#cb23-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="id_03.html#cb23-1" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.pca.multi,</span>
+<span id="cb23-2"><a href="id_03.html#cb23-2" tabindex="-1"></a>          <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),   <span class="co"># Specify components to plot</span></span>
+<span id="cb23-3"><a href="id_03.html#cb23-3" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">TRUE</span>, <span class="co"># Show row names of samples</span></span>
+<span id="cb23-4"><a href="id_03.html#cb23-4" tabindex="-1"></a>          <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
+<span id="cb23-5"><a href="id_03.html#cb23-5" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, PCA comp 1 - 2&#39;</span>,</span>
+<span id="cb23-6"><a href="id_03.html#cb23-6" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-sample-plot"></span>
-<img src="Figures/PCA/03-pca-sample-plot-1.png" alt="Sample plot from the PCA performed on the ABC.trans data. Samples are projected into the space spanned by the first two principal components, and coloured according to cell line type. Numbers indicate the rownames of the data." width="70%" />
+<img src="Figures/PCA/03-pca-sample-plot-1.png" alt="Sample plot from the PCA performed on the ABC.trans data. Samples are projected into the space spanned by the first two principal components, and coloured according to cell line type. Numbers indicate the rownames of the data." width="70%"  />
 <p class="caption">
 Figure 3.2: <strong>Sample plot from the PCA performed on the <code>ABC.trans</code> data</strong>. Samples are projected into the space spanned by the first two principal components, and coloured according to cell line type. Numbers indicate the rownames of the data.
 </p>
 </div>
 
 <p>Because we have run PCA on three components, we can examine the third component, either by plotting the samples onto the principal components 1 and 3 (PC1 and PC3) in the code above (<code>comp = c(1, 3)</code>) or by using the 3D interactive plot (code shown below). The addition of the third principal component only seems to highlight a potential outlier (sample 8, not shown). Potentially, this sample could be removed from the analysis, or, noted when doing further downstream analysis. The removal of outliers should be exercised with great caution and backed up with several other types of analyses (e.g. clustering) or graphical outputs (e.g. boxplots, heatmaps, etc).</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="id_03.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive 3D plot will load the rgl library.</span></span>
-<span id="cb24-2"><a href="id_03.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.pca.multi, <span class="at">style =</span> <span class="st">&#39;3d&#39;</span>,</span>
-<span id="cb24-3"><a href="id_03.html#cb24-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
-<span id="cb24-4"><a href="id_03.html#cb24-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, PCA comp 1 - 3&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="id_03.html#cb24-1" tabindex="-1"></a><span class="co"># Interactive 3D plot will load the rgl library.</span></span>
+<span id="cb24-2"><a href="id_03.html#cb24-2" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.pca.multi, <span class="at">style =</span> <span class="st">&#39;3d&#39;</span>,</span>
+<span id="cb24-3"><a href="id_03.html#cb24-3" tabindex="-1"></a>           <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
+<span id="cb24-4"><a href="id_03.html#cb24-4" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, PCA comp 1 - 3&#39;</span>)</span></code></pre></div>
 <p>These plots suggest that the largest source of variation explained by the first two components can be attributed to the <span style="color: #CC79A7;">melanoma</span> cell line, while the third component highlights a single outlier sample. Hence, the interpretation of the following outputs should primarily focus on the first two components.</p>
 <p>Note:</p>
 <ul>
@@ -409,42 +414,42 @@ Figure 3.2: <strong>Sample plot from the PCA performed on the <code>ABC.trans</c
 <div id="id_03:pca-variable-plot" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Variable plot: correlation circle plot<a href="id_03.html#id_03:pca-variable-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Correlation circle plots indicate the contribution of each variable to each component using the <code>plotVar()</code> function, as well as the correlation between variables (indicated by a ‘cluster’ of variables). Note that to interpret the latter, the variables need to be centered and scaled in PCA:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="id_03.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(final.pca.multi, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb25-2"><a href="id_03.html#cb25-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">var.names =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-3"><a href="id_03.html#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex =</span> <span class="dv">3</span>,         <span class="co"># To change the font size</span></span>
-<span id="cb25-4"><a href="id_03.html#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># cutoff = 0.5,  # For further cutoff</span></span>
-<span id="cb25-5"><a href="id_03.html#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&#39;Multidrug transporter, PCA comp 1 - 2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="id_03.html#cb25-1" tabindex="-1"></a><span class="fu">plotVar</span>(final.pca.multi, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb25-2"><a href="id_03.html#cb25-2" tabindex="-1"></a>        <span class="at">var.names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-3"><a href="id_03.html#cb25-3" tabindex="-1"></a>        <span class="at">cex =</span> <span class="dv">3</span>,         <span class="co"># To change the font size</span></span>
+<span id="cb25-4"><a href="id_03.html#cb25-4" tabindex="-1"></a>        <span class="co"># cutoff = 0.5,  # For further cutoff</span></span>
+<span id="cb25-5"><a href="id_03.html#cb25-5" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&#39;Multidrug transporter, PCA comp 1 - 2&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-variable-plot"></span>
-<img src="Figures/PCA/03-pca-variable-plot-1.png" alt="Correlation Circle plot from the PCA performed on the ABC.trans data. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in orange), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in pink and yellow." width="70%" />
+<img src="Figures/PCA/03-pca-variable-plot-1.png" alt="Correlation Circle plot from the PCA performed on the ABC.trans data. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in orange), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in pink and yellow." width="70%"  />
 <p class="caption">
 Figure 3.3: <strong>Correlation Circle plot from the PCA performed on the <code>ABC.trans</code> data</strong>. The plot shows groups of transporters that are highly correlated, and also contribute to PC1 - near the big circle on the right hand side of the plot (transporters grouped with those in <span style="color: #F68B33;">orange</span>), or PC1 and PC2 - top left and top bottom corner of the plot, transporters grouped with those in <span style="color: #CC79A7;">pink</span> and <span style="color: #999900;">yellow</span>.
 </p>
 </div>
 
-<p>The plot in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a> highlights a group of ABC transporters that contribute to PC1: <span style="color: #F68B33;">ABCE1</span>, and to some extent the group clustered with <span style="color: #F68B33;">ABCB8</span> that contributes positively to PC1, while <span style="color: #009E73;">ABCA8</span> contributes negatively. We also observe a group of transporters that contribute to both PC1 and PC2: the group clustered with <span style="color: #CC79A7;">ABCC2</span> contributes positively to PC2 and negatively to PC1, and a cluster of <span style="color: #999900;">ABCC12</span> and <span style="color: #999900;">ABCD2</span> that contributes negatively to both PC1 and PC2. We observe that several transporters are inside the small circle. However, examining the third component (argument <code>comp = c(1, 3)</code>) does not appear to reveal further transporters that contribute to this third component. The additional argument <code>cutoff = 0.5</code> could further simplify this plot.</p>
+<p>The plot in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a> highlights a group of ABC transporters that contribute to PC1: <span style="color: #F68B33;">ABCE1</span>, and to some extent the group clustered with <span style="color: #F68B33;">ABCB8</span> that contributes positively to PC1, while <span style="color: #009E73;">ABCA8</span> contributes negatively. We also observe a group of transporters that contribute to both PC1 and PC2: the group clustered with <span style="color: #CC79A7;">ABCC2</span> contributes negatively both to PC1 and PC2, and a cluster of <span style="color: #999900;">ABCC12</span> and <span style="color: #999900;">ABCD2</span> that contributes negatively to PC1 and positively to PC2. We observe that several transporters are inside the small circle. However, examining the third component (argument <code>comp = c(1, 3)</code>) does not appear to reveal further transporters that contribute to this third component. The additional argument <code>cutoff = 0.5</code> could further simplify this plot.</p>
 </div>
 <div id="id_03:pca-biplot" class="section level3 hasAnchor" number="3.2.6">
 <h3><span class="header-section-number">3.2.6</span> Biplot: samples and variables<a href="id_03.html#id_03:pca-biplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A biplot allows us to display both samples and variables simultaneously to further understand their relationships. Samples are displayed as dots while variables are displayed at the tips of the arrows. Similar to correlation circle plots, data must be centered and scaled to interpret the correlation between variables (as a cosine angle between variable arrows).</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="id_03.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(final.pca.multi, <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, </span>
-<span id="cb26-2"><a href="id_03.html#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="id_03.html#cb26-1" tabindex="-1"></a><span class="fu">biplot</span>(final.pca.multi, <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, </span>
+<span id="cb26-2"><a href="id_03.html#cb26-2" tabindex="-1"></a>       <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-biplot"></span>
-<img src="Figures/PCA/03-pca-biplot-1.png" alt="Biplot from the PCA performed on the ABS.trans data. The plot highlights which transporter expression levels may be related to specific cell lines, such as melanoma." width="70%" />
+<img src="Figures/PCA/03-pca-biplot-1.png" alt="Biplot from the PCA performed on the ABS.trans data. The plot highlights which transporter expression levels may be related to specific cell lines, such as melanoma." width="70%"  />
 <p class="caption">
 Figure 3.4: <strong>Biplot from the PCA performed on the <code>ABS.trans</code> data</strong>. The plot highlights which transporter expression levels may be related to specific cell lines, such as <span style="color: #CC79A7;">melanoma</span>.
 </p>
 </div>
 
 <p>The biplot in Figure <a href="id_03.html#fig:03-pca-biplot">3.4</a> shows that the <span style="color: #CC79A7;">melanoma</span> cell lines seem to be characterised by a subset of transporters such as the cluster around <span style="color: #CC79A7;">ABCC2</span> as highlighted previously in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a>. Further examination of the data, such as boxplots (as shown in Fig. <a href="id_03.html#fig:03-pca-boxplot">3.5</a>), can further elucidate the transporter expression levels for these specific samples.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="id_03.html#cb27-1" aria-hidden="true" tabindex="-1"></a>ABCC2.scale <span class="ot">&lt;-</span> <span class="fu">scale</span>(X[, <span class="st">&#39;ABCC2&#39;</span>], <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb27-2"><a href="id_03.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="id_03.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ABCC2.scale <span class="sc">~</span></span>
-<span id="cb27-4"><a href="id_03.html#cb27-4" aria-hidden="true" tabindex="-1"></a>        multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, <span class="at">col =</span> <span class="fu">color.mixo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>),</span>
-<span id="cb27-5"><a href="id_03.html#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&#39;Cell lines&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Expression levels, scaled&#39;</span>,</span>
-<span id="cb27-6"><a href="id_03.html#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">par</span>(<span class="at">cex.axis =</span> <span class="fl">0.5</span>), <span class="co"># Font size</span></span>
-<span id="cb27-7"><a href="id_03.html#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;ABCC2 transporter&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="id_03.html#cb27-1" tabindex="-1"></a>ABCC2.scale <span class="ot">&lt;-</span> <span class="fu">scale</span>(X[, <span class="st">&#39;ABCC2&#39;</span>], <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-2"><a href="id_03.html#cb27-2" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="id_03.html#cb27-3" tabindex="-1"></a><span class="fu">boxplot</span>(ABCC2.scale <span class="sc">~</span></span>
+<span id="cb27-4"><a href="id_03.html#cb27-4" tabindex="-1"></a>        multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, <span class="at">col =</span> <span class="fu">color.mixo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>),</span>
+<span id="cb27-5"><a href="id_03.html#cb27-5" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&#39;Cell lines&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Expression levels, scaled&#39;</span>,</span>
+<span id="cb27-6"><a href="id_03.html#cb27-6" tabindex="-1"></a>        <span class="fu">par</span>(<span class="at">cex.axis =</span> <span class="fl">0.5</span>), <span class="co"># Font size</span></span>
+<span id="cb27-7"><a href="id_03.html#cb27-7" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;ABCC2 transporter&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-pca-boxplot"></span>
-<img src="Figures/PCA/03-pca-boxplot-1.png" alt="Boxplots of the transporter ABCC2 identified from the PCA correlation circle plot (Fig. 3.3) and the biplot (Fig. 3.4) show the level of ABCC2 expression related to cell line types. The expression level of ABCC2 was centered and scaled in the PCA, but similar patterns are also observed in the original data." width="70%" />
+<img src="Figures/PCA/03-pca-boxplot-1.png" alt="Boxplots of the transporter ABCC2 identified from the PCA correlation circle plot (Fig. 3.3) and the biplot (Fig. 3.4) show the level of ABCC2 expression related to cell line types. The expression level of ABCC2 was centered and scaled in the PCA, but similar patterns are also observed in the original data." width="70%"  />
 <p class="caption">
 Figure 3.5: <strong>Boxplots of the transporter <span style="color: #CC79A7;">ABCC2</span></strong> identified from the PCA correlation circle plot (Fig. <a href="id_03.html#fig:03-pca-variable-plot">3.3</a>) and the biplot (Fig. <a href="id_03.html#fig:03-pca-biplot">3.4</a>) show the level of <span style="color: #CC79A7;">ABCC2</span> expression related to cell line types. The expression level of <span style="color: #CC79A7;">ABCC2</span> was centered and scaled in the PCA, but similar patterns are also observed in the original data.
 </p>
@@ -458,27 +463,27 @@ Figure 3.5: <strong>Boxplots of the transporter <span style="color: #CC79A7;">AB
 <div id="id_03:spca-vars" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Choose the number of variables to select<a href="id_03.html#id_03:spca-vars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, we must decide on the number of components to evaluate. The previous tuning step indicated that <code>ncomp = 3</code> was sufficient to explain most of the variation in the data, which is the value we choose in this example. We then set up a grid of <code>keepX</code> values to test, which can be thin or coarse depending on the total number of variables. We set up the grid to be thin at the start, and coarse as the number of variables increases. The <code>ABC.trans</code> data includes a sufficient number of samples to perform repeated 5-fold cross-validation to define the number of folds and repeats (leave-one-out CV is also possible if the number of samples <span class="math inline">\(N\)</span> is small by specifying <code>folds =</code> <span class="math inline">\(N\)</span>). The computation may take a while if you are not using parallelisation (see additional parameters in <code>tune.spca()</code>), here we use a small number of repeats for illustrative purposes. We then plot the output of the tuning function.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="id_03.html#cb28-1" aria-hidden="true" tabindex="-1"></a>grid.keepX <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
-<span id="cb28-2"><a href="id_03.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># grid.keepX  # To see the grid</span></span>
-<span id="cb28-3"><a href="id_03.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="id_03.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
-<span id="cb28-5"><a href="id_03.html#cb28-5" aria-hidden="true" tabindex="-1"></a>tune.spca.result <span class="ot">&lt;-</span> <span class="fu">tune.spca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, </span>
-<span id="cb28-6"><a href="id_03.html#cb28-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">folds =</span> <span class="dv">5</span>, </span>
-<span id="cb28-7"><a href="id_03.html#cb28-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">test.keepX =</span> grid.keepX, <span class="at">nrepeat =</span> <span class="dv">10</span>) </span>
-<span id="cb28-8"><a href="id_03.html#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="id_03.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Consider adding up to 50 repeats for more stable results</span></span>
-<span id="cb28-10"><a href="id_03.html#cb28-10" aria-hidden="true" tabindex="-1"></a>tune.spca.result<span class="sc">$</span>choice.keepX</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="id_03.html#cb28-1" tabindex="-1"></a>grid.keepX <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
+<span id="cb28-2"><a href="id_03.html#cb28-2" tabindex="-1"></a><span class="co"># grid.keepX  # To see the grid</span></span>
+<span id="cb28-3"><a href="id_03.html#cb28-3" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="id_03.html#cb28-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>) <span class="co"># For reproducibility with this handbook, remove otherwise</span></span>
+<span id="cb28-5"><a href="id_03.html#cb28-5" tabindex="-1"></a>tune.spca.result <span class="ot">&lt;-</span> <span class="fu">tune.spca</span>(X, <span class="at">ncomp =</span> <span class="dv">3</span>, </span>
+<span id="cb28-6"><a href="id_03.html#cb28-6" tabindex="-1"></a>                              <span class="at">folds =</span> <span class="dv">5</span>, </span>
+<span id="cb28-7"><a href="id_03.html#cb28-7" tabindex="-1"></a>                              <span class="at">test.keepX =</span> grid.keepX, <span class="at">nrepeat =</span> <span class="dv">10</span>) </span>
+<span id="cb28-8"><a href="id_03.html#cb28-8" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="id_03.html#cb28-9" tabindex="-1"></a><span class="co"># Consider adding up to 50 repeats for more stable results</span></span>
+<span id="cb28-10"><a href="id_03.html#cb28-10" tabindex="-1"></a>tune.spca.result<span class="sc">$</span>choice.keepX</span></code></pre></div>
 <pre><code>## comp1 comp2 comp3 
-##    25    30    30</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="id_03.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tune.spca.result)</span></code></pre></div>
+##    15    15    30</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="id_03.html#cb30-1" tabindex="-1"></a><span class="fu">plot</span>(tune.spca.result)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-tuning"></span>
-<img src="Figures/PCA/03-spca-tuning-1.png" alt="Tuning the number of variables to select with sPCA on the ABC.trans data. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided \(t-\)tests and is indicated with a diamond." width="70%" />
+<img src="Figures/PCA/03-spca-tuning-1.png" alt="Tuning the number of variables to select with sPCA on the ABC.trans data. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided \(t-\)tests and is indicated with a diamond." width="70%"  />
 <p class="caption">
 Figure 3.6: <strong>Tuning the number of variables to select with sPCA on the <code>ABC.trans</code> data</strong>. For a grid of number of variables to select indicated on the x-axis, the average correlation between predicted and actual components based on cross-validation is calculated and shown on the y-axis for each component. The optimal number of variables to select per component is assessed via one-sided <span class="math inline">\(t-\)</span>tests and is indicated with a diamond.
 </p>
 </div>
 
-<p>The tuning function outputs the averaged correlation between predicted and actual components per <code>keepX</code> value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component. Figure <a href="id_03.html#fig:03-spca-tuning">3.6</a> shows that this is achieved when selecting 25 transporters on the first component, and 30 on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components.</p>
+<p>The tuning function outputs the averaged correlation between predicted and actual components per <code>keepX</code> value for each component. It indicates the optimal number of variables to select for which the averaged correlation is maximised on each component. Figure <a href="id_03.html#fig:03-spca-tuning">3.6</a> shows that this is achieved when selecting 15 transporters on the first component, and 15 on the second. Given the drop in values in the averaged correlations for the third component, we decide to only retain two components.</p>
 <p>Note:</p>
 <ul>
 <li><em>If the tuning results suggest a large number of variables to select that is close to the total number of variables, we can arbitrarily choose a much smaller selection size.</em></li>
@@ -487,28 +492,28 @@ Figure 3.6: <strong>Tuning the number of variables to select with sPCA on the <c
 <div id="id_03:spca-final" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Final sparse PCA<a href="id_03.html#id_03:spca-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Based on the tuning above, we perform the final sPCA where the number of variables to select on each component is specified with the argument <code>keepX</code>. Arbitrary values can also be input if you would like to skip the tuning step for more exploratory analyses:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="id_03.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By default center = TRUE, scale = TRUE</span></span>
-<span id="cb31-2"><a href="id_03.html#cb31-2" aria-hidden="true" tabindex="-1"></a>keepX.select <span class="ot">&lt;-</span> tune.spca.result<span class="sc">$</span>choice.keepX[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
-<span id="cb31-3"><a href="id_03.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="id_03.html#cb31-4" aria-hidden="true" tabindex="-1"></a>final.spca.multi <span class="ot">&lt;-</span> <span class="fu">spca</span>(X, <span class="at">ncomp =</span> <span class="dv">2</span>, <span class="at">keepX =</span> keepX.select)</span>
-<span id="cb31-5"><a href="id_03.html#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="id_03.html#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of explained variance:</span></span>
-<span id="cb31-7"><a href="id_03.html#cb31-7" aria-hidden="true" tabindex="-1"></a>final.spca.multi<span class="sc">$</span>prop_expl_var<span class="sc">$</span>X</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="id_03.html#cb31-1" tabindex="-1"></a><span class="co"># By default center = TRUE, scale = TRUE</span></span>
+<span id="cb31-2"><a href="id_03.html#cb31-2" tabindex="-1"></a>keepX.select <span class="ot">&lt;-</span> tune.spca.result<span class="sc">$</span>choice.keepX[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb31-3"><a href="id_03.html#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="id_03.html#cb31-4" tabindex="-1"></a>final.spca.multi <span class="ot">&lt;-</span> <span class="fu">spca</span>(X, <span class="at">ncomp =</span> <span class="dv">2</span>, <span class="at">keepX =</span> keepX.select)</span>
+<span id="cb31-5"><a href="id_03.html#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="id_03.html#cb31-6" tabindex="-1"></a><span class="co"># Proportion of explained variance:</span></span>
+<span id="cb31-7"><a href="id_03.html#cb31-7" tabindex="-1"></a>final.spca.multi<span class="sc">$</span>prop_expl_var<span class="sc">$</span>X</span></code></pre></div>
 <pre><code>##       PC1       PC2 
-## 0.1201529 0.1040587</code></pre>
-<p>Overall when considering two components, we lose approximately 0.5 % of explained variance compared to a full PCA, but the aim of this analysis is to identify key transporters driving the variation in the data, as we show below.</p>
+## 0.1171694 0.1004163</code></pre>
+<p>Overall when considering two components, we lose approximately 1.1 % of explained variance compared to a full PCA, but the aim of this analysis is to identify key transporters driving the variation in the data, as we show below.</p>
 </div>
 <div id="id_03:spca-plots" class="section level3 hasAnchor" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Sample and variable plots<a href="id_03.html#id_03:spca-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We first examine the sPCA sample plot:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="id_03.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.spca.multi,</span>
-<span id="cb33-2"><a href="id_03.html#cb33-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),   <span class="co"># Specify components to plot</span></span>
-<span id="cb33-3"><a href="id_03.html#cb33-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">TRUE</span>, <span class="co"># Show row names of samples</span></span>
-<span id="cb33-4"><a href="id_03.html#cb33-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
-<span id="cb33-5"><a href="id_03.html#cb33-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, sPCA comp 1 - 2&#39;</span>,</span>
-<span id="cb33-6"><a href="id_03.html#cb33-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="id_03.html#cb33-1" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.spca.multi,</span>
+<span id="cb33-2"><a href="id_03.html#cb33-2" tabindex="-1"></a>          <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),   <span class="co"># Specify components to plot</span></span>
+<span id="cb33-3"><a href="id_03.html#cb33-3" tabindex="-1"></a>          <span class="at">ind.names =</span> <span class="cn">TRUE</span>, <span class="co"># Show row names of samples</span></span>
+<span id="cb33-4"><a href="id_03.html#cb33-4" tabindex="-1"></a>          <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class,</span>
+<span id="cb33-5"><a href="id_03.html#cb33-5" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;ABC transporters, sPCA comp 1 - 2&#39;</span>,</span>
+<span id="cb33-6"><a href="id_03.html#cb33-6" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&#39;Cell line&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-sample-plot"></span>
-<img src="Figures/PCA/03-spca-sample-plot-1.png" alt="Sample plot from the sPCA performed on the ABC.trans data. Samples are projected onto the space spanned by the first two sparse principal components that are calculated based on a subset of selected variables. Samples are coloured by cell line type and numbers indicate the sample IDs." width="70%" />
+<img src="Figures/PCA/03-spca-sample-plot-1.png" alt="Sample plot from the sPCA performed on the ABC.trans data. Samples are projected onto the space spanned by the first two sparse principal components that are calculated based on a subset of selected variables. Samples are coloured by cell line type and numbers indicate the sample IDs." width="70%"  />
 <p class="caption">
 Figure 3.7: <strong>Sample plot from the sPCA performed on the <code>ABC.trans</code> data</strong>. Samples are projected onto the space spanned by the first two sparse principal components that are calculated based on a subset of selected variables. Samples are coloured by cell line type and numbers indicate the sample IDs.
 </p>
@@ -516,21 +521,21 @@ Figure 3.7: <strong>Sample plot from the sPCA performed on the <code>ABC.trans</
 
 <p>In Figure <a href="id_03.html#fig:03-spca-sample-plot">3.7</a>, component 2 in sPCA shows clearer separation of the <span style="color: #CC79A7;">melanoma</span> samples compared to the full PCA. Component 1 is similar to the full PCA. Overall, this sample plot shows that little information is lost compared to a full PCA.</p>
 <p>A biplot can also be plotted that only shows the selected transporters (Figure <a href="id_03.html#fig:03-spca-biplot">3.8</a>):</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="id_03.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(final.spca.multi, <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, </span>
-<span id="cb34-2"><a href="id_03.html#cb34-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="id_03.html#cb34-1" tabindex="-1"></a><span class="fu">biplot</span>(final.spca.multi, <span class="at">group =</span> multidrug<span class="sc">$</span>cell.line<span class="sc">$</span>Class, </span>
+<span id="cb34-2"><a href="id_03.html#cb34-2" tabindex="-1"></a>       <span class="at">legend =</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-biplot"></span>
-<img src="Figures/PCA/03-spca-biplot-1.png" alt="Biplot from the sPCA performed on the ABS.trans data after variable selection. The plot highlights in more detail which transporter expression levels may be related to specific cell lines, such as melanoma, compared to a classical PCA." width="70%" />
+<img src="Figures/PCA/03-spca-biplot-1.png" alt="Biplot from the sPCA performed on the ABS.trans data after variable selection. The plot highlights in more detail which transporter expression levels may be related to specific cell lines, such as melanoma, compared to a classical PCA." width="70%"  />
 <p class="caption">
 Figure 3.8: <strong>Biplot from the sPCA performed on the <code>ABS.trans</code> data after variable selection</strong>. The plot highlights in more detail which transporter expression levels may be related to specific cell lines, such as melanoma, compared to a classical PCA.
 </p>
 </div>
 
 <p>The correlation circle plot highlights variables that contribute to component 1 and component 2 (Fig. <a href="id_03.html#fig:03-spca-variable-plot">3.9</a>):</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="id_03.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(final.spca.multi, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">var.names =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb35-2"><a href="id_03.html#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex =</span> <span class="dv">3</span>, <span class="co"># To change the font size </span></span>
-<span id="cb35-3"><a href="id_03.html#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&#39;Multidrug transporter, sPCA comp 1 - 2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="id_03.html#cb35-1" tabindex="-1"></a><span class="fu">plotVar</span>(final.spca.multi, <span class="at">comp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">var.names =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb35-2"><a href="id_03.html#cb35-2" tabindex="-1"></a>        <span class="at">cex =</span> <span class="dv">3</span>, <span class="co"># To change the font size </span></span>
+<span id="cb35-3"><a href="id_03.html#cb35-3" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&#39;Multidrug transporter, sPCA comp 1 - 2&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-variable-plot"></span>
-<img src="Figures/PCA/03-spca-variable-plot-1.png" alt="Correlation Circle plot from the sPCA performed on the ABC.trans data. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in green are discussed in the text." width="70%" />
+<img src="Figures/PCA/03-spca-variable-plot-1.png" alt="Correlation Circle plot from the sPCA performed on the ABC.trans data. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in green are discussed in the text." width="70%"  />
 <p class="caption">
 Figure 3.9: <strong>Correlation Circle plot from the sPCA performed on the <code>ABC.trans</code> data</strong>. Only the transporters selected by the sPCA are shown on this plot. Transporters coloured in <span style="color: #009E73;">green</span> are discussed in the text.
 </p>
@@ -538,19 +543,19 @@ Figure 3.9: <strong>Correlation Circle plot from the sPCA performed on the <code
 
 <p>The transporters selected by sPCA are amongst the most important ones in PCA. Those coloured in green in Figure <a href="id_03.html#fig:03-pca-variable-plot">3.3</a> (<span style="color: #009E73;">ABCA9, ABCB5, ABCC2</span> and <span style="color: #009E73;">ABCD1</span>) show an example of variables that contribute positively to component 2, but with a larger weight than in PCA. Thus, they appear as a clearer cluster in the top part of the correlation circle plot compared to PCA. As shown in the biplot in Figure <a href="id_03.html#fig:03-spca-biplot">3.8</a>, they contribute in explaining the variation in the <span style="color: #CC79A7;">melanoma</span> samples.</p>
 <p>We can extract the variable names and their positive or negative contribution to a given component (here 2), using the <code>selectVar()</code> function:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="id_03.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On the first component, just a head</span></span>
-<span id="cb36-2"><a href="id_03.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.spca.multi, <span class="at">comp =</span> <span class="dv">2</span>)<span class="sc">$</span>value)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="id_03.html#cb36-1" tabindex="-1"></a><span class="co"># On the first component, just a head</span></span>
+<span id="cb36-2"><a href="id_03.html#cb36-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.spca.multi, <span class="at">comp =</span> <span class="dv">2</span>)<span class="sc">$</span>value)</span></code></pre></div>
 <pre><code>##        value.var
-## ABCA9  0.3744148
-## ABCB5  0.3690872
-## ABCC2  0.3639616
-## ABCD1  0.3418706
-## ABCD2 -0.2581438
-## ABCA5  0.2536514</code></pre>
+## ABCA9  0.4510621
+## ABCB5  0.4184759
+## ABCC2  0.4046096
+## ABCD1  0.3921438
+## ABCA3 -0.2779984
+## ABCD2 -0.2255945</code></pre>
 <p>The loading weights can also be visualised with <code>plotLoading()</code>, where variables are ranked from the least important (top) to the most important (bottom) in Figure <a href="id_03.html#fig:03-spca-loading-plot">3.10</a>). Here on component 2:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="id_03.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLoadings</span>(final.spca.multi, <span class="at">comp =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="id_03.html#cb38-1" tabindex="-1"></a><span class="fu">plotLoadings</span>(final.spca.multi, <span class="at">comp =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:03-spca-loading-plot"></span>
-<img src="Figures/PCA/03-spca-loading-plot-1.png" alt="sPCA loading plot of the ABS.trans data for component 2. Only the transporters selected by sPCA on component 2 are shown, and are ranked from least important (top) to most important. Bar length indicates the loading weight in PC2." width="70%" />
+<img src="Figures/PCA/03-spca-loading-plot-1.png" alt="sPCA loading plot of the ABS.trans data for component 2. Only the transporters selected by sPCA on component 2 are shown, and are ranked from least important (top) to most important. Bar length indicates the loading weight in PC2." width="70%"  />
 <p class="caption">
 Figure 3.10: <strong>sPCA loading plot of the <code>ABS.trans</code> data for component 2</strong>. Only the transporters selected by sPCA on component 2 are shown, and are ranked from least important (top) to most important. Bar length indicates the loading weight in PC2.
 </p>

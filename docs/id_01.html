@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 1 Introduction | mixOmics vignette</title>
   <meta name="description" content="Vignette for the R package mixOmics" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 1 Introduction | mixOmics vignette" />
   <meta property="og:type" content="book" />
@@ -58,7 +58,7 @@ document.write('<div class="logos"><img src="data:image/jpeg;base64,/9j/4AAQSkZJ
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +68,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,10 +122,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -315,7 +320,7 @@ div.csl-indent {
 <ul>
 <li><p><strong>Types of data</strong>. Different types of biological data can be explored and integrated with <code>mixOmics</code>. Our methods can handle molecular features measured on a continuous scale (e.g. microarray, mass spectrometry-based proteomics and metabolomics) or sequenced-based count data (RNA-seq, 16S, shotgun metagenomics) that become `continuous’ data after pre-processing and normalisation.</p></li>
 <li><p><strong>Normalisation</strong>. The package does not handle normalisation as it is platform-specific and we cover a too wide variety of data! Prior to the analysis, we assume the data sets have been normalised using appropriate normalisation methods and pre-processed when applicable.</p></li>
-<li><p><strong>Prefiltering</strong>. While <code>mixOmics</code> methods can handle large data sets (several tens of thousands of predictors), we recommend pre-filtering the data to less than 10K predictor variables per data set, for example by using Median Absolute Deviation <span class="citation">(<a href="references.html#ref-Ten16" role="doc-biblioref">Teng et al. 2016</a>)</span> for RNA-seq data, by removing consistently low counts in microbiome data sets <span class="citation">(<a href="references.html#ref-Lec16" role="doc-biblioref">Lê Cao et al. 2016</a>)</span> or by removing near-zero variance predictors. Such step aims to lessen the computational time during the parameter tuning process.</p></li>
+<li><p><strong>Prefiltering</strong>. While <code>mixOmics</code> methods can handle large data sets (several tens of thousands of predictors), we recommend pre-filtering the data to less than 10K predictor variables per data set, for example by using Median Absolute Deviation <span class="citation">(<a href="references.html#ref-Ten16">Teng et al. 2016</a>)</span> for RNA-seq data, by removing consistently low counts in microbiome data sets <span class="citation">(<a href="references.html#ref-Lec16">Lê Cao et al. 2016</a>)</span> or by removing near-zero variance predictors. Such step aims to lessen the computational time during the parameter tuning process.</p></li>
 <li><p><strong>Data format</strong>.
 Our methods use matrix decomposition techniques. Therefore, the numeric data matrix or data frames have <span class="math inline">\(n\)</span> observations or samples in rows and <span class="math inline">\(p\)</span> predictors or variables (e.g. genes, proteins, OTUs) in columns.</p></li>
 <li><p><strong>Covariates</strong>. In the current version of <code>mixOmics</code>, covariates that may confound the analysis are not included in the methods. We recommend correcting for those covariates beforehand using appropriate univariate or multivariate methods for batch effect removal. Contact us for more details as we are currently working on this aspect.</p></li>
@@ -336,7 +341,7 @@ Our methods use matrix decomposition techniques. Therefore, the numeric data mat
 <li><p><strong>Component</strong>: an artificial variable built from a linear combination of the observed variables in a given data set. Variable coefficients are optimally defined based on some statistical criterion. For example in Principal Component Analysis, the coefficients of a (principal) component are defined so as to maximise the variance of the component.</p></li>
 <li><p><strong>Loadings</strong>: variable coefficients used to define a component.</p></li>
 <li><p><strong>Sample plot</strong>: representation of the samples projected in a small space spanned (defined) by the components. Samples coordinates are determined by their components values or scores.</p></li>
-<li><p><strong>Correlation circle plot</strong>: representation of the variables in a space spanned by the components. Each variable coordinate is defined as the correlation between the original variable value and each component. A correlation circle plot enables to visualise the correlation between variables - negative or positive correlation, defined by the cosine angle between the centre of the circle and each variable point) and the contribution of each variable to each component - defined by the absolute value of the coordinate on each component. For this interpretation, data need to be centred and scaled (by default in most of our methods except PCA). For more details on this insightful graphic, see Figure 1 in <span class="citation">(<a href="references.html#ref-Gon12" role="doc-biblioref">González et al. 2012</a>)</span>.</p></li>
+<li><p><strong>Correlation circle plot</strong>: representation of the variables in a space spanned by the components. Each variable coordinate is defined as the correlation between the original variable value and each component. A correlation circle plot enables to visualise the correlation between variables - negative or positive correlation, defined by the cosine angle between the centre of the circle and each variable point) and the contribution of each variable to each component - defined by the absolute value of the coordinate on each component. For this interpretation, data need to be centred and scaled (by default in most of our methods except PCA). For more details on this insightful graphic, see Figure 1 in <span class="citation">(<a href="references.html#ref-Gon12">González et al. 2012</a>)</span>.</p></li>
 <li><p><strong>Unsupervised analysis</strong>: the method does not take into account any known sample groups and the analysis is exploratory. Examples of unsupervised methods covered in this vignette are Principal Component Analysis (PCA, Chapter <a href="id_03.html#id_03">3</a>), Projection to Latent Structures (PLS, Chapter <a href="id_04.html#id_04">4</a>), and also Canonical Correlation Analysis (CCA, not covered here but see <a href="http://mixomics.org/methods/rcca/">the website page</a>).</p></li>
 <li><p><strong>Supervised analysis</strong>: the method includes a vector indicating the class membership of each sample. The aim is to discriminate sample groups and perform sample class prediction. Examples of supervised methods covered in this vignette are PLS Discriminant Analysis (PLS-DA, Chapter <a href="id_05.html#id_05">5</a>), DIABLO (Chapter <a href="id_06.html#id_06">6</a>) and also MINT (Chapter <a href="id_07.html#id_07">7</a>).</p></li>
 </ul>
@@ -367,7 +372,7 @@ Figure 1.2: Main functions and parameters of each method
 <p>The methods implemented in <code>mixOmics</code> are described in detail in the following publications. A more extensive list can be found at this <a href="http://mixomics.org/a-propos/publications/">link</a>.</p>
 <ul>
 <li><p><strong>Overview and recent integrative methods</strong>: Rohart F., Gautier, B, Singh, A, Le Cao, K. A. mixOmics: an <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005752">R package for ’omics feature selection and multiple data integration</a>. <em>PLoS Comput Biol</em> 13(11): e1005752.</p></li>
-<li><p><strong>Graphical outputs for integrative methods</strong>: <span class="citation">(<a href="references.html#ref-Gon12" role="doc-biblioref">González et al. 2012</a>)</span> Gonzalez I., Le Cao K.-A., Davis, M.D. and Dejean S. (2012) <a href="https://biodatamining.biomedcentral.com/articles/10.1186/1756-0381-5-19">Insightful graphical outputs to explore relationships between two omics data sets</a>. <em>BioData Mining</em> 5:19.</p></li>
+<li><p><strong>Graphical outputs for integrative methods</strong>: <span class="citation">(<a href="references.html#ref-Gon12">González et al. 2012</a>)</span> Gonzalez I., Le Cao K.-A., Davis, M.D. and Dejean S. (2012) <a href="https://biodatamining.biomedcentral.com/articles/10.1186/1756-0381-5-19">Insightful graphical outputs to explore relationships between two omics data sets</a>. <em>BioData Mining</em> 5:19.</p></li>
 <li><p><strong>DIABLO</strong>: Singh A, Gautier B, Shannon C, Vacher M, Rohart F, Tebbutt S, K-A. Le Cao. <a href="https://www.biorxiv.org/content/early/2018/03/20/067611">DIABLO - multi-omics data integration for biomarker discovery</a>.</p></li>
 <li><p><strong>sparse PLS</strong>: Le Cao K.-A., Martin P.G.P, Robert-Granie C. and Besse, P. (2009) <a href="http://www.biomedcentral.com/1471-2105/10/34/">Sparse Canonical Methods for Biological Data Integration: application to a cross-platform study</a>. <em>BMC Bioinformatics</em>, 10:34.</p></li>
 <li><p><strong>sparse PLS-DA</strong>: Le Cao K.-A., Boitard S. and Besse P. (2011) <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-253">Sparse PLS Discriminant Analysis: biologically relevant feature selection and graphical displays for multiclass problems</a>. <em>BMC Bioinformatics</em>, 22:253.</p></li>
@@ -400,8 +405,8 @@ Figure 1.2: Main functions and parameters of each method
 <h2><span class="header-section-number">1.4</span> Other methods not covered in this vignette<a href="id_01.html#other-methods-not-covered-in-this-vignette" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Other methods not covered in this document are described on our website and the following references:</p>
 <ul>
-<li><p><a href="http://www.mixOmics.org">regularised Canonical Correlation Analysis</a>, see the <strong>Methods</strong> and <strong>Case study</strong> tabs, and <span class="citation">(<a href="references.html#ref-Gon08" role="doc-biblioref">González et al. 2008</a>)</span> that describes CCA for large data sets.</p></li>
-<li><p><a href="http://www.mixOmics.org/mixmc">Microbiome (16S, shotgun metagenomics) data analysis</a>, see also <span class="citation">(<a href="references.html#ref-Lec16" role="doc-biblioref">Lê Cao et al. 2016</a>)</span> and <a href="http://mixomics.org/mixkernel">kernel integration for microbiome data</a>. The latter is in collaboration with Drs J Mariette and Nathalie Villa-Vialaneix (INRA Toulouse, France), an example is provided for the Tara ocean metagenomics and environmental data.</p></li>
+<li><p><a href="http://www.mixOmics.org">regularised Canonical Correlation Analysis</a>, see the <strong>Methods</strong> and <strong>Case study</strong> tabs, and <span class="citation">(<a href="references.html#ref-Gon08">González et al. 2008</a>)</span> that describes CCA for large data sets.</p></li>
+<li><p><a href="http://www.mixOmics.org/mixmc">Microbiome (16S, shotgun metagenomics) data analysis</a>, see also <span class="citation">(<a href="references.html#ref-Lec16">Lê Cao et al. 2016</a>)</span> and <a href="http://mixomics.org/mixkernel">kernel integration for microbiome data</a>. The latter is in collaboration with Drs J Mariette and Nathalie Villa-Vialaneix (INRA Toulouse, France), an example is provided for the Tara ocean metagenomics and environmental data.</p></li>
 </ul>
 
 </div>

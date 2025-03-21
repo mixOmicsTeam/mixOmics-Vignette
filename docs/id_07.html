@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 7 P-Integration | mixOmics vignette</title>
   <meta name="description" content="Vignette for the R package mixOmics" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 7 P-Integration | mixOmics vignette" />
   <meta property="og:type" content="book" />
@@ -58,7 +58,7 @@ document.write('<div class="logos"><img src="data:image/jpeg;base64,/9j/4AAQSkZJ
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +68,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,10 +122,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -309,35 +314,35 @@ div.csl-indent {
 <h1><span class="header-section-number"> 7</span> P-Integration<a href="id_07.html#id_07" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="id_07:mint" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> MINT on the stem cell case study<a href="id_07.html#id_07:mint" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We integrate four transcriptomics studies of microarray stem cells (125 samples in total). The original data set from the Stemformatics database<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <span class="citation">(<a href="references.html#ref-Well13" role="doc-biblioref">Wells et al. 2013</a>)</span> was reduced to fit into the package, and includes a randomly-chosen subset of the expression levels of 400 genes. The aim is to classify three types of human cells: human fibroblasts (Fib) and human induced Pluripotent Stem Cells (hiPSC &amp; hESC).</p>
-<p>There is a biological hierarchy among the three cell types. On one hand, differences between pluripotent (hiPSC and hESC) and non-pluripotent cells (Fib) are well-characterised and are expected to contribute to the main biological variation. On the other hand, hiPSC are genetically reprogrammed to behave like hESC and both cell types are commonly assumed to be alike. However, differences have been reported in the literature (<span class="citation">Chin et al. (<a href="references.html#ref-Chi09" role="doc-biblioref">2009</a>)</span>, <span class="citation">Newman and Cooper (<a href="references.html#ref-New10" role="doc-biblioref">2010</a>)</span>). We illustrate the use of MINT to address sub-classification problems in a single analysis.</p>
+<p>We integrate four transcriptomics studies of microarray stem cells (125 samples in total). The original data set from the Stemformatics database<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <span class="citation">(<a href="references.html#ref-Well13">Wells et al. 2013</a>)</span> was reduced to fit into the package, and includes a randomly-chosen subset of the expression levels of 400 genes. The aim is to classify three types of human cells: human fibroblasts (Fib) and human induced Pluripotent Stem Cells (hiPSC &amp; hESC).</p>
+<p>There is a biological hierarchy among the three cell types. On one hand, differences between pluripotent (hiPSC and hESC) and non-pluripotent cells (Fib) are well-characterised and are expected to contribute to the main biological variation. On the other hand, hiPSC are genetically reprogrammed to behave like hESC and both cell types are commonly assumed to be alike. However, differences have been reported in the literature (<span class="citation">Chin et al. (<a href="references.html#ref-Chi09">2009</a>)</span>, <span class="citation">Newman and Cooper (<a href="references.html#ref-New10">2010</a>)</span>). We illustrate the use of MINT to address sub-classification problems in a single analysis.</p>
 </div>
 <div id="id_07:load-data" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Load the data<a href="id_07.html#id_07:load-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We first load the data from the package and set up the categorical outcome <span class="math inline">\(\boldsymbol Y\)</span> and the <code>study</code> membership:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="id_07.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
-<span id="cb180-2"><a href="id_07.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stemcells)</span>
-<span id="cb180-3"><a href="id_07.html#cb180-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-4"><a href="id_07.html#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The combined data set X</span></span>
-<span id="cb180-5"><a href="id_07.html#cb180-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> stemcells<span class="sc">$</span>gene</span>
-<span id="cb180-6"><a href="id_07.html#cb180-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="id_07.html#cb181-1" tabindex="-1"></a><span class="fu">library</span>(mixOmics)</span>
+<span id="cb181-2"><a href="id_07.html#cb181-2" tabindex="-1"></a><span class="fu">data</span>(stemcells)</span>
+<span id="cb181-3"><a href="id_07.html#cb181-3" tabindex="-1"></a></span>
+<span id="cb181-4"><a href="id_07.html#cb181-4" tabindex="-1"></a><span class="co"># The combined data set X</span></span>
+<span id="cb181-5"><a href="id_07.html#cb181-5" tabindex="-1"></a>X <span class="ot">&lt;-</span> stemcells<span class="sc">$</span>gene</span>
+<span id="cb181-6"><a href="id_07.html#cb181-6" tabindex="-1"></a><span class="fu">dim</span>(X)</span></code></pre></div>
 <pre><code>## [1] 125 400</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="id_07.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The outcome vector Y:  </span></span>
-<span id="cb182-2"><a href="id_07.html#cb182-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> stemcells<span class="sc">$</span>celltype </span>
-<span id="cb182-3"><a href="id_07.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Y) </span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="id_07.html#cb183-1" tabindex="-1"></a><span class="co"># The outcome vector Y:  </span></span>
+<span id="cb183-2"><a href="id_07.html#cb183-2" tabindex="-1"></a>Y <span class="ot">&lt;-</span> stemcells<span class="sc">$</span>celltype </span>
+<span id="cb183-3"><a href="id_07.html#cb183-3" tabindex="-1"></a><span class="fu">length</span>(Y) </span></code></pre></div>
 <pre><code>## [1] 125</code></pre>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="id_07.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Y)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="id_07.html#cb185-1" tabindex="-1"></a><span class="fu">summary</span>(Y)</span></code></pre></div>
 <pre><code>## Fibroblast       hESC      hiPSC 
 ##         30         37         58</code></pre>
 <p>We then store the vector indicating the sample membership of each independent study:</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="id_07.html#cb186-1" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> stemcells<span class="sc">$</span>study</span>
-<span id="cb186-2"><a href="id_07.html#cb186-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb186-3"><a href="id_07.html#cb186-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of samples per study:</span></span>
-<span id="cb186-4"><a href="id_07.html#cb186-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(study)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="id_07.html#cb187-1" tabindex="-1"></a>study <span class="ot">&lt;-</span> stemcells<span class="sc">$</span>study</span>
+<span id="cb187-2"><a href="id_07.html#cb187-2" tabindex="-1"></a></span>
+<span id="cb187-3"><a href="id_07.html#cb187-3" tabindex="-1"></a><span class="co"># Number of samples per study:</span></span>
+<span id="cb187-4"><a href="id_07.html#cb187-4" tabindex="-1"></a><span class="fu">summary</span>(study)</span></code></pre></div>
 <pre><code>##  1  2  3  4 
 ## 38 51 21 15</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="id_07.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experimental design</span></span>
-<span id="cb188-2"><a href="id_07.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Y,study)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="id_07.html#cb189-1" tabindex="-1"></a><span class="co"># Experimental design</span></span>
+<span id="cb189-2"><a href="id_07.html#cb189-2" tabindex="-1"></a><span class="fu">table</span>(Y,study)</span></code></pre></div>
 <pre><code>##             study
 ## Y             1  2  3  4
 ##   Fibroblast  6 18  3  3
@@ -347,23 +352,23 @@ div.csl-indent {
 <div id="id_07:plsda" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Example: MINT PLS-DA<a href="id_07.html#id_07:plsda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We first perform a MINT PLS-DA with all variables included in the model and <code>ncomp = 5</code> components. The <code>perf()</code> function is used to estimate the performance of the model using LOGOCV, and to choose the optimal number of components for our final model (see Fig <a href="id_07.html#fig:07-plsda-perf">7.1</a>).</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="id_07.html#cb190-1" aria-hidden="true" tabindex="-1"></a>mint.plsda.stem <span class="ot">&lt;-</span> <span class="fu">mint.plsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, <span class="at">ncomp =</span> <span class="dv">5</span>)</span>
-<span id="cb190-2"><a href="id_07.html#cb190-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-3"><a href="id_07.html#cb190-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2543</span>) <span class="co"># For reproducible results here, remove for your own analyses</span></span>
-<span id="cb190-4"><a href="id_07.html#cb190-4" aria-hidden="true" tabindex="-1"></a>perf.mint.plsda.stem <span class="ot">&lt;-</span> <span class="fu">perf</span>(mint.plsda.stem) </span>
-<span id="cb190-5"><a href="id_07.html#cb190-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-6"><a href="id_07.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(perf.mint.plsda.stem)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="id_07.html#cb191-1" tabindex="-1"></a>mint.plsda.stem <span class="ot">&lt;-</span> <span class="fu">mint.plsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, <span class="at">ncomp =</span> <span class="dv">5</span>)</span>
+<span id="cb191-2"><a href="id_07.html#cb191-2" tabindex="-1"></a></span>
+<span id="cb191-3"><a href="id_07.html#cb191-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2543</span>) <span class="co"># For reproducible results here, remove for your own analyses</span></span>
+<span id="cb191-4"><a href="id_07.html#cb191-4" tabindex="-1"></a>perf.mint.plsda.stem <span class="ot">&lt;-</span> <span class="fu">perf</span>(mint.plsda.stem) </span>
+<span id="cb191-5"><a href="id_07.html#cb191-5" tabindex="-1"></a></span>
+<span id="cb191-6"><a href="id_07.html#cb191-6" tabindex="-1"></a><span class="fu">plot</span>(perf.mint.plsda.stem)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-plsda-perf"></span>
-<img src="Figures/N-Integration/07-plsda-perf-1.png" alt="Choosing the number of components in mint.plsda using perf() with LOGOCV in the stemcells study. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Module 3 and Extra Reading material ‘PLS-DA appendix’). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance." width="70%" />
+<img src="Figures/N-Integration/07-plsda-perf-1.png" alt="Choosing the number of components in mint.plsda using perf() with LOGOCV in the stemcells study. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Module 3 and Extra Reading material ‘PLS-DA appendix’). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance." width="70%"  />
 <p class="caption">
 Figure 7.1: <strong>Choosing the number of components in <code>mint.plsda</code> using <code>perf()</code> with LOGOCV in the <code>stemcells</code> study</strong>. Classification error rates (overall and balanced, see Module 2) are represented on the y-axis with respect to the number of components on the x-axis for each prediction distance (see Module 3 and Extra Reading material ‘PLS-DA appendix’). The plot shows that the error rate reaches a minimum from 1 component with the BER and centroids distance.
 </p>
 </div>
 
 <p>Based on the performance plot (Figure <a href="id_07.html#fig:07-plsda-perf">7.1</a>), <code>ncomp = 2</code> seems to achieve the best performance for the centroid distance, and <code>ncomp = 1</code> for the Mahalanobis distance in terms of BER. Additional numerical outputs such as the BER and overall error rates per component, and the error rates per class and per prediction distance, can be output:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="id_07.html#cb191-1" aria-hidden="true" tabindex="-1"></a>perf.mint.plsda.stem<span class="sc">$</span>global.error<span class="sc">$</span>BER</span>
-<span id="cb191-2"><a href="id_07.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Type also:</span></span>
-<span id="cb191-3"><a href="id_07.html#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="co"># perf.mint.plsda.stem$global.error</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="id_07.html#cb192-1" tabindex="-1"></a>perf.mint.plsda.stem<span class="sc">$</span>global.error<span class="sc">$</span>BER</span>
+<span id="cb192-2"><a href="id_07.html#cb192-2" tabindex="-1"></a><span class="co"># Type also:</span></span>
+<span id="cb192-3"><a href="id_07.html#cb192-3" tabindex="-1"></a><span class="co"># perf.mint.plsda.stem$global.error</span></span></code></pre></div>
 <pre><code>##        max.dist centroids.dist mahalanobis.dist
 ## comp1 0.3803556      0.3333333        0.3333333
 ## comp2 0.3519556      0.3320000        0.3725111
@@ -371,14 +376,14 @@ Figure 7.1: <strong>Choosing the number of components in <code>mint.plsda</code>
 ## comp4 0.3541111      0.3427778        0.3898000
 ## comp5 0.3353778      0.3268667        0.3097111</code></pre>
 <p>While we may want to focus our interpretation on the first component, we run a final MINT PLS-DA model for <code>ncomp = 2</code> to obtain 2D graphical outputs (Figure <a href="id_07.html#fig:07-plsda-sample-plot1">7.2</a>):</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="id_07.html#cb193-1" aria-hidden="true" tabindex="-1"></a>final.mint.plsda.stem <span class="ot">&lt;-</span> <span class="fu">mint.plsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, <span class="at">ncomp =</span> <span class="dv">2</span>)</span>
-<span id="cb193-2"><a href="id_07.html#cb193-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb193-3"><a href="id_07.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="co">#final.mint.plsda.stem # Lists the different functions</span></span>
-<span id="cb193-4"><a href="id_07.html#cb193-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb193-5"><a href="id_07.html#cb193-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.mint.plsda.stem, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&#39;MINT PLS-DA&#39;</span>, </span>
-<span id="cb193-6"><a href="id_07.html#cb193-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&#39;stem cell study&#39;</span>, <span class="at">ellipse =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="id_07.html#cb194-1" tabindex="-1"></a>final.mint.plsda.stem <span class="ot">&lt;-</span> <span class="fu">mint.plsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, <span class="at">ncomp =</span> <span class="dv">2</span>)</span>
+<span id="cb194-2"><a href="id_07.html#cb194-2" tabindex="-1"></a></span>
+<span id="cb194-3"><a href="id_07.html#cb194-3" tabindex="-1"></a><span class="co">#final.mint.plsda.stem # Lists the different functions</span></span>
+<span id="cb194-4"><a href="id_07.html#cb194-4" tabindex="-1"></a></span>
+<span id="cb194-5"><a href="id_07.html#cb194-5" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.mint.plsda.stem, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&#39;MINT PLS-DA&#39;</span>, </span>
+<span id="cb194-6"><a href="id_07.html#cb194-6" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&#39;stem cell study&#39;</span>, <span class="at">ellipse =</span> T)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-plsda-sample-plot1"></span>
-<img src="Figures/N-Integration/07-plsda-sample-plot1-1.png" alt="Sample plot from the MINT PLS-DA performed on the stemcells gene expression data. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate the study membership. Component 1 discriminates fibroblast vs. the others, while component 2 discriminates some of the hiPSC vs. hESC." width="70%" />
+<img src="Figures/N-Integration/07-plsda-sample-plot1-1.png" alt="Sample plot from the MINT PLS-DA performed on the stemcells gene expression data. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate the study membership. Component 1 discriminates fibroblast vs. the others, while component 2 discriminates some of the hiPSC vs. hESC." width="70%"  />
 <p class="caption">
 Figure 7.2: <strong>Sample plot from the MINT PLS-DA performed on the <code>stemcells</code> gene expression data</strong>. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate the study membership. Component 1 discriminates <span style="color: #388ECC;">fibroblast</span> vs. the others, while component 2 discriminates some of the <span style="color: #585858;">hiPSC</span> vs. <span style="color: #F68B33;">hESC</span>.
 </p>
@@ -386,13 +391,13 @@ Figure 7.2: <strong>Sample plot from the MINT PLS-DA performed on the <code>stem
 
 <p>The sample plot (Fig <a href="id_07.html#fig:07-plsda-sample-plot1">7.2</a>) shows that <span style="color: #388ECC;">fibroblast</span> are separated on the first component. We observe that while deemed not crucial for an optimal discrimination, the second component seems to help separate <span style="color: #F68B33;">hESC</span> and <span style="color: #585858;">hiPSC</span> further. The effect of study after MINT modelling is not strong.</p>
 <p>We can compare this output to a classical PLS-DA to visualise the study effect (Figure <a href="id_07.html#fig:07-plsda-sample-plot2">7.3</a>):</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="id_07.html#cb194-1" aria-hidden="true" tabindex="-1"></a>plsda.stem <span class="ot">&lt;-</span> <span class="fu">plsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">ncomp =</span> <span class="dv">2</span>)</span>
-<span id="cb194-2"><a href="id_07.html#cb194-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-3"><a href="id_07.html#cb194-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(plsda.stem, <span class="at">pch =</span> study,</span>
-<span id="cb194-4"><a href="id_07.html#cb194-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&#39;Classic PLS-DA&#39;</span>,</span>
-<span id="cb194-5"><a href="id_07.html#cb194-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="st">&#39;Cell type&#39;</span>, <span class="at">legend.title.pch =</span> <span class="st">&#39;Study&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="id_07.html#cb195-1" tabindex="-1"></a>plsda.stem <span class="ot">&lt;-</span> <span class="fu">plsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">ncomp =</span> <span class="dv">2</span>)</span>
+<span id="cb195-2"><a href="id_07.html#cb195-2" tabindex="-1"></a></span>
+<span id="cb195-3"><a href="id_07.html#cb195-3" tabindex="-1"></a><span class="fu">plotIndiv</span>(plsda.stem, <span class="at">pch =</span> study,</span>
+<span id="cb195-4"><a href="id_07.html#cb195-4" tabindex="-1"></a>          <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&#39;Classic PLS-DA&#39;</span>,</span>
+<span id="cb195-5"><a href="id_07.html#cb195-5" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="st">&#39;Cell type&#39;</span>, <span class="at">legend.title.pch =</span> <span class="st">&#39;Study&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-plsda-sample-plot2"></span>
-<img src="Figures/N-Integration/07-plsda-sample-plot2-1.png" alt="Sample plot from a classic PLS-DA performed on the stemcells gene expression data that highlights the study effect (indicated by symbols). Samples are projected into the space spanned by the first two components. We still do observe some discrimination between the cell types." width="70%" />
+<img src="Figures/N-Integration/07-plsda-sample-plot2-1.png" alt="Sample plot from a classic PLS-DA performed on the stemcells gene expression data that highlights the study effect (indicated by symbols). Samples are projected into the space spanned by the first two components. We still do observe some discrimination between the cell types." width="70%"  />
 <p class="caption">
 Figure 7.3: <strong>Sample plot from a classic PLS-DA performed on the <code>stemcells</code> gene expression data</strong> that highlights the study effect (indicated by symbols). Samples are projected into the space spanned by the first two components. We still do observe some discrimination between the cell types.
 </p>
@@ -405,25 +410,25 @@ Figure 7.3: <strong>Sample plot from a classic PLS-DA performed on the <code>ste
 <div id="id_07:splsda-tuning" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Number of variables to select<a href="id_07.html#id_07:splsda-tuning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can choose the <code>keepX</code> parameter using the <code>tune()</code> function for a MINT object. The function performs LOGOCV for different values of <code>test.keepX</code> provided on each component, and no repeat argument is needed. Based on the mean classification error rate (overall error rate or BER) and a centroids distance, we output the optimal number of variables <code>keepX</code> to be included in the final model.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="id_07.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2543</span>)  <span class="co"># For a reproducible result here, remove for your own analyses</span></span>
-<span id="cb195-2"><a href="id_07.html#cb195-2" aria-hidden="true" tabindex="-1"></a>tune.mint.splsda.stem <span class="ot">&lt;-</span> <span class="fu">tune</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, </span>
-<span id="cb195-3"><a href="id_07.html#cb195-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ncomp =</span> <span class="dv">2</span>, <span class="at">test.keepX =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">1</span>),</span>
-<span id="cb195-4"><a href="id_07.html#cb195-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&#39;mint.splsda&#39;</span>, <span class="co">#Specify the method</span></span>
-<span id="cb195-5"><a href="id_07.html#cb195-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">measure =</span> <span class="st">&#39;BER&#39;</span>,</span>
-<span id="cb195-6"><a href="id_07.html#cb195-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dist =</span> <span class="st">&quot;centroids.dist&quot;</span>,</span>
-<span id="cb195-7"><a href="id_07.html#cb195-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">nrepeat =</span> <span class="dv">3</span>)</span>
-<span id="cb195-8"><a href="id_07.html#cb195-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb195-9"><a href="id_07.html#cb195-9" aria-hidden="true" tabindex="-1"></a><span class="co">#tune.mint.splsda.stem # Lists the different types of outputs</span></span>
-<span id="cb195-10"><a href="id_07.html#cb195-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb195-11"><a href="id_07.html#cb195-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean error rate per component and per tested keepX value:</span></span>
-<span id="cb195-12"><a href="id_07.html#cb195-12" aria-hidden="true" tabindex="-1"></a><span class="co">#tune.mint.splsda.stem$error.rate[1:5,]</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="id_07.html#cb196-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2543</span>)  <span class="co"># For a reproducible result here, remove for your own analyses</span></span>
+<span id="cb196-2"><a href="id_07.html#cb196-2" tabindex="-1"></a>tune.mint.splsda.stem <span class="ot">&lt;-</span> <span class="fu">tune</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, </span>
+<span id="cb196-3"><a href="id_07.html#cb196-3" tabindex="-1"></a>                 <span class="at">ncomp =</span> <span class="dv">2</span>, <span class="at">test.keepX =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb196-4"><a href="id_07.html#cb196-4" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&#39;mint.splsda&#39;</span>, <span class="co">#Specify the method</span></span>
+<span id="cb196-5"><a href="id_07.html#cb196-5" tabindex="-1"></a>                 <span class="at">measure =</span> <span class="st">&#39;BER&#39;</span>,</span>
+<span id="cb196-6"><a href="id_07.html#cb196-6" tabindex="-1"></a>                 <span class="at">dist =</span> <span class="st">&quot;centroids.dist&quot;</span>,</span>
+<span id="cb196-7"><a href="id_07.html#cb196-7" tabindex="-1"></a>                 <span class="at">nrepeat =</span> <span class="dv">3</span>)</span>
+<span id="cb196-8"><a href="id_07.html#cb196-8" tabindex="-1"></a></span>
+<span id="cb196-9"><a href="id_07.html#cb196-9" tabindex="-1"></a><span class="co">#tune.mint.splsda.stem # Lists the different types of outputs</span></span>
+<span id="cb196-10"><a href="id_07.html#cb196-10" tabindex="-1"></a></span>
+<span id="cb196-11"><a href="id_07.html#cb196-11" tabindex="-1"></a><span class="co"># Mean error rate per component and per tested keepX value:</span></span>
+<span id="cb196-12"><a href="id_07.html#cb196-12" tabindex="-1"></a><span class="co">#tune.mint.splsda.stem$error.rate[1:5,]</span></span></code></pre></div>
 <p>The optimal number of variables to select on each specified component:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="id_07.html#cb196-1" aria-hidden="true" tabindex="-1"></a>tune.mint.splsda.stem<span class="sc">$</span>choice.keepX</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="id_07.html#cb197-1" tabindex="-1"></a>tune.mint.splsda.stem<span class="sc">$</span>choice.keepX</span></code></pre></div>
 <pre><code>## comp1 comp2 
 ##    24     1</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="id_07.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tune.mint.splsda.stem)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="id_07.html#cb199-1" tabindex="-1"></a><span class="fu">plot</span>(tune.mint.splsda.stem)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-tuning-plot"></span>
-<img src="Figures/N-Integration/07-splsda-tuning-plot-1.png" alt="Tuning keepX in MINT sPLS-DA performed on the stemcells gene expression data. Each coloured line represents the balanced error rate (y-axis) per component across all tested keepX values (x-axis). The diamond indicates the optimal keepX value on a particular component which achieves the lowest classification error rate as determined with a one-sided \(t-\)test across the studies." width="70%" />
+<img src="Figures/N-Integration/07-splsda-tuning-plot-1.png" alt="Tuning keepX in MINT sPLS-DA performed on the stemcells gene expression data. Each coloured line represents the balanced error rate (y-axis) per component across all tested keepX values (x-axis). The diamond indicates the optimal keepX value on a particular component which achieves the lowest classification error rate as determined with a one-sided \(t-\)test across the studies." width="70%"  />
 <p class="caption">
 Figure 7.4: <strong>Tuning <code>keepX</code> in MINT sPLS-DA performed on the <code>stemcells</code> gene expression data.</strong> Each coloured line represents the balanced error rate (y-axis) per component across all tested <code>keepX</code> values (x-axis). The diamond indicates the optimal <code>keepX</code> value on a particular component which achieves the lowest classification error rate as determined with a one-sided <span class="math inline">\(t-\)</span>test across the studies.
 </p>
@@ -438,22 +443,22 @@ Figure 7.4: <strong>Tuning <code>keepX</code> in MINT sPLS-DA performed on the <
 <div id="id_07:splsda-final" class="section level3 hasAnchor" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Final MINT sPLS-DA model<a href="id_07.html#id_07:splsda-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Following the tuning results, our final model is as follows (we still choose a model with two components in order to obtain 2D graphics):</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="id_07.html#cb199-1" aria-hidden="true" tabindex="-1"></a>final.mint.splsda.stem <span class="ot">&lt;-</span> <span class="fu">mint.splsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, <span class="at">ncomp =</span> <span class="dv">2</span>,  </span>
-<span id="cb199-2"><a href="id_07.html#cb199-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">keepX =</span> tune.mint.splsda.stem<span class="sc">$</span>choice.keepX)</span>
-<span id="cb199-3"><a href="id_07.html#cb199-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-4"><a href="id_07.html#cb199-4" aria-hidden="true" tabindex="-1"></a><span class="co">#mint.splsda.stem.final # Lists useful functions that can be used with a MINT object</span></span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="id_07.html#cb200-1" tabindex="-1"></a>final.mint.splsda.stem <span class="ot">&lt;-</span> <span class="fu">mint.splsda</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">study =</span> study, <span class="at">ncomp =</span> <span class="dv">2</span>,  </span>
+<span id="cb200-2"><a href="id_07.html#cb200-2" tabindex="-1"></a>                              <span class="at">keepX =</span> tune.mint.splsda.stem<span class="sc">$</span>choice.keepX)</span>
+<span id="cb200-3"><a href="id_07.html#cb200-3" tabindex="-1"></a></span>
+<span id="cb200-4"><a href="id_07.html#cb200-4" tabindex="-1"></a><span class="co">#mint.splsda.stem.final # Lists useful functions that can be used with a MINT object</span></span></code></pre></div>
 </div>
 <div id="id_07:splsda-sample-plots" class="section level3 hasAnchor" number="7.4.3">
 <h3><span class="header-section-number">7.4.3</span> Sample plots<a href="id_07.html#id_07:splsda-sample-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The samples can be projected on the global components or alternatively using the partial components from each study (Fig <a href="id_07.html#fig:07-splsda-sample-plots">7.5</a>).</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="id_07.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.mint.splsda.stem, <span class="at">study =</span> <span class="st">&#39;global&#39;</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb200-2"><a href="id_07.html#cb200-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;Stem cells, MINT sPLS-DA&#39;</span>, </span>
-<span id="cb200-3"><a href="id_07.html#cb200-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&#39;Global&#39;</span>, <span class="at">ellipse =</span> T)</span></code></pre></div>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="id_07.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.mint.splsda.stem, <span class="at">study =</span> <span class="st">&#39;all.partial&#39;</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb201-2"><a href="id_07.html#cb201-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;Stem cells, MINT sPLS-DA&#39;</span>, </span>
-<span id="cb201-3"><a href="id_07.html#cb201-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Study&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="id_07.html#cb201-1" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.mint.splsda.stem, <span class="at">study =</span> <span class="st">&#39;global&#39;</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb201-2"><a href="id_07.html#cb201-2" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;Stem cells, MINT sPLS-DA&#39;</span>, </span>
+<span id="cb201-3"><a href="id_07.html#cb201-3" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">&#39;Global&#39;</span>, <span class="at">ellipse =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="id_07.html#cb202-1" tabindex="-1"></a><span class="fu">plotIndiv</span>(final.mint.splsda.stem, <span class="at">study =</span> <span class="st">&#39;all.partial&#39;</span>, <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb202-2"><a href="id_07.html#cb202-2" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&#39;Stem cells, MINT sPLS-DA&#39;</span>, </span>
+<span id="cb202-3"><a href="id_07.html#cb202-3" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Study&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-sample-plots"></span>
-<img src="Figures/MINT/07-splsda-sample-plot1-1.png" alt="Sample plots from the MINT sPLS-DA performed on the stemcells gene expression data. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership. (a) Global components from the model with 95% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies. Component 1 discriminates fibroblast vs. the rest, component 2 discriminates further hESC vs. hiPSC." width="50%" /><img src="Figures/MINT/07-splsda-sample-plot2-1.png" alt="Sample plots from the MINT sPLS-DA performed on the stemcells gene expression data. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership. (a) Global components from the model with 95% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies. Component 1 discriminates fibroblast vs. the rest, component 2 discriminates further hESC vs. hiPSC." width="50%" />
+<img src="Figures/MINT/07-splsda-sample-plot1-1.png" alt="Sample plots from the MINT sPLS-DA performed on the stemcells gene expression data. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership. (a) Global components from the model with 95% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies. Component 1 discriminates fibroblast vs. the rest, component 2 discriminates further hESC vs. hiPSC." width="50%"  /><img src="Figures/MINT/07-splsda-sample-plot2-1.png" alt="Sample plots from the MINT sPLS-DA performed on the stemcells gene expression data. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership. (a) Global components from the model with 95% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies. Component 1 discriminates fibroblast vs. the rest, component 2 discriminates further hESC vs. hiPSC." width="50%"  />
 <p class="caption">
 Figure 7.5: <strong>Sample plots from the MINT sPLS-DA performed on the <code>stemcells</code> gene expression data</strong>. Samples are projected into the space spanned by the first two components. Samples are coloured by their cell types and symbols indicate study membership. (a) Global components from the model with 95% ellipse confidence intervals around each sample class. (b) Partial components per study show a good agreement across studies. Component 1 discriminates <span style="color: #388ECC;">fibroblast</span> vs. the rest, component 2 discriminates further <span style="color: #F68B33;">hESC</span> vs. <span style="color: #585858;">hiPSC</span>.
 </p>
@@ -466,11 +471,11 @@ Figure 7.5: <strong>Sample plots from the MINT sPLS-DA performed on the <code>st
 <div id="id_07:splsda-correlation-plot" class="section level4 hasAnchor" number="7.4.4.1">
 <h4><span class="header-section-number">7.4.4.1</span> Correlation circle plot<a href="id_07.html#id_07:splsda-correlation-plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We can examine our molecular signature selected with MINT sPLS-DA. The correlation circle plot, presented in Module 2, highlights the contribution of each selected transcript to each component (close to the large circle), and their correlation (clusters of variables) in Figure <a href="id_07.html#fig:07-splsda-correlation-plot2">7.6</a>:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="id_07.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVar</span>(final.mint.splsda.stem)</span></code></pre></div>
-<p><img src="Figures/N-Integration/07-splsda-correlation-plot1-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="id_07.html#cb203-1" tabindex="-1"></a><span class="fu">plotVar</span>(final.mint.splsda.stem)</span></code></pre></div>
+<p><img src="Figures/N-Integration/07-splsda-correlation-plot1-1.png" width="70%"  style="display: block; margin: auto;" /></p>
 <!-- Code below to highlight specific genes -->
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-correlation-plot2"></span>
-<img src="Figures/N-Integration/07-splsda-correlation-plot2-1.png" alt="Correlation circle plot representing the genes selected by MINT sPLS-DA performed on the stemcells gene expression data to examine the association of the genes selected on the first two components. We mainly observe two groups of genes, either positively or negatively associated with component 1 along the x-axis. This graphic should be interpreted in conjunction with the sample plot." width="70%" />
+<img src="Figures/N-Integration/07-splsda-correlation-plot2-1.png" alt="Correlation circle plot representing the genes selected by MINT sPLS-DA performed on the stemcells gene expression data to examine the association of the genes selected on the first two components. We mainly observe two groups of genes, either positively or negatively associated with component 1 along the x-axis. This graphic should be interpreted in conjunction with the sample plot." width="70%"  />
 <p class="caption">
 Figure 7.6: <strong>Correlation circle plot representing the genes selected by MINT sPLS-DA performed on the <code>stemcells</code> gene expression data</strong> to examine the association of the genes selected on the first two components. We mainly observe two groups of genes, either <span style="color: #009E73;">positively</span> or <span style="color: #CC79A7;">negatively</span> associated with component 1 along the x-axis. This graphic should be interpreted in conjunction with the sample plot.
 </p>
@@ -485,13 +490,13 @@ Figure 7.6: <strong>Correlation circle plot representing the genes selected by M
 <div id="id_07:splsda-cim" class="section level4 hasAnchor" number="7.4.4.2">
 <h4><span class="header-section-number">7.4.4.2</span> Clustered Image Maps<a href="id_07.html#id_07:splsda-cim" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The Clustered Image Map represents the expression levels of the gene signature per sample, similar to a PLS-DA object (see Module 3). Here we use the default Euclidean distance and Complete linkage in Figure <a href="id_07.html#fig:07-splsda-cim">7.7</a> for a specific component (here 1):</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="id_07.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If facing margin issues, use either X11() or save the plot using the</span></span>
-<span id="cb203-2"><a href="id_07.html#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="co"># arguments save and name.save</span></span>
-<span id="cb203-3"><a href="id_07.html#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cim</span>(final.mint.splsda.stem, <span class="at">comp =</span> <span class="dv">1</span>, <span class="at">margins=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">5</span>), </span>
-<span id="cb203-4"><a href="id_07.html#cb203-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">row.sideColors =</span> <span class="fu">color.mixo</span>(<span class="fu">as.numeric</span>(Y)), <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb203-5"><a href="id_07.html#cb203-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;MINT sPLS-DA, component 1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="id_07.html#cb204-1" tabindex="-1"></a><span class="co"># If facing margin issues, use either X11() or save the plot using the</span></span>
+<span id="cb204-2"><a href="id_07.html#cb204-2" tabindex="-1"></a><span class="co"># arguments save and name.save</span></span>
+<span id="cb204-3"><a href="id_07.html#cb204-3" tabindex="-1"></a><span class="fu">cim</span>(final.mint.splsda.stem, <span class="at">comp =</span> <span class="dv">1</span>, <span class="at">margins=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">5</span>), </span>
+<span id="cb204-4"><a href="id_07.html#cb204-4" tabindex="-1"></a>    <span class="at">row.sideColors =</span> <span class="fu">color.mixo</span>(<span class="fu">as.numeric</span>(Y)), <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb204-5"><a href="id_07.html#cb204-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;MINT sPLS-DA, component 1&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-cim"></span>
-<img src="Figures/N-Integration/07-splsda-cim-1.png" alt="Clustered Image Map of the genes selected by MINT sPLS-DA on the stemcells gene expression data for component 1 only. A hierarchical clustering based on the gene expression levels of the selected genes on component 1, with samples in rows coloured according to cell type showing a separation of the fibroblast vs. the other cell types." width="70%" />
+<img src="Figures/N-Integration/07-splsda-cim-1.png" alt="Clustered Image Map of the genes selected by MINT sPLS-DA on the stemcells gene expression data for component 1 only. A hierarchical clustering based on the gene expression levels of the selected genes on component 1, with samples in rows coloured according to cell type showing a separation of the fibroblast vs. the other cell types." width="70%"  />
 <p class="caption">
 Figure 7.7: <strong>Clustered Image Map of the genes selected by MINT sPLS-DA on the <code>stemcells</code> gene expression data for component 1 only</strong>. A hierarchical clustering based on the gene expression levels of the selected genes on component 1, with samples in rows coloured according to cell type showing a separation of the <span style="color: #388ECC;">fibroblast</span> vs. the other cell types.
 </p>
@@ -502,13 +507,13 @@ Figure 7.7: <strong>Clustered Image Map of the genes selected by MINT sPLS-DA on
 <div id="id_07:splsda-network" class="section level4 hasAnchor" number="7.4.4.3">
 <h4><span class="header-section-number">7.4.4.3</span> Relevance networks<a href="id_07.html#id_07:splsda-network" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Relevance networks can also be plotted for a PLS-DA object, but would only show the association between the selected genes and the cell type (dummy variable in <span class="math inline">\(\boldsymbol Y\)</span> as an outcome category) as shown in Figure <a href="id_07.html#fig:07-splsda-network">7.8</a>. Only the variables selected on component 1 are shown (<code>comp = 1</code>):</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="id_07.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If facing margin issues, use either X11() or save the plot using the</span></span>
-<span id="cb204-2"><a href="id_07.html#cb204-2" aria-hidden="true" tabindex="-1"></a><span class="co"># arguments save and name.save</span></span>
-<span id="cb204-3"><a href="id_07.html#cb204-3" aria-hidden="true" tabindex="-1"></a><span class="fu">network</span>(final.mint.splsda.stem, <span class="at">comp =</span> <span class="dv">1</span>,</span>
-<span id="cb204-4"><a href="id_07.html#cb204-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color.node =</span> <span class="fu">c</span>(<span class="fu">color.mixo</span>(<span class="dv">1</span>), <span class="fu">color.mixo</span>(<span class="dv">2</span>)), </span>
-<span id="cb204-5"><a href="id_07.html#cb204-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape.node =</span> <span class="fu">c</span>(<span class="st">&quot;rectangle&quot;</span>, <span class="st">&quot;circle&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="id_07.html#cb205-1" tabindex="-1"></a><span class="co"># If facing margin issues, use either X11() or save the plot using the</span></span>
+<span id="cb205-2"><a href="id_07.html#cb205-2" tabindex="-1"></a><span class="co"># arguments save and name.save</span></span>
+<span id="cb205-3"><a href="id_07.html#cb205-3" tabindex="-1"></a><span class="fu">network</span>(final.mint.splsda.stem, <span class="at">comp =</span> <span class="dv">1</span>,</span>
+<span id="cb205-4"><a href="id_07.html#cb205-4" tabindex="-1"></a>        <span class="at">color.node =</span> <span class="fu">c</span>(<span class="fu">color.mixo</span>(<span class="dv">1</span>), <span class="fu">color.mixo</span>(<span class="dv">2</span>)), </span>
+<span id="cb205-5"><a href="id_07.html#cb205-5" tabindex="-1"></a>        <span class="at">shape.node =</span> <span class="fu">c</span>(<span class="st">&quot;rectangle&quot;</span>, <span class="st">&quot;circle&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-network"></span>
-<img src="Figures/N-Integration/07-splsda-network-1.png" alt="Relevance network of the genes selected by MINT sPLS-DA performed on the stemcells gene expression data for component 1 only. Associations between variables from \(\boldsymbol X\) and the dummy matrix \(\boldsymbol Y\) are calculated as detailed in Extra Reading material from Module 2. Edges indicate high or low association between the genes and the different cell types." width="70%" />
+<img src="Figures/N-Integration/07-splsda-network-1.png" alt="Relevance network of the genes selected by MINT sPLS-DA performed on the stemcells gene expression data for component 1 only. Associations between variables from \(\boldsymbol X\) and the dummy matrix \(\boldsymbol Y\) are calculated as detailed in Extra Reading material from Module 2. Edges indicate high or low association between the genes and the different cell types." width="70%"  />
 <p class="caption">
 Figure 7.8: <strong>Relevance network of the genes selected by MINT sPLS-DA performed on the <code>stemcells</code> gene expression data for component 1 only</strong>. Associations between variables from <span class="math inline">\(\boldsymbol X\)</span> and the dummy matrix <span class="math inline">\(\boldsymbol Y\)</span> are calculated as detailed in Extra Reading material from Module 2. Edges indicate <span style="color: #CC0000;">high</span> or <span style="color: #009E73;">low</span> association between the genes and the different cell types.
 </p>
@@ -518,8 +523,8 @@ Figure 7.8: <strong>Relevance network of the genes selected by MINT sPLS-DA perf
 <div id="id_07:splsda-loading-plot" class="section level4 hasAnchor" number="7.4.4.4">
 <h4><span class="header-section-number">7.4.4.4</span> Variable selection and loading plots<a href="id_07.html#id_07:splsda-loading-plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>selectVar()</code> function outputs the selected transcripts on the first component along with their loading weight values. We consider variables as important in the model when their absolute loading weight value is high. In addition to this output, we can compare the stability of the selected features across studies using the <code>perf()</code> function, as shown in PLS-DA in Module 3.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="id_07.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Just a head</span></span>
-<span id="cb205-2"><a href="id_07.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.mint.plsda.stem, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>value)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="id_07.html#cb206-1" tabindex="-1"></a><span class="co"># Just a head</span></span>
+<span id="cb206-2"><a href="id_07.html#cb206-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">selectVar</span>(final.mint.plsda.stem, <span class="at">comp =</span> <span class="dv">1</span>)<span class="sc">$</span>value)</span></code></pre></div>
 <pre><code>##                   value.var
 ## ENSG00000181449 -0.09764220
 ## ENSG00000123080  0.09606034
@@ -528,11 +533,11 @@ Figure 7.8: <strong>Relevance network of the genes selected by MINT sPLS-DA perf
 ## ENSG00000184697 -0.09387322
 ## ENSG00000102935 -0.09370298</code></pre>
 <p>The <code>plotLoadings()</code> function displays the coefficient weight of each selected variable in each study and shows the agreement of the gene signature across studies (Figure <a href="id_07.html#fig:07-splsda-loading-plot">7.9</a>). Colours indicate the class in which the mean expression value of each selected gene is maximal. For component 1, we obtain:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="id_07.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLoadings</span>(final.mint.splsda.stem, <span class="at">contrib =</span> <span class="st">&quot;max&quot;</span>, <span class="at">method =</span> <span class="st">&#39;mean&#39;</span>, <span class="at">comp=</span><span class="dv">1</span>, </span>
-<span id="cb207-2"><a href="id_07.html#cb207-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">study=</span><span class="st">&quot;all.partial&quot;</span>, <span class="at">title=</span><span class="st">&quot;Contribution on comp 1&quot;</span>, </span>
-<span id="cb207-3"><a href="id_07.html#cb207-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Study&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="id_07.html#cb208-1" tabindex="-1"></a><span class="fu">plotLoadings</span>(final.mint.splsda.stem, <span class="at">contrib =</span> <span class="st">&quot;max&quot;</span>, <span class="at">method =</span> <span class="st">&#39;mean&#39;</span>, <span class="at">comp=</span><span class="dv">1</span>, </span>
+<span id="cb208-2"><a href="id_07.html#cb208-2" tabindex="-1"></a>             <span class="at">study=</span><span class="st">&quot;all.partial&quot;</span>, <span class="at">title=</span><span class="st">&quot;Contribution on comp 1&quot;</span>, </span>
+<span id="cb208-3"><a href="id_07.html#cb208-3" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Study&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-loading-plot"></span>
-<img src="Figures/N-Integration/07-splsda-loading-plot-1.png" alt="Loading plots of the genes selected by the MINT sPLS-DA performed on the stemcells data, on component 1 per study. Each plot represents one study, and the variables are coloured according to the cell type they are maximally expressed in, on average. The length of the bars indicate the loading coefficient values that define the component. Several genes distinguish between fibroblast and the other cell types, and are consistently overexpressed in these samples across all studies. We observe slightly more variability in whether the expression levels of the other genes are more indicative of hiPSC or hESC cell types." width="70%" />
+<img src="Figures/N-Integration/07-splsda-loading-plot-1.png" alt="Loading plots of the genes selected by the MINT sPLS-DA performed on the stemcells data, on component 1 per study. Each plot represents one study, and the variables are coloured according to the cell type they are maximally expressed in, on average. The length of the bars indicate the loading coefficient values that define the component. Several genes distinguish between fibroblast and the other cell types, and are consistently overexpressed in these samples across all studies. We observe slightly more variability in whether the expression levels of the other genes are more indicative of hiPSC or hESC cell types." width="70%"  />
 <p class="caption">
 Figure 7.9: <strong>Loading plots of the genes selected by the MINT sPLS-DA performed on the <code>stemcells</code> data, on component 1 per study</strong>. Each plot represents one study, and the variables are coloured according to the cell type they are maximally expressed in, on average. The length of the bars indicate the loading coefficient values that define the component. Several <span style="color: #388ECC;">genes</span> distinguish between <span style="color: #388ECC;">fibroblast</span> and the other cell types, and are consistently overexpressed in these samples across all studies. We observe slightly more variability in whether the expression levels of the other genes are more indicative of <span style="color: #585858;">hiPSC</span> or <span style="color: #F68B33;">hESC</span> cell types.
 </p>
@@ -544,10 +549,10 @@ Figure 7.9: <strong>Loading plots of the genes selected by the MINT sPLS-DA perf
 <div id="id_07:splsda-perf" class="section level3 hasAnchor" number="7.4.5">
 <h3><span class="header-section-number">7.4.5</span> Classification performance<a href="id_07.html#id_07:splsda-perf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We assess the performance of the MINT sPLS-DA model with the <code>perf()</code> function. Since the previous tuning was conducted with the distance <code>centroids.dist</code>, the same distance is used to assess the performance of the final model. We do not need to specify the argument <code>nrepeat</code> as we use LOGOCV in the function.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="id_07.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># For reproducible results here, remove for your own study</span></span>
-<span id="cb208-2"><a href="id_07.html#cb208-2" aria-hidden="true" tabindex="-1"></a>perf.mint.splsda.stem.final <span class="ot">&lt;-</span> <span class="fu">perf</span>(final.mint.plsda.stem, <span class="at">dist =</span> <span class="st">&#39;centroids.dist&#39;</span>)</span>
-<span id="cb208-3"><a href="id_07.html#cb208-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb208-4"><a href="id_07.html#cb208-4" aria-hidden="true" tabindex="-1"></a>perf.mint.splsda.stem.final<span class="sc">$</span>global.error</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="id_07.html#cb209-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># For reproducible results here, remove for your own study</span></span>
+<span id="cb209-2"><a href="id_07.html#cb209-2" tabindex="-1"></a>perf.mint.splsda.stem.final <span class="ot">&lt;-</span> <span class="fu">perf</span>(final.mint.plsda.stem, <span class="at">dist =</span> <span class="st">&#39;centroids.dist&#39;</span>)</span>
+<span id="cb209-3"><a href="id_07.html#cb209-3" tabindex="-1"></a></span>
+<span id="cb209-4"><a href="id_07.html#cb209-4" tabindex="-1"></a>perf.mint.splsda.stem.final<span class="sc">$</span>global.error</span></code></pre></div>
 <pre><code>## $BER
 ##       centroids.dist
 ## comp1      0.3333333
@@ -572,12 +577,12 @@ Figure 7.9: <strong>Loading plots of the genes selected by the MINT sPLS-DA perf
 <div id="auc" class="section level3 hasAnchor" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> AUC<a href="id_07.html#auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An AUC plot for the integrated data can be obtained using the function <code>auroc()</code> (Fig <a href="id_07.html#fig:07-splsda-auroc-plots">7.10</a>).</p>
-<p>Remember that the AUC incorporates measures of sensitivity and specificity for every possible cut-off of the predicted dummy variables. However, our PLS-based models rely on prediction distances, which can be seen as a determined optimal cut-off. Therefore, the ROC and AUC criteria may not be particularly insightful in relation to the performance evaluation of our supervised multivariate methods, but can complement the statistical analysis (from <span class="citation">Rohart, Gautier, Singh, and Lê Cao (<a href="references.html#ref-Roh17" role="doc-biblioref">2017</a>)</span>).</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="id_07.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auroc</span>(final.mint.splsda.stem, <span class="at">roc.comp =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Remember that the AUC incorporates measures of sensitivity and specificity for every possible cut-off of the predicted dummy variables. However, our PLS-based models rely on prediction distances, which can be seen as a determined optimal cut-off. Therefore, the ROC and AUC criteria may not be particularly insightful in relation to the performance evaluation of our supervised multivariate methods, but can complement the statistical analysis (from <span class="citation">Rohart, Gautier, Singh, and Lê Cao (<a href="references.html#ref-Roh17">2017</a>)</span>).</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="id_07.html#cb211-1" tabindex="-1"></a><span class="fu">auroc</span>(final.mint.splsda.stem, <span class="at">roc.comp =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>We can also obtain an AUC plot per study by specifying the argument <code>roc.study</code>:</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="id_07.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auroc</span>(final.mint.splsda.stem, <span class="at">roc.comp =</span> <span class="dv">1</span>, <span class="at">roc.study =</span> <span class="st">&#39;2&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="id_07.html#cb212-1" tabindex="-1"></a><span class="fu">auroc</span>(final.mint.splsda.stem, <span class="at">roc.comp =</span> <span class="dv">1</span>, <span class="at">roc.study =</span> <span class="st">&#39;2&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:07-splsda-auroc-plots"></span>
-<img src="Figures/MINT/07-splsda-auroc1-1.png" alt="ROC curve and AUC from the MINT sPLS-DA performed on the stemcells gene expression data for global and specific studies, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test \(p-\)value for each ‘one vs. other’ class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but should not be used for tuning (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying fibroblasts versus the other cell types, and less accurate in distinguishing hESC versus the other cell types or hiPSC versus the other cell types." width="50%" /><img src="Figures/MINT/07-splsda-auroc2-1.png" alt="ROC curve and AUC from the MINT sPLS-DA performed on the stemcells gene expression data for global and specific studies, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test \(p-\)value for each ‘one vs. other’ class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but should not be used for tuning (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying fibroblasts versus the other cell types, and less accurate in distinguishing hESC versus the other cell types or hiPSC versus the other cell types." width="50%" />
+<img src="Figures/MINT/07-splsda-auroc1-1.png" alt="ROC curve and AUC from the MINT sPLS-DA performed on the stemcells gene expression data for global and specific studies, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test \(p-\)value for each ‘one vs. other’ class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but should not be used for tuning (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying fibroblasts versus the other cell types, and less accurate in distinguishing hESC versus the other cell types or hiPSC versus the other cell types." width="50%"  /><img src="Figures/MINT/07-splsda-auroc2-1.png" alt="ROC curve and AUC from the MINT sPLS-DA performed on the stemcells gene expression data for global and specific studies, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test \(p-\)value for each ‘one vs. other’ class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but should not be used for tuning (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying fibroblasts versus the other cell types, and less accurate in distinguishing hESC versus the other cell types or hiPSC versus the other cell types." width="50%"  />
 <p class="caption">
 Figure 7.10: <strong>ROC curve and AUC from the MINT sPLS-DA performed on the <code>stemcells</code> gene expression data for global and specific studies</strong>, averaged across one-vs-all comparisons. Numerical outputs include the AUC and a Wilcoxon test <span class="math inline">\(p-\)</span>value for each ‘one vs. other’ class comparison that are performed per component. This output complements the sPLS-DA performance evaluation but <em>should not be used for tuning</em> (as the prediction process in sPLS-DA is based on prediction distances, not a cutoff that maximises specificity and sensitivity as in ROC). The plot suggests that the selected features are more accurate in classifying <span style="color: #CC0000;">fibroblasts versus the other cell types</span>, and less accurate in distinguishing <span style="color: #009E73;">hESC versus the other cell types</span> or <span style="color: #388ECC;">hiPSC versus the other cell types</span>.
 </p>
@@ -588,35 +593,35 @@ Figure 7.10: <strong>ROC curve and AUC from the MINT sPLS-DA performed on the <c
 <h3><span class="header-section-number">7.5.2</span> Prediction on an external study<a href="id_07.html#id_07:splsda-predict" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We use the <code>predict()</code> function to predict the class membership of new test samples from an external study. We provide an example where we set aside a particular study, train the MINT model on the remaining three studies, then predict on the test study. This process exactly reflects the inner workings of the <code>tune()</code> and <code>perf()</code> functions using LOGOCV.</p>
 <p>Here during our model training on the three studies only, we assume we have performed the tuning steps described in this case study to choose <code>ncomp</code> and <code>keepX</code> (here set to arbitrary values to avoid overfitting):</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="id_07.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We predict on study 3</span></span>
-<span id="cb212-2"><a href="id_07.html#cb212-2" aria-hidden="true" tabindex="-1"></a>indiv.test <span class="ot">&lt;-</span> <span class="fu">which</span>(study <span class="sc">==</span> <span class="st">&quot;3&quot;</span>)</span>
-<span id="cb212-3"><a href="id_07.html#cb212-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-4"><a href="id_07.html#cb212-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We train on the remaining studies, with pre-tuned parameters</span></span>
-<span id="cb212-5"><a href="id_07.html#cb212-5" aria-hidden="true" tabindex="-1"></a>mint.splsda.stem2 <span class="ot">&lt;-</span> <span class="fu">mint.splsda</span>(<span class="at">X =</span> X[<span class="sc">-</span><span class="fu">c</span>(indiv.test), ], </span>
-<span id="cb212-6"><a href="id_07.html#cb212-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">Y =</span> Y[<span class="sc">-</span><span class="fu">c</span>(indiv.test)], </span>
-<span id="cb212-7"><a href="id_07.html#cb212-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">study =</span> <span class="fu">droplevels</span>(study[<span class="sc">-</span><span class="fu">c</span>(indiv.test)]), </span>
-<span id="cb212-8"><a href="id_07.html#cb212-8" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ncomp =</span> <span class="dv">1</span>,  </span>
-<span id="cb212-9"><a href="id_07.html#cb212-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">keepX =</span> <span class="dv">30</span>)</span>
-<span id="cb212-10"><a href="id_07.html#cb212-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-11"><a href="id_07.html#cb212-11" aria-hidden="true" tabindex="-1"></a>mint.predict.stem <span class="ot">&lt;-</span> <span class="fu">predict</span>(mint.splsda.stem2, <span class="at">newdata =</span> X[indiv.test, ], </span>
-<span id="cb212-12"><a href="id_07.html#cb212-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">dist =</span> <span class="st">&quot;centroids.dist&quot;</span>,</span>
-<span id="cb212-13"><a href="id_07.html#cb212-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">study.test =</span> <span class="fu">factor</span>(study[indiv.test]))</span>
-<span id="cb212-14"><a href="id_07.html#cb212-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-15"><a href="id_07.html#cb212-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Store class prediction with a model with 1 comp</span></span>
-<span id="cb212-16"><a href="id_07.html#cb212-16" aria-hidden="true" tabindex="-1"></a>indiv.prediction <span class="ot">&lt;-</span> mint.predict.stem<span class="sc">$</span>class<span class="sc">$</span>centroids.dist[, <span class="dv">1</span>]</span>
-<span id="cb212-17"><a href="id_07.html#cb212-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-18"><a href="id_07.html#cb212-18" aria-hidden="true" tabindex="-1"></a><span class="co"># The confusion matrix compares the real subtypes with the predicted subtypes</span></span>
-<span id="cb212-19"><a href="id_07.html#cb212-19" aria-hidden="true" tabindex="-1"></a>conf.mat <span class="ot">&lt;-</span> <span class="fu">get.confusion_matrix</span>(<span class="at">truth =</span> Y[indiv.test],</span>
-<span id="cb212-20"><a href="id_07.html#cb212-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">predicted =</span> indiv.prediction)</span>
-<span id="cb212-21"><a href="id_07.html#cb212-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb212-22"><a href="id_07.html#cb212-22" aria-hidden="true" tabindex="-1"></a>conf.mat</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="id_07.html#cb213-1" tabindex="-1"></a><span class="co"># We predict on study 3</span></span>
+<span id="cb213-2"><a href="id_07.html#cb213-2" tabindex="-1"></a>indiv.test <span class="ot">&lt;-</span> <span class="fu">which</span>(study <span class="sc">==</span> <span class="st">&quot;3&quot;</span>)</span>
+<span id="cb213-3"><a href="id_07.html#cb213-3" tabindex="-1"></a></span>
+<span id="cb213-4"><a href="id_07.html#cb213-4" tabindex="-1"></a><span class="co"># We train on the remaining studies, with pre-tuned parameters</span></span>
+<span id="cb213-5"><a href="id_07.html#cb213-5" tabindex="-1"></a>mint.splsda.stem2 <span class="ot">&lt;-</span> <span class="fu">mint.splsda</span>(<span class="at">X =</span> X[<span class="sc">-</span><span class="fu">c</span>(indiv.test), ], </span>
+<span id="cb213-6"><a href="id_07.html#cb213-6" tabindex="-1"></a>                                <span class="at">Y =</span> Y[<span class="sc">-</span><span class="fu">c</span>(indiv.test)], </span>
+<span id="cb213-7"><a href="id_07.html#cb213-7" tabindex="-1"></a>                                <span class="at">study =</span> <span class="fu">droplevels</span>(study[<span class="sc">-</span><span class="fu">c</span>(indiv.test)]), </span>
+<span id="cb213-8"><a href="id_07.html#cb213-8" tabindex="-1"></a>                                <span class="at">ncomp =</span> <span class="dv">1</span>,  </span>
+<span id="cb213-9"><a href="id_07.html#cb213-9" tabindex="-1"></a>                                <span class="at">keepX =</span> <span class="dv">30</span>)</span>
+<span id="cb213-10"><a href="id_07.html#cb213-10" tabindex="-1"></a></span>
+<span id="cb213-11"><a href="id_07.html#cb213-11" tabindex="-1"></a>mint.predict.stem <span class="ot">&lt;-</span> <span class="fu">predict</span>(mint.splsda.stem2, <span class="at">newdata =</span> X[indiv.test, ], </span>
+<span id="cb213-12"><a href="id_07.html#cb213-12" tabindex="-1"></a>                        <span class="at">dist =</span> <span class="st">&quot;centroids.dist&quot;</span>,</span>
+<span id="cb213-13"><a href="id_07.html#cb213-13" tabindex="-1"></a>                        <span class="at">study.test =</span> <span class="fu">factor</span>(study[indiv.test]))</span>
+<span id="cb213-14"><a href="id_07.html#cb213-14" tabindex="-1"></a></span>
+<span id="cb213-15"><a href="id_07.html#cb213-15" tabindex="-1"></a><span class="co"># Store class prediction with a model with 1 comp</span></span>
+<span id="cb213-16"><a href="id_07.html#cb213-16" tabindex="-1"></a>indiv.prediction <span class="ot">&lt;-</span> mint.predict.stem<span class="sc">$</span>class<span class="sc">$</span>centroids.dist[, <span class="dv">1</span>]</span>
+<span id="cb213-17"><a href="id_07.html#cb213-17" tabindex="-1"></a></span>
+<span id="cb213-18"><a href="id_07.html#cb213-18" tabindex="-1"></a><span class="co"># The confusion matrix compares the real subtypes with the predicted subtypes</span></span>
+<span id="cb213-19"><a href="id_07.html#cb213-19" tabindex="-1"></a>conf.mat <span class="ot">&lt;-</span> <span class="fu">get.confusion_matrix</span>(<span class="at">truth =</span> Y[indiv.test],</span>
+<span id="cb213-20"><a href="id_07.html#cb213-20" tabindex="-1"></a>                     <span class="at">predicted =</span> indiv.prediction)</span>
+<span id="cb213-21"><a href="id_07.html#cb213-21" tabindex="-1"></a></span>
+<span id="cb213-22"><a href="id_07.html#cb213-22" tabindex="-1"></a>conf.mat</span></code></pre></div>
 <pre><code>##            predicted.as.Fibroblast predicted.as.hESC predicted.as.hiPSC
 ## Fibroblast                       3                 0                  0
 ## hESC                             0                 4                  4
 ## hiPSC                            2                 2                  6</code></pre>
 <p>Here we have considered a trained model with one component, and compared the cell type prediction for the test study 3 with the known cell types. The classification error rate is relatively high, but potentially could be improved with a proper tuning, and a larger number of studies in the training set.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="id_07.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction error rate</span></span>
-<span id="cb214-2"><a href="id_07.html#cb214-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>(conf.mat) <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(conf.mat)))<span class="sc">/</span><span class="fu">sum</span>(conf.mat)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="id_07.html#cb215-1" tabindex="-1"></a><span class="co"># Prediction error rate</span></span>
+<span id="cb215-2"><a href="id_07.html#cb215-2" tabindex="-1"></a>(<span class="fu">sum</span>(conf.mat) <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(conf.mat)))<span class="sc">/</span><span class="fu">sum</span>(conf.mat)</span></code></pre></div>
 <pre><code>## [1] 0.3809524</code></pre>
 
 </div>
